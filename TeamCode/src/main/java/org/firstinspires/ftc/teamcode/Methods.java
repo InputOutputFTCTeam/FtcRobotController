@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.linearOpMode;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -14,25 +12,12 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.opencv.core.Core;
-import org.opencv.core.Mat;
-import org.opencv.core.MatOfPoint;
-import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
-import org.openftc.easyopencv.OpenCvInternalCamera;
-import org.openftc.easyopencv.OpenCvPipeline;
-import org.openftc.easyopencv.OpenCvWebcam;
-import org.tensorflow.lite.task.core.vision.ImageProcessingOptions;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 
 @Autonomous(name="Methods")
@@ -240,23 +225,23 @@ public class Methods extends LinearOpMode {
         BR.setPower(0);
     }
 
-    public void liftRun(double liftD) {
-        if (digitalTouch.getState()) {
-            lift.setPower(liftD);
-            telemetry.addData("Digital Touch", "Is not Pressed");
-        } else {
-            lift.setPower(0);
-            telemetry.addData("shit: ", lift.getCurrentPosition());
-            if (liftD > 0) {
-                lift.setPower(liftD);
-            }
-        }
-    }
-
-    public void liftEnc(int pos, double speed) {
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setTargetPosition(pos);
-        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//    public void liftRun(double liftD) {
+//        if (digitalTouch.getState()) {
+//            lift.setPower(liftD);
+//            telemetry.addData("Digital Touch", "Is not Pressed");
+//        } else {
+//            lift.setPower(0);
+//            telemetry.addData("shit: ", lift.getCurrentPosition());
+//            if (liftD > 0) {
+//                lift.setPower(liftD);
+//            }
+//        }
+//    }
+//
+//    public void liftEnc(int pos, double speed) {
+//        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+//        lift.setTargetPosition(pos);
+//        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 //        lift.setPower(speed);
 //
@@ -269,36 +254,36 @@ public class Methods extends LinearOpMode {
 
         }*/
 
-        lift.setPower(0);
-        sleep(100);
-    }
-
-    public void liftStep(int cm, double speed) {
-        liftEnc(cm * 80, speed);
-    }
-
-    public void liftDrop(double speed){
-        while (digitalTouch.getState()) {
-            liftRun(-speed);
-        }
-    }
-
-    public void liftTimer(int t, double speed) {
-        liftRun(speed);
-        sleep(t);
-        liftStop();
-    }
-
-    public void liftDrop() {
-        while (digitalTouch.getState()) {
-            liftRun(-1);
-        }
-        lift.setPower(0);
-    }
-
-    public void liftStop() {
-        lift.setPower(0);
-    }
+//        lift.setPower(0);
+//        sleep(100);
+//    }
+//
+//    public void liftStep(int cm, double speed) {
+//        liftEnc(cm * 80, speed);
+//    }
+//
+//    public void liftDrop(double speed){
+//        while (digitalTouch.getState()) {
+//            liftRun(-speed);
+//        }
+//    }
+//
+//    public void liftTimer(int t, double speed) {
+//        liftRun(speed);
+//        sleep(t);
+//        liftStop();
+//    }
+//
+//    public void liftDrop() {
+//        while (digitalTouch.getState()) {
+//            liftRun(-1);
+//        }
+//        lift.setPower(0);
+//    }
+//
+//    public void liftStop() {
+//        lift.setPower(0);
+//    }
 
     //   для корректного завершения исполняющегося метода
     public void debugDelay() {
@@ -326,6 +311,6 @@ public class Methods extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode() {}
+    public void runOpMode(){}
 }
 

@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -9,6 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 //import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 
 @TeleOp(name = "TelePopaNormal", group = "Actual")
+@Disabled
 public class TelePopaNormal extends LinearOpMode {
     double k = 0.4;
     double servoPos;
@@ -49,7 +51,7 @@ public class TelePopaNormal extends LinearOpMode {
                     k
             );
 
-            methods.liftRun(gamepad2.right_trigger - gamepad2.left_trigger);
+            //methods.liftRun(gamepad2.right_trigger - gamepad2.left_trigger);
 
 
             if (gamepad2.dpad_up) {

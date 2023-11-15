@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -17,6 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 //import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 
 @TeleOp(name = "TelePopaZadrota", group = "Actual")
+@Disabled
 public class TelePopa extends LinearOpMode {
     double k = 0.4;
     double servoPos;
@@ -58,7 +60,7 @@ public class TelePopa extends LinearOpMode {
                     k
             );
 
-            methods.liftRun(gamepad2.right_trigger - gamepad2.left_trigger);
+            //methods.liftRun(gamepad2.right_trigger - gamepad2.left_trigger);
 
 
             if (gamepad2.dpad_up) {

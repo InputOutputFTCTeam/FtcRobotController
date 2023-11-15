@@ -21,9 +21,9 @@ public class TeleOpSoft extends LinearOpMode {
         BL = hardwareMap.dcMotor.get("bl");
         BR = hardwareMap.dcMotor.get("br");
 
-        Servo1 = hardwareMap.servo.get("servo1");
-        Servo2 = hardwareMap.servo.get("servo2");
-        CR = hardwareMap.crservo.get("cr");
+        Servo1 = hardwareMap.servo.get("servo1");  //
+        Servo2 = hardwareMap.servo.get("servo2");  //
+        CR = hardwareMap.crservo.get("cr");  //
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.REVERSE);
