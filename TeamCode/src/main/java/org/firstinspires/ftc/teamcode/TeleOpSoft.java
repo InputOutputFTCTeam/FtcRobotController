@@ -76,8 +76,8 @@ public class TeleOpSoft extends LinearOpMode {
         bl = -x - y - r;
         br = -x - y + r;
 
-        //TL.setPower(tl);
-        //TR.setPower(tr);
+        TL.setPower(-tl);
+        TR.setPower(tr);
         BL.setPower(bl);
         BR.setPower(br);
     }

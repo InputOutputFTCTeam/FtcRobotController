@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
-
+// это блять как его... автоном чтобы тестить сервы!
 @Autonomous(name = "servelat")
 public class servotest extends LinearOpMode {
     Servo ss;
