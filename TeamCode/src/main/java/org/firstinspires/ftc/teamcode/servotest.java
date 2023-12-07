@@ -6,30 +6,24 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 // это блять как его... автоном чтобы тестить сервы!
-@Autonomous(name = "servelat")
+@TeleOp(name = "servelat")
 public class servotest extends LinearOpMode {
-    Servo ss;
+    //Servo ss;
     CRServo sss;
 
     @Override
     public void runOpMode(){
-        ss = hardwareMap.get(Servo.class, "ss");
-        sss = hardwareMap.get(CRServo.class, "sss");
+        //ss = hardwareMap.get(Servo.class, "ss");
+        sss = hardwareMap.get(CRServo.class, "s");
         waitForStart();
-        if(opModeIsActive()){
-            for(int i = 0; i<3; i++){
-                sss.setPower(1);
-                sleep(500);
-                sss.setPower(0);
-                sleep(100);
-                sss.setPower(-1);
-            }
+        while(opModeIsActive()){
+            sss.setPower(gamepad2.right_trigger - gamepad1.left_trigger);
 
-            ss.setPosition(1);
+            /*ss.setPosition(1);
             sleep(100);
             ss.setPosition(0);
             sleep(100);
-            ss.setPosition(1);
+            ss.setPosition(1);*/
         }
     }
 }
