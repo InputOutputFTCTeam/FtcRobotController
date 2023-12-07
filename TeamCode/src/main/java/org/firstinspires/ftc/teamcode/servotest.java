@@ -9,16 +9,18 @@ import com.qualcomm.robotcore.hardware.Servo;
 @TeleOp(name = "servelat")
 public class servotest extends LinearOpMode {
     //Servo ss;
-    CRServo sss;
+    Servo sss;
 
     @Override
     public void runOpMode(){
         //ss = hardwareMap.get(Servo.class, "ss");
-        sss = hardwareMap.get(CRServo.class, "s");
+        sss = hardwareMap.get(Servo.class, "s");
         waitForStart();
         while(opModeIsActive()){
-            sss.setPower(gamepad2.right_trigger - gamepad1.left_trigger);
-
+            sss.setPosition((gamepad2.right_trigger - gamepad1.left_trigger) * 2 - 1);
+            telemetry.addData("ser1 pow: ", sss.getPosition());
+            telemetry.addData("gamepad set pow: ", gamepad2.right_trigger - gamepad2.left_trigger);
+            telemetry.update();
             /*ss.setPosition(1);
             sleep(100);
             ss.setPosition(0);
