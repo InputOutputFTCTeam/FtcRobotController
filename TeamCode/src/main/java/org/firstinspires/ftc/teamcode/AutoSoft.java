@@ -13,10 +13,10 @@ public class AutoSoft extends LinearOpMode {
     public Servo Servo1, Servo2;
     @Override
     public void runOpMode() {
-        TL = hardwareMap.dcMotor.get("tl");
-        TR = hardwareMap.dcMotor.get("tr");
-        BL = hardwareMap.dcMotor.get("bl");
-        BR = hardwareMap.dcMotor.get("br");
+        TL = hardwareMap.dcMotor.get("leftFront");
+        TR = hardwareMap.dcMotor.get("rightFront");
+        BL = hardwareMap.dcMotor.get("leftRear");
+        BR = hardwareMap.dcMotor.get("rightRear");
 
         Servo1 = hardwareMap.servo.get("servo1");
         Servo2 = hardwareMap.servo.get("servo2");
