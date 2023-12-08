@@ -28,6 +28,8 @@ public class SkyStoneAlgoritm extends LinearOpMode
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
 
+    public SkyStoneAlgoritm() {}
+
     @Override
     public void runOpMode()
     {
