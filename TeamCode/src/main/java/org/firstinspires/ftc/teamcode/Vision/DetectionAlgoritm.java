@@ -8,6 +8,6 @@ import org.firstinspires.ftc.teamcode.SkyStoneAlgoritm;
 @Disabled
 @TeleOp(name = "Detection", group = "Test")
 public class DetectionAlgoritm {
-    SkyStoneAlgoritm detector = new SkyStoneAlgoritm();//
+    SkyStoneAlgoritm detector = new SkyStoneAlgoritm();///
     //надо додумать, доработать. времени не хватает...
 }
