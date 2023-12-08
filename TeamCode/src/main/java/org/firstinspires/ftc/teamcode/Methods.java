@@ -47,10 +47,10 @@ public class Methods extends LinearOpMode {
 //        intakeR = hwMap.servo.get("ssr");
 //        intakeL = hwMap.servo.get("ssl");
 
-        TL = hardwareMap.dcMotor.get("tl");
-        TR = hardwareMap.dcMotor.get("tr");
-        BL = hardwareMap.dcMotor.get("bl");
-        BR = hardwareMap.dcMotor.get("br");
+        TL = hardwareMap.dcMotor.get("leftFront");
+        TR = hardwareMap.dcMotor.get("rightFront");
+        BL = hardwareMap.dcMotor.get("leftRear");
+        BR = hardwareMap.dcMotor.get("rightRear");
         lift = hardwareMap.dcMotor.get("lift");
 
         intakeL = hardwareMap.servo.get("ssl");
