@@ -26,6 +26,7 @@ public class servotest extends LinearOpMode {
             ss.setPosition(0);
             sleep(100);
             ss.setPosition(1);*/
+            //типо еще две строки
         }
     }
 }
