@@ -48,7 +48,7 @@ public class TeleOpSoft extends LinearOpMode {
             );
 
             if (gamepad2.dpad_up) {
-                Servo1.setPosition(0.667);
+                Servo1.setPosition(0.75);
             }
             if (gamepad2.dpad_right) {      //поставить соответствующие кнопки
                 Servo1.setPosition(0.167);  //поменять на соответствующее горизонтальному положению (0 - вертикаль, (0.667)* - опущено до пола) *-настроить

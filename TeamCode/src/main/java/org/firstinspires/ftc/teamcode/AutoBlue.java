@@ -10,11 +10,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-@Autonomous(name="Auto")
-public class AutoSoft extends LinearOpMode {
+@Autonomous(name = "AutoBlue", group = "Actual")
+public class AutoBlue extends LinearOpMode {
     public DcMotor TL, TR, BL, BR;
-    double tl, tr, bl, br;
     public Servo Servo1, Servo2;
+
     @Override
     public void runOpMode() {
         TL = hardwareMap.dcMotor.get("leftFront");
@@ -30,24 +30,20 @@ public class AutoSoft extends LinearOpMode {
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         BR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         Servo1.setPosition(0.7);
         Servo2.setPosition(0);
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Trajectory traject = drive.trajectoryBuilder(new Pose2d())
-                .forward(45)
+        Pose2d startPose = new Pose2d(0, 0, 0);
+
+        SampleMecanumDrive driveBlue = new SampleMecanumDrive(hardwareMap);
+        Trajectory trajBlue = driveBlue.trajectoryBuilder(startPose)
+                .forward(10)
                 .build();
 
         telemetry.addLine("Ready to start");
         waitForStart();
-            if (opModeIsActive()) {
-
-                drive.followTrajectory(traject);
-            }
+        if (opModeIsActive()) {
+            driveBlue.followTrajectory(trajBlue);
+        }
     }
 }
