@@ -1,20 +1,22 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name="Auto")
-public class AutoSoft extends LinearOpMode {
+@Autonomous(name = "AutoUniversal")
+public class AutoUni extends LinearOpMode {
     public DcMotor TL, TR, BL, BR;
-    double tl, tr, bl, br;
     public Servo Servo1, Servo2;
+    CRServo cr;
+
     @Override
     public void runOpMode() {
         TL = hardwareMap.dcMotor.get("leftFront");
@@ -24,30 +26,26 @@ public class AutoSoft extends LinearOpMode {
 
         Servo1 = hardwareMap.servo.get("servo1");
         Servo2 = hardwareMap.servo.get("servo2");
+        cr = hardwareMap.crservo.get("cr");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
-        TR.setDirection(DcMotorSimple.Direction.REVERSE);
+        TR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        BR.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Servo1.setPosition(0.0);
 
-        Servo1.setPosition(0.7);
-        Servo2.setPosition(0);
-
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
-        Trajectory traject = drive.trajectoryBuilder(new Pose2d())
+        Pose2d startPose = new Pose2d(0, 0, 0);
+        SampleMecanumDrive driveBlue = new SampleMecanumDrive(hardwareMap);
+        TrajectorySequence traj = driveBlue.trajectorySequenceBuilder(startPose)
                 .forward(36)
                 .build();
 
         telemetry.addLine("Ready to start");
         waitForStart();
-            if (opModeIsActive()) {
+        if (opModeIsActive()) {
+            driveBlue.followTrajectorySequence(traj);
+        }
 
-                drive.followTrajectory(traject);
-            }
     }
 }
