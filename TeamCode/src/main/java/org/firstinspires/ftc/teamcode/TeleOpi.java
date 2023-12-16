@@ -10,9 +10,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "TeleOp")
 public class TeleOpi extends LinearOpMode {
-    DcMotor TR, TL, BR, BL;
+    DcMotor TR, TL, BR, BL, Intake;
     Servo s1, s2;
-    CRServo cr;
 
     double x, y, r;
 
@@ -22,15 +21,16 @@ public class TeleOpi extends LinearOpMode {
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
+        Intake = hardwareMap.dcMotor.get("intake");
 
         s1 = hardwareMap.servo.get("servo1");
         s2 = hardwareMap.servo.get("servo2");
-        cr = hardwareMap.crservo.get("cr");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        Intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -68,7 +68,7 @@ public class TeleOpi extends LinearOpMode {
                 s2.setPosition(0.5);
             }
 
-            cr.setPower(gamepad2.right_trigger - gamepad2.left_trigger);
+            Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
             telemetry.addData("servo1", s1.getPosition());
             telemetry.update();
         }
