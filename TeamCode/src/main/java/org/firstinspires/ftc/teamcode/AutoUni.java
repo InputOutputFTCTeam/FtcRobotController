@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "AutoUniversal")
 public class AutoUni extends LinearOpMode {
-    public DcMotor TL, TR, BL, BR;
+    public DcMotor TL, TR, BL, BR, Intake;
     public Servo Servo1, Servo2;
     CRServo cr;
 
@@ -23,6 +23,7 @@ public class AutoUni extends LinearOpMode {
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
+        Intake = hardwareMap.dcMotor.get("intake");
 
         Servo1 = hardwareMap.servo.get("servo1");
         Servo2 = hardwareMap.servo.get("servo2");
@@ -32,6 +33,7 @@ public class AutoUni extends LinearOpMode {
         TR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        Intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         Servo1.setPosition(0.0);
 

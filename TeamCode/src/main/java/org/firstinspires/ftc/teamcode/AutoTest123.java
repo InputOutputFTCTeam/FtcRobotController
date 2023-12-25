@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "Autotest123", group = "Actual")
 public class AutoTest123 extends LinearOpMode {
-    public DcMotor TL, TR, BL, BR;
+    public DcMotor TL, TR, BL, BR, Intake;
     public Servo Servo1;
     public CRServo CR;
     @Override
@@ -23,11 +23,13 @@ public class AutoTest123 extends LinearOpMode {
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
+        Intake = hardwareMap.dcMotor.get("intake");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        Intake = hardwareMap.dcMotor.get("intake");
 
         Servo1 = hardwareMap.servo.get("servo1");
         CR = hardwareMap.crservo.get("cr");

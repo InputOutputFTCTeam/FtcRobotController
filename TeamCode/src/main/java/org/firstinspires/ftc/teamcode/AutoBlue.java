@@ -13,7 +13,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 @Autonomous(name = "AutoBlue", group = "Actual")
 public class AutoBlue extends LinearOpMode {
-    public DcMotor TL, TR, BL, BR;
+    public DcMotor TL, TR, BL, BR, Intake;
     public Servo Servo1;
 
 
@@ -24,6 +24,7 @@ public class AutoBlue extends LinearOpMode {
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
+        Intake = hardwareMap.dcMotor.get("intake");
 
         Servo1 = hardwareMap.servo.get("servo1");
 

@@ -21,8 +21,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
  * 100% accurate) method of detecting the skystone when lined up with
  * the sample regions over the first 3 stones.
  */
-@Disabled
-@TeleOp
+@TeleOp (name = "Skystone")
 public class SkyStoneAlgoritm extends LinearOpMode
 {
     OpenCvInternalCamera phoneCam;

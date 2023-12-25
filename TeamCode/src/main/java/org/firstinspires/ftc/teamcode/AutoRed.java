@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 @Autonomous(name = "AutoRed", group = "Actual")
 public class AutoRed extends LinearOpMode {
-    public DcMotor TL, TR, BL, BR;
+    public DcMotor TL, TR, BL, BR, Intake;
     public Servo Servo1, Servo2;
 
     @Override
@@ -21,6 +21,7 @@ public class AutoRed extends LinearOpMode {
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
+        Intake.setDirection(DcMotorSimple.Direction.FORWARD);
 
         Servo1 = hardwareMap.servo.get("servo1");
         Servo2 = hardwareMap.servo.get("servo2");
