@@ -23,8 +23,8 @@ import java.util.List;
  * 100% accurate) method of detecting the skystone when lined up with
  * the sample regions over the first 3 stones.
  */
-@TeleOp (name = "Skystone")
-public class SkyStoneAlgoritm extends LinearOpMode
+@TeleOp (name = "SkystoneRed")
+public class SkyStoneRed extends LinearOpMode
 {
     OpenCvInternalCamera phoneCam;
     SkystoneDeterminationPipeline pipeline;
@@ -93,7 +93,6 @@ public class SkyStoneAlgoritm extends LinearOpMode
         /*
          * Some color constants
          */
-        static final Scalar BLUE = new Scalar(0, 0, 255);
         static final Scalar GREEN = new Scalar(0, 255, 0);
         static final Scalar RED = new Scalar(255, 0, 0);
 
@@ -145,30 +144,25 @@ public class SkyStoneAlgoritm extends LinearOpMode
         /*
          * Working variables
          */
-        Mat region1_Cb, region2_Cb, region3_Cb;
+
         Mat region1_Cr, region2_Cr, region3_Cr;
-        Mat YCrCb = new Mat();
-        Mat Cb = new Mat();
-        Mat Cr = new Mat();
-        int avg1_Cb, avg2_Cb, avg3_Cb, avg1_Cr, avg2_Cr, avg3_Cr;
+        Mat RGB = new Mat();
+
+        Mat Cr = new Mat();                                                                         //поменять название
+        int avg1_Cr, avg2_Cr, avg3_Cr;
 
         // Volatile since accessed by OpMode thread w/o synchronization
         private volatile SkystonePosition position = SkystonePosition.LEFT;
 
         /*
-         * This function takes the RGB frame, converts to YCrCb,
-         * and extracts the Cb channel to the 'Cb' variable
+         * This function takes the RGB frame, converts to (YCrCb) в нашем случае - HSV,
+         * and extracts the (Cb) channel to the 'Cb' variable
          */
-        void inputToCb(Mat input)
-        {
-            Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-            Core.extractChannel(YCrCb, Cb, 2);
-        }
 
-        void inputToCr(Mat input)
+        void inputToCr(Mat input)                                                                   //поменять название
         {
-            Imgproc.cvtColor(input, YCrCb, Imgproc.COLOR_RGB2YCrCb);
-            Core.extractChannel(YCrCb, Cr, 2);
+            Imgproc.cvtColor(input, RGB, Imgproc.COLOR_RGB2HSV);
+            Core.extractChannel(RGB, Cr, 2);
         }
 
         @Override
@@ -183,7 +177,7 @@ public class SkyStoneAlgoritm extends LinearOpMode
              * buffer would be re-allocated the first time a real frame
              * was crunched)
              */
-            inputToCb(firstFrame);
+
             inputToCr(firstFrame);
 
             /*
@@ -191,9 +185,6 @@ public class SkyStoneAlgoritm extends LinearOpMode
              * buffer. Any changes to the child affect the parent, and the
              * reverse also holds true.
              */
-            region1_Cb = Cb.submat(new Rect(region1_pointA, region1_pointB));
-            region2_Cb = Cb.submat(new Rect(region2_pointA, region2_pointB));
-            region3_Cb = Cb.submat(new Rect(region3_pointA, region3_pointB));
 
             region1_Cr = Cr.submat(new Rect(region3_pointA, region3_pointB));
             region2_Cr = Cr.submat(new Rect(region3_pointA, region3_pointB));
@@ -241,7 +232,6 @@ public class SkyStoneAlgoritm extends LinearOpMode
             /*
              * Get the Cb channel of the input frame after conversion to YCrCb
              */
-            inputToCb(input);
             inputToCr(input);
 
             /*
@@ -251,11 +241,8 @@ public class SkyStoneAlgoritm extends LinearOpMode
              * pixel value of the 3-channel image, and referenced the value
              * at index 2 here.
              */
-            avg1_Cb = (int) Core.mean(region1_Cb).val[0];
-            avg2_Cb = (int) Core.mean(region2_Cb).val[0];
-            avg3_Cb = (int) Core.mean(region3_Cb).val[0];
 
-            avg1_Cr = (int) Core.mean(region3_Cr).val[0];
+            avg1_Cr = (int) Core.mean(region3_Cr).val[0];                                           //заменить на hue
             avg2_Cr = (int) Core.mean(region3_Cr).val[0];
             avg3_Cr = (int) Core.mean(region3_Cr).val[0];
 
@@ -268,7 +255,7 @@ public class SkyStoneAlgoritm extends LinearOpMode
                     input, // Buffer to draw on
                     region1_pointA, // First point which defines the rectangle
                     region1_pointB, // Second point which defines the rectangle
-                    BLUE, // The color the rectangle is drawn in
+                    RED, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
             /*
@@ -279,7 +266,7 @@ public class SkyStoneAlgoritm extends LinearOpMode
                     input, // Buffer to draw on
                     region2_pointA, // First point which defines the rectangle
                     region2_pointB, // Second point which defines the rectangle
-                    BLUE, // The color the rectangle is drawn in
+                    RED, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
             /*
@@ -290,14 +277,12 @@ public class SkyStoneAlgoritm extends LinearOpMode
                     input, // Buffer to draw on
                     region3_pointA, // First point which defines the rectangle
                     region3_pointB, // Second point which defines the rectangle
-                    BLUE, // The color the rectangle is drawn in
+                    RED, // The color the rectangle is drawn in
                     2); // Thickness of the rectangle lines
 
             /*
              * Find the max of the 3 averages
              */
-            int maxOneTwo = Math.max(avg1_Cb, avg2_Cb);
-            int max = Math.max(maxOneTwo, avg3_Cb);
 
             int maxFourFive = Math.max(avg1_Cr, avg2_Cr);
             int mx = Math.max(maxFourFive, avg3_Cr);
@@ -306,7 +291,7 @@ public class SkyStoneAlgoritm extends LinearOpMode
              * Now that we found the max, we actually need to go and
              * figure out which sample region that value was from
              */
-            if(max == avg1_Cb) // Was it from region 1?
+            if(mx == avg1_Cr) // Was it from region 1?
             {
                 position = SkystonePosition.LEFT; // Record our analysis
 
@@ -321,7 +306,7 @@ public class SkyStoneAlgoritm extends LinearOpMode
                         GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
-            else if(max == avg2_Cb) // Was it from region 2?
+            else if(mx == avg2_Cr) // Was it from region 2?
             {
                 position = SkystonePosition.CENTER; // Record our analysis
 
@@ -336,7 +321,7 @@ public class SkyStoneAlgoritm extends LinearOpMode
                         GREEN, // The color the rectangle is drawn in
                         -1); // Negative thickness means solid fill
             }
-            else if(max == avg3_Cb) // Was it from region 3?
+            else if(mx == avg3_Cr) // Was it from region 3?
             {
                 position = SkystonePosition.RIGHT; // Record our analysis
 
