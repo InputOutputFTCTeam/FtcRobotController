@@ -224,24 +224,24 @@ public class Methods extends LinearOpMode {
         TR.setPower(0);
         BR.setPower(0);
     }
+/*
+    public void liftRun(double liftD) {
+        if (digitalTouch.getState()) {
+            lift.setPower(liftD);
+            telemetry.addData("Digital Touch", "Is not Pressed");
+        } else {
+            lift.setPower(0);
+            telemetry.addData("shit: ", lift.getCurrentPosition());
+            if (liftD > 0) {
+                lift.setPower(liftD);
+            }
+        }
+    }
 
-//    public void liftRun(double liftD) {
-//        if (digitalTouch.getState()) {
-//            lift.setPower(liftD);
-//            telemetry.addData("Digital Touch", "Is not Pressed");
-//        } else {
-//            lift.setPower(0);
-//            telemetry.addData("shit: ", lift.getCurrentPosition());
-//            if (liftD > 0) {
-//                lift.setPower(liftD);
-//            }
-//        }
-//    }
-//
-//    public void liftEnc(int pos, double speed) {
-//        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-//        lift.setTargetPosition(pos);
-//        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+    public void liftEnc(int pos, double speed) {
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        lift.setTargetPosition(pos);
+        lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 //        lift.setPower(speed);
 //
