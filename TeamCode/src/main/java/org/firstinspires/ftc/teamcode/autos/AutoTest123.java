@@ -44,7 +44,8 @@ public class AutoTest123 extends LinearOpMode {
                                                         .waitSeconds(4)
                                                                 .turn(Math.toRadians(90))
                                                                         .forward(40)
-                                                                                .build();
+                                                                                .turn(90)
+                                                                                        .build();
 
 
 
