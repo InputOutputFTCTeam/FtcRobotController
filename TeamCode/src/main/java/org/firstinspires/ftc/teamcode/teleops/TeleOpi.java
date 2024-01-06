@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.teleops;
 
+import android.renderscript.ScriptGroup;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -10,10 +12,19 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "TeleOp")
 public class TeleOpi extends LinearOpMode {
-    DcMotor TR, TL, BR, BL, Intake;
-    Servo s1, s2;
+    DcMotor TR, TL, BR, BL, Intake, Lift;
+    Servo servobox, lohotronMain, lohotron, zahvat;
 
     double x, y, r;
+
+    public void armRaise(){
+        lohotronMain.setPosition(0.267);
+        lohotron.setPosition(1);
+    }
+    public void armLower(){
+        lohotronMain.setPosition(0);
+        lohotron.setPosition(0);
+    }
 
     @Override
     public void runOpMode(){
@@ -22,29 +33,33 @@ public class TeleOpi extends LinearOpMode {
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
         Intake = hardwareMap.dcMotor.get("intake");
+        Lift = hardwareMap.dcMotor.get("lift");
 
-        s1 = hardwareMap.servo.get("servo1");
-        s2 = hardwareMap.servo.get("servo2");
+        servobox = hardwareMap.servo.get("servobox");
+        lohotronMain = hardwareMap.servo.get("lohotronMain");
+        lohotron = hardwareMap.servo.get("lohotron");
+        zahvat = hardwareMap.servo.get("zahvat");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
         Intake.setDirection(DcMotorSimple.Direction.FORWARD);
+        Lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
         TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        s1.setPosition(0);
-        s2.setPosition(0);
+        servobox.setPosition(0);
         telemetry.addLine("Ready to start");
-
         waitForStart();
         while(opModeIsActive()){
-            x = gamepad1.right_stick_x;
-            y = -gamepad1.right_stick_y;
+
+            x = gamepad1.left_stick_x;
+            y = -gamepad1.left_stick_y;
             r = (gamepad1.right_trigger - gamepad1.left_trigger);
 
             TR.setPower(-x-y+r);
@@ -52,25 +67,47 @@ public class TeleOpi extends LinearOpMode {
             BL.setPower(x+y+r);
             TL.setPower(-x+y+r);
 
-            if (gamepad2.dpad_up) {
-                s1.setPosition(0.75);
+            if (gamepad2.left_bumper) {
+                servobox.setPosition(0.167);    //серва коробки поднимается в горизонтальное положение
             }
 
-            if (gamepad2.dpad_right) {
-                s1.setPosition(0.167);
+            if (gamepad2.right_bumper) {
+                servobox.setPosition(0);    //серва косается земли
             }
 
-            if (gamepad2.dpad_down) {
-                s1.setPosition(0);
+            if (gamepad1.left_bumper) {
+                Lift.setPower(-0.5);    //выясним потом куда будет поднимать или опускать
+            }
+
+            if (gamepad1.right_bumper) {
+                Lift.setPower(0.5);     //выясним потом куда будет поднимать или опускать
+            }
+
+            if (gamepad2.y) {
+                armRaise();     //переворот захвата
             }
 
             if (gamepad2.a) {
-                s2.setPosition(0.5);
+                armLower();     //опускает лохотрон
+            }
+
+            if (gamepad2.dpad_down) {  //опускает 2 пикселя
+                zahvat.setPosition(0.5);
+            }
+
+            if (gamepad2.dpad_right) { //опускается 1 пиксель
+                zahvat.setPosition(0.2);
+            }
+            if (gamepad2.dpad_up) { //серва отпущена
+                zahvat.setPosition(0);
             }
 
             Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
-            telemetry.addData("servo1", s1.getPosition());
+
+            telemetry.addData("servo1", servobox.getPosition());
             telemetry.update();
+
+
         }
     }
 }
