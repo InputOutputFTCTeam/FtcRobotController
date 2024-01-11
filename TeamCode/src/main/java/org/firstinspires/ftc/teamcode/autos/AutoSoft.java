@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.autos;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -10,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive;
 
+@Disabled
 @Autonomous(name="Auto")
 public class AutoSoft extends LinearOpMode {
     public DcMotor TL, TR, BL, BR;

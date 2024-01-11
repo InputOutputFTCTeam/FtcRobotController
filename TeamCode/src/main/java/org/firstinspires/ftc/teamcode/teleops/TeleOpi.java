@@ -15,15 +15,17 @@ public class TeleOpi extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
     Servo servobox, lohotronMain, lohotron, zahvat;
 
-    double x, y, r;
-
+    double x, y, r;     //переменные направления движения
+    double INTAKE_SPEED = 0.7;  //скорость вращения захвата         ("он очень резвый. мне нравится" (c) Николай Ростиславович)
     public void armRaise(){
-        lohotronMain.setPosition(0.267);
+        lohotronMain.setPosition(0.8);
+        sleep(100);
         lohotron.setPosition(1);
     }
     public void armLower(){
-        lohotronMain.setPosition(0);
         lohotron.setPosition(0);
+        sleep(50);
+        lohotronMain.setPosition(0);
     }
 
     @Override
@@ -41,9 +43,9 @@ public class TeleOpi extends LinearOpMode {
         zahvat = hardwareMap.servo.get("zahvat");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
-        TR.setDirection(DcMotorSimple.Direction.FORWARD);
+        TR.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        BR.setDirection(DcMotorSimple.Direction.FORWARD);
+        BR.setDirection(DcMotorSimple.Direction.REVERSE);
         Intake.setDirection(DcMotorSimple.Direction.FORWARD);
         Lift.setDirection(DcMotorSimple.Direction.FORWARD);
 
@@ -72,7 +74,7 @@ public class TeleOpi extends LinearOpMode {
             }
 
             if (gamepad2.right_bumper) {
-                servobox.setPosition(0);    //серва косается земли
+                servobox.setPosition(0.05);    //серва косается земли
             }
 
             if (gamepad1.left_bumper) {
@@ -102,7 +104,7 @@ public class TeleOpi extends LinearOpMode {
                 zahvat.setPosition(0);
             }
 
-            Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
+            Intake.setPower((gamepad2.left_trigger - gamepad2.right_trigger) * INTAKE_SPEED);
 
             telemetry.addData("servo1", servobox.getPosition());
             telemetry.update();
