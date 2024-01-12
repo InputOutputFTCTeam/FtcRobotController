@@ -75,26 +75,47 @@ public class AutoTest123 extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
+                .turn(90)
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
+                .turn(0)
                 .back(2)
+                .turn(0)
+                .strafeLeft(18)// для дополнительных действий
                 .turn(90)
-                .forward(72).build();
-
-        TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(18)        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
-                .back(2)            //turn - поворот (в градусах)
-                .turn(90)
-                .strafeLeft(18)     //.addTemporalMarker(5, () -> {Servo1.setPosition(0);}) - для дополнительных действий
                 .forward(54)
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 .strafeRight(18)
+                .turn(90)
+                .forward(18)
+                .build();
+        
+        TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
+                .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр
+                .back(2) //           //turn - поворот (в градусах)
+                .turn(0)
+                .strafeLeft(18)// для дополнительных действий
+                .turn(90)
+                .forward(54)
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
+                .strafeRight(18)
+                .turn(90)
                 .forward(18)
                 .build();
 
         TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
                 .turn(270)
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 .back(1)
                 .turn(180)
+                .strafeLeft(18)// для дополнительных действий
+                .turn(0)
                 .forward(54)
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
+                .strafeRight(18)
+                .turn(90)
+                .forward(18)
                 .build();
 
         waitForStart();
