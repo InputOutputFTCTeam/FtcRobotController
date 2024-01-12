@@ -88,7 +88,7 @@ public class AutoTest123 extends LinearOpMode {
                 .turn(90)
                 .forward(18)
                 .build();
-        
+
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
                 .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр
@@ -101,7 +101,7 @@ public class AutoTest123 extends LinearOpMode {
                 .strafeRight(18)
                 .turn(90)
                 .forward(18)
-                .build();
+                .build();//
 
         TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)

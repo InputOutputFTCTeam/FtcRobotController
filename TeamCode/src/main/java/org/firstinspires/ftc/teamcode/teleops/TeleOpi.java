@@ -93,14 +93,11 @@ public class TeleOpi extends LinearOpMode {
                 armLower();     //опускает лохотрон
             }
 
-            if (gamepad2.dpad_down) {  //опускает 2 пикселя
-                zahvat.setPosition(0.5);
+            if (gamepad2.dpad_down) {   //отпускает
+                zahvat.setPosition(0.45);
             }
 
-            if (gamepad2.dpad_right) { //опускается 1 пиксель
-                zahvat.setPosition(0.2);
-            }
-            if (gamepad2.dpad_up) { //серва отпущена
+            if (gamepad2.dpad_up) {     //захватывает
                 zahvat.setPosition(0);
             }
 
