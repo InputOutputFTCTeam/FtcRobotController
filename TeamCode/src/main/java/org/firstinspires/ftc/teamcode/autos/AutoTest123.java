@@ -77,6 +77,8 @@ public class AutoTest123 extends LinearOpMode {
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
                 .turn(90)
+                .waitSeconds(3)
+                .waitSeconds(5)
                 .addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 .turn(0)
                 .back(2)

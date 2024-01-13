@@ -33,12 +33,12 @@ public class AutoUni extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        recognition = new Recognition();
-        recognition.getAnalysis();
-        webcam.openCameraDevice();
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.setPipeline(recognition);
+//        recognition = new Recognition();
+//        recognition.getAnalysis();
+//        webcam.openCameraDevice();
+//        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+//        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+//        webcam.setPipeline(recognition);
 
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");
@@ -68,7 +68,10 @@ public class AutoUni extends LinearOpMode {
         Pose2d startPose = new Pose2d(0, 0, 0);
         SampleMecanumDrive driveBlue = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence traj = driveBlue.trajectorySequenceBuilder(startPose)
-                .forward(36)
+                .forward(-100)
+                .forward(5)
+//                .turn(45)
+//                .waitSeconds(3)
                 .build();
 
         telemetry.addLine("Ready to start");

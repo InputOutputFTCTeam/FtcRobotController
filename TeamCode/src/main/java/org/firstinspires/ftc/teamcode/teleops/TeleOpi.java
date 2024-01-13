@@ -18,7 +18,7 @@ public class TeleOpi extends LinearOpMode {
     double x, y, r;     //переменные направления движения
     double INTAKE_SPEED = 0.7;  //скорость вращения захвата         ("он очень резвый. мне нравится" (c) Николай Ростиславович)
     public void armRaise(){
-        lohotronMain.setPosition(0.85);
+        lohotronMain.setPosition(0.9);
         sleep(100);
         lohotron.setPosition(1);
     }
@@ -79,15 +79,15 @@ public class TeleOpi extends LinearOpMode {
             }
 
             if (gamepad2.dpad_up) {
-                servobox.setPosition(0.05);    //серва косается земли
+                servobox.setPosition(0.005);    //серва косается земли
             }
             if (gamepad2.dpad_down) {
-                servobox.setPosition(0.75);
+                servobox.setPosition(0.7);
             }
 
-            Lift.setPower(-gamepad2.left_stick_y);    //выясним потом куда будет поднимать или опускать
+            Lift.setPower(-gamepad2.left_stick_y*0.6);    //выясним потом куда будет поднимать или опускать
 
-            if (gamepad2.x) {
+            if (gamepad2.y) {
                 armRaise();     //переворот захвата
             }
 
