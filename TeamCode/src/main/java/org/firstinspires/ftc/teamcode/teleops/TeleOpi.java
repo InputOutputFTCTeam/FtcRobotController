@@ -18,7 +18,7 @@ public class TeleOpi extends LinearOpMode {
     double x, y, r;     //переменные направления движения
     double INTAKE_SPEED = 0.7;  //скорость вращения захвата         ("он очень резвый. мне нравится" (c) Николай Ростиславович)
     public void armRaise(){
-        lohotronMain.setPosition(0.8);
+        lohotronMain.setPosition(0.85);
         sleep(100);
         lohotron.setPosition(1);
     }
@@ -26,6 +26,11 @@ public class TeleOpi extends LinearOpMode {
         lohotron.setPosition(0);
         sleep(50);
         lohotronMain.setPosition(0);
+    }
+    public void armMiddle(){
+        lohotron.setPosition(0.6);
+        sleep(50);
+        lohotronMain.setPosition(0.5);
     }
 
     @Override
@@ -56,7 +61,6 @@ public class TeleOpi extends LinearOpMode {
         Lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        servobox.setPosition(0);
         telemetry.addLine("Ready to start");
         waitForStart();
         while(opModeIsActive()){
@@ -65,28 +69,25 @@ public class TeleOpi extends LinearOpMode {
             y = -gamepad1.left_stick_y;
             r = (gamepad1.right_trigger - gamepad1.left_trigger);
 
-            TR.setPower(-x-y+r);
-            BR.setPower(x-y+r);
+            TR.setPower((-x-y+r)*(-1));
+            BR.setPower((x-y+r)*(-1));
             BL.setPower(x+y+r);
             TL.setPower(-x+y+r);
 
-            if (gamepad2.left_bumper) {
-                servobox.setPosition(0.167);    //серва коробки поднимается в горизонтальное положение
+            if (gamepad2.dpad_right) {
+                servobox.setPosition(0.55);    //серва коробки поднимается в горизонтальное положение
             }
 
-            if (gamepad2.right_bumper) {
+            if (gamepad2.dpad_up) {
                 servobox.setPosition(0.05);    //серва косается земли
             }
-
-            if (gamepad1.left_bumper) {
-                Lift.setPower(-0.5);    //выясним потом куда будет поднимать или опускать
+            if (gamepad2.dpad_down) {
+                servobox.setPosition(0.75);
             }
 
-            if (gamepad1.right_bumper) {
-                Lift.setPower(0.5);     //выясним потом куда будет поднимать или опускать
-            }
+            Lift.setPower(-gamepad2.left_stick_y);    //выясним потом куда будет поднимать или опускать
 
-            if (gamepad2.y) {
+            if (gamepad2.x) {
                 armRaise();     //переворот захвата
             }
 
@@ -94,11 +95,15 @@ public class TeleOpi extends LinearOpMode {
                 armLower();     //опускает лохотрон
             }
 
-            if (gamepad2.dpad_down) {   //отпускает
-                zahvat.setPosition(0.45);
+            if (gamepad2.b) {
+                armMiddle();
             }
 
-            if (gamepad2.dpad_up) {     //захватывает
+            if (gamepad2.left_bumper) {   //отпускает
+                zahvat.setPosition(0.5);
+            }
+
+            if (gamepad2.right_bumper) {     //захватывает
                 zahvat.setPosition(0);
             }
 

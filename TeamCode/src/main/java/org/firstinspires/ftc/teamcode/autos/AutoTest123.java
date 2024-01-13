@@ -40,10 +40,10 @@ public class AutoTest123 extends LinearOpMode {
     public void runOpMode() {
         recognition = new Recognition();
         recognition.getAnalysis();
-        webcam.openCameraDevice();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         webcam.setPipeline(recognition);
+        webcam.openCameraDevice();
 
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");
