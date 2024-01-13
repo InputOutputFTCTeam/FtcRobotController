@@ -18,8 +18,8 @@ import org.firstinspires.ftc.teamcode.visions.Recognition;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
-@Autonomous(name = "AutoBlue", group = "Actual")
-public class AutoBlue extends LinearOpMode {
+@Autonomous(name = "AutoBlue2")
+public class AutoBlue2 extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
     Servo servobox, lohotronMain, lohotron, zahvat;
     protected Recognition recognition;
@@ -68,55 +68,29 @@ public class AutoBlue extends LinearOpMode {
         BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //тута штуки всяике тестятся
-        ///!протестить и исправить если надо!!
-
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
                 .turn(90)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .turn(0)
                 .back(2)
-                .turn(0)
-                .strafeLeft(18)// для дополнительных действий
-                .turn(90)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .turn(90)
+                .turn(180)
                 .forward(18)
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 .build();
 
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр
-                .back(2) //           //turn - поворот (в градусах)
-                .turn(0)
-                .strafeLeft(18)// для дополнительных действий
-                .turn(90)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .turn(90)
                 .forward(18)
-                .build();//
+                .back(2)
+                .turn(270)
+                .forward(18)
+                .build();
 
         TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
                 .turn(270)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .back(1)
-                .turn(180)
-                .strafeLeft(18)// для дополнительных действий
-                .turn(0)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .turn(90)
                 .forward(18)
+                .addTemporalMarker(5,() -> {servobox.setPosition(0);})
                 .build();
-
 
         waitForStart();
 
@@ -143,5 +117,4 @@ public class AutoBlue extends LinearOpMode {
             telemetry.addData("black avg is", recognition.getAvgs()[2]);
         }
     }
-
 }

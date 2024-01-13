@@ -19,6 +19,7 @@ import org.firstinspires.ftc.teamcode.visions.Recognition;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
+
 @Autonomous(name = "Autotest123", group = "Actual")
 public class AutoTest123 extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
@@ -92,7 +93,7 @@ public class AutoTest123 extends LinearOpMode {
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
                 .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр
-                .back(2) //           //turn - поворот (в градусах)
+                .back(2) //           //turn - поворот (в градусах по часовой)
                 .turn(0)
                 .strafeLeft(18)// для дополнительных действий
                 .turn(90)
@@ -118,9 +119,10 @@ public class AutoTest123 extends LinearOpMode {
                 .forward(18)
                 .build();
 
+
         waitForStart();
 
-        if (opModeIsActive()) {
+        while (opModeIsActive()) {
             if (recognition.getAnalysis() == ZERO) {
                 drive.followTrajectorySequence(traj1);
                 telemetry.addLine("zone A");
