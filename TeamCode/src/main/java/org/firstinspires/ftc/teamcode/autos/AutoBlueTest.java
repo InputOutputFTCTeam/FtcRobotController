@@ -54,9 +54,9 @@ public class AutoBlueTest extends LinearOpMode{
     double INTAKE_SPEED = 0.7;
 
     public void armRaise(){
-        lohotronMain.setPosition(0.9);
+        lohotronMain.setPosition(0.9); //lohotronMain - подымает всю палку
         sleep(100);
-        lohotron.setPosition(1);
+        lohotron.setPosition(1); //lohotron - серва на захвате у лохотрона0
 
     }
 
@@ -80,8 +80,8 @@ public class AutoBlueTest extends LinearOpMode{
         recognition.getAnalysis();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.setPipeline(recognition);
         webcam.openCameraDevice();
+        webcam.setPipeline(recognition);
 
 
         TL = hardwareMap.dcMotor.get("leftFront");
@@ -122,13 +122,16 @@ public class AutoBlueTest extends LinearOpMode{
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(50)
-                .turn(0.145)     //1 ~ [270;320], 0.25 ~ 135, 0.18 ~ чуть больше 90, 0.15 ~ 90, 0.14 (при 12.74V) ~ 85
+               .forward(32) //позиция поворота
+                 .turn(-0.135)
+                .forward(164) //до щита
+                //1 ~ [270;320], 0.25 ~ 135, 0.18 ~ чуть больше 90, 0.15 ~ 90, 0.14 (при 12.74V) ~ 85
                 ////.addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 ////.turn(90)
-                .forward(164)
-                //.turn(0.350)
-                //.back(20)
+//                .forward(164)
+                //.turn(0.350) //на 180
+//                .addTemporalMarker(3, () -> armRaise())
+//                .addTemporalMarker(1,() -> lohotron.setPosition(0))
                 //.addTemporalMarker(5, () -> {armRaise(); zahvat.setPosition(0);})
                 //.strafeRight(18)
                 //.forward(18)    //*/
@@ -164,13 +167,14 @@ public class AutoBlueTest extends LinearOpMode{
                 .build();
 
         zahvat.setPosition(0.5);
-
         waitForStart();
 
 
         if (opModeIsActive()) {
 
+
             if (recognition.getAnalysis() == ZERO) {
+                servobox.setPosition(0.55);
                 drive.followTrajectorySequence(traj1);
                 telemetry.addLine("zone A");
                 telemetry.update();

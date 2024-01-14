@@ -28,12 +28,19 @@ public class AutoTest123 extends LinearOpMode {
     OpenCvCamera webcam;
     double INTAKE_SPEED = 0.7;
     public void armRaise(){
-        lohotronMain.setPosition(0.267);
+        lohotronMain.setPosition(0.9);
+        sleep(100);
         lohotron.setPosition(1);
     }
     public void armLower(){
-        lohotronMain.setPosition(0);
         lohotron.setPosition(0);
+        sleep(50);
+        lohotronMain.setPosition(0);
+    }
+    public void armMiddle(){
+        lohotron.setPosition(0.6);
+        sleep(50);
+        lohotronMain.setPosition(0.5);
     }
 
     @Override
