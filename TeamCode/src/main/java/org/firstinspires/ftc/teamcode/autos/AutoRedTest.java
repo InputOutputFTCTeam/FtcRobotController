@@ -243,7 +243,6 @@ public class AutoRedTest extends LinearOpMode {
                 drive.followTrajectorySequence(traj2);
 
                 telemetry.addLine("zone B");
-
                 telemetry.update();
 
             }
