@@ -38,7 +38,7 @@ public class AutoTest123 extends LinearOpMode {
         lohotronMain.setPosition(0);
     }
     public void armMiddle(){
-        lohotron.setPosition(0.6);
+        lohotron.setPosition(0.05);
         sleep(50);
         lohotronMain.setPosition(0.5);
     }

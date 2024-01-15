@@ -122,9 +122,11 @@ public class AutoBlueTest extends LinearOpMode{
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
-               .forward(32) //позиция поворота
-                 .turn(-0.135)
-                .forward(164) //до щита
+                .forward(44)
+                // .strafeRight(100) //позиция поворота
+                //.strafeLeft(12)
+//                 .turn(0.135)
+//                .forward(164) //до щита
                 //1 ~ [270;320], 0.25 ~ 135, 0.18 ~ чуть больше 90, 0.15 ~ 90, 0.14 (при 12.74V) ~ 85
                 ////.addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 ////.turn(90)
@@ -137,7 +139,7 @@ public class AutoBlueTest extends LinearOpMode{
                 //.forward(18)    //*/
                 .build();
 
-
+/*
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
                 .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр (доп действия)
@@ -165,8 +167,7 @@ public class AutoBlueTest extends LinearOpMode{
                 .strafeRight(18)
                 .forward(18)
                 .build();
-
-        zahvat.setPosition(0.5);
+*/
         waitForStart();
 
 
@@ -180,7 +181,7 @@ public class AutoBlueTest extends LinearOpMode{
                 telemetry.update();
             }
 
-            if (recognition.getAnalysis() == ONE) {
+            /*if (recognition.getAnalysis() == ONE) {
                 drive.followTrajectorySequence(traj2);
                 telemetry.addLine("zone B");
                 telemetry.update();
@@ -190,7 +191,11 @@ public class AutoBlueTest extends LinearOpMode{
                 drive.followTrajectorySequence(traj3);
                 telemetry.addLine("zone C");
                 telemetry.update();
-            }
+            }*/
+
+            sleep(1000);
+            armRaise();
+            zahvat.setPosition(0.5);
 
             telemetry.addData("position is ", recognition.getAnalysis());
             telemetry.addData("avg1 is ", recognition.getAvgs()[0]);

@@ -18,7 +18,7 @@ public class TeleOpi extends LinearOpMode {
     double x, y, r;     //переменные направления движения
     double INTAKE_SPEED = 0.7;  //скорость вращения захвата         ("он очень резвый. мне нравится" (c) Николай Ростиславович)
     public void armRaise(){
-        lohotronMain.setPosition(0.9);
+        lohotronMain.setPosition(0.5);
         sleep(100);
         lohotron.setPosition(1);
     }
@@ -30,7 +30,7 @@ public class TeleOpi extends LinearOpMode {
     public void armMiddle(){
         lohotron.setPosition(0.6);
         sleep(50);
-        lohotronMain.setPosition(0.5);
+        lohotronMain.setPosition(0.3);
     }
 
     @Override
