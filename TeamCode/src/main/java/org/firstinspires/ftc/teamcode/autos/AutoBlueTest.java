@@ -37,7 +37,7 @@ import org.firstinspires.ftc.teamcode.visions.Recognition;
 import org.openftc.easyopencv.OpenCvCamera;
 
 import org.openftc.easyopencv.OpenCvCameraFactory;
-
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 @Autonomous(name = "AutoBlueTest", group = "Actul")
@@ -82,7 +82,22 @@ public class AutoBlueTest extends LinearOpMode{
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         webcam.openCameraDevice();
         webcam.setPipeline(recognition);
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                webcam.startStreaming(1920,1080, OpenCvCameraRotation.SIDEWAYS_LEFT); //поменять ориентацию камеры
+            }
 
+            @Override
+            public void onError(int errorCode)
+            {
+                /*
+                 * This will be called if the camera could not be opened
+                 */
+            }
+        });
 
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");
