@@ -87,7 +87,7 @@ public class AutoBlueTest extends LinearOpMode{
             @Override
             public void onOpened()
             {
-                webcam.startStreaming(1920,1080, OpenCvCameraRotation.SIDEWAYS_LEFT); //поменять ориентацию камеры
+                webcam.startStreaming(1920,1080, OpenCvCameraRotation.UPRIGHT); //поменять ориентацию камеры  SIDEWAYS_LEFT
             }
 
             @Override

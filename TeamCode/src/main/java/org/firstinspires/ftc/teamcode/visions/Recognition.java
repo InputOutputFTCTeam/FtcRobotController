@@ -9,7 +9,7 @@ import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 public class Recognition extends OpenCvPipeline {
-    public int a = 109, b = 130, c = 98, d = 10, e = 207, thresh=92, maxval=255;
+    public int thresh=92, maxval=255;
     public RingPosition position = RingPosition.ZERO;
     public enum RingPosition {
         ZERO,
@@ -39,18 +39,18 @@ public class Recognition extends OpenCvPipeline {
     public Mat processFrame(Mat input) {
         inputToCb(input);
 
-        Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(a, b);
-        Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(a, c);
-        final Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(d, e);
-        final int REGION_WIDTH = 50;
-        final int REGION_HEIGHT = 20;
+        Point REGION1_TOPLEFT_ANCHOR_POINT = new Point(100, 540);
+        Point REGION2_TOPLEFT_ANCHOR_POINT = new Point(710, 540);
+        Point REGION3_TOPLEFT_ANCHOR_POINT = new Point(1400, 290);
+        final int REGION_WIDTH = 250;
+        final int REGION_HEIGHT = 250;
 
         Point region1_pointA = new Point(
                 REGION1_TOPLEFT_ANCHOR_POINT.x,
                 REGION1_TOPLEFT_ANCHOR_POINT.y);
         Point region1_pointB = new Point(
                 REGION1_TOPLEFT_ANCHOR_POINT.x + REGION_WIDTH,
-                REGION1_TOPLEFT_ANCHOR_POINT.y + 20);
+                REGION1_TOPLEFT_ANCHOR_POINT.y + REGION_HEIGHT);
         Point region2_pointA = new Point(
                 REGION2_TOPLEFT_ANCHOR_POINT.x,
                 REGION2_TOPLEFT_ANCHOR_POINT.y);
