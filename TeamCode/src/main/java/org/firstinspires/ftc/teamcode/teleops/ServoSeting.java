@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "ServoSet")
-public class ServoSeting extends LinearOpMode {
+public class ServoSeting extends LinearOpMode {//
     Servo lohotronMain, lohotron, zahvat;
 
     double newUpPosition = 0.5, newDownPosition = 0.5; //lohotron

@@ -9,11 +9,20 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.visions.Recognition;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+
 
 @TeleOp(name = "TeleOp")
 public class TeleOpi extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
     Servo servobox, lohotronMain, lohotron, zahvat;
+
+    protected Recognition recognition;
+    OpenCvCamera webcam;
 
     double x, y, r;     //переменные направления движения
     double INTAKE_SPEED = 0.7;  //скорость вращения захвата         ("он очень резвый. мне нравится" (c) Николай Ростиславович)
@@ -34,7 +43,32 @@ public class TeleOpi extends LinearOpMode {
     }
 
     @Override
-    public void runOpMode(){
+
+    public void runOpMode() {
+        recognition = new Recognition();
+        recognition.getAnalysis();
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam.openCameraDevice();
+        webcam.setPipeline(recognition);
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                webcam.startStreaming(1920,1080, OpenCvCameraRotation.UPRIGHT); //поменять ориентацию камеры  SIDEWAYS_LEFT
+            }
+
+            @Override
+            public void onError(int errorCode)
+            {
+                /*
+                 * This will be called if the camera could not be opened
+                 */
+            }
+        });
+
+
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
@@ -64,7 +98,6 @@ public class TeleOpi extends LinearOpMode {
         telemetry.addLine("Ready to start");
         waitForStart();
         while(opModeIsActive()){
-
             x = gamepad1.left_stick_x;
             y = -gamepad1.left_stick_y;
             r = (gamepad1.right_trigger - gamepad1.left_trigger);
