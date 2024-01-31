@@ -43,8 +43,8 @@ public class ProsteckiAutonom extends LinearOpMode {
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
         BR.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;
-        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;
+        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;       //направление того, как установлен Rev Hub (logo)
+        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;   //направление того, как установлен Rev Hub (USB)
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
         imu = hardwareMap.get(IMU.class, "imu");
@@ -61,7 +61,7 @@ public class ProsteckiAutonom extends LinearOpMode {
         }
     }
 
-    public void MoveByTime(double x, double y, int milliseconds){
+    /*public void MoveByTime(double x, double y, int milliseconds){     //а зачем оно вообще тут?? (не используется)
 
         TR.setPower(-x-y);
         BR.setPower(x-y);
@@ -71,15 +71,14 @@ public class ProsteckiAutonom extends LinearOpMode {
         telemetry.update();
 
         sleep(milliseconds);
+    }*/
 
-
-    }
-    public void Ostanovka(){
-        TR.setPower(0);
-        BR.setPower(0);
-        BL.setPower(0);
-        TL.setPower(0);
-    }
+    /*public void Ostanovka(){                                          //а зачем оно вообще тут?? (не используется)
+            TR.setPower(0);
+            BR.setPower(0);
+            BL.setPower(0);
+            TL.setPower(0);
+    }*/
 
     public void turnToHeading(double maxTurnSpeed, double heading) {
 
@@ -106,7 +105,7 @@ public class ProsteckiAutonom extends LinearOpMode {
         moveRobot(0, 0);
     }
 
-    public double getSteeringCorrection(double desiredHeading, double proportionalGain) {
+    public double getSteeringCorrection(double desiredHeading, double proportionalGain) {       //П-регулируемый поворот
         targetHeading = desiredHeading;  // Save for telemetry
 
         // Determine the heading current error

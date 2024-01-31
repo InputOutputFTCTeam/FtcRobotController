@@ -41,18 +41,18 @@ public class Gyro extends LinearOpMode {
         while (opModeIsActive()){
 
             telemetry.addData("Current headings is", getHeadingString());
-            telemetry.addData("Current double heading is", g)
+            telemetry.addData("Current double heading is", getHeadingDouble());
             telemetry.update();
         }
     }
     public double getHeadingDouble() {
-
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         return angles.firstAngle;
     }
+
     public String getHeadingString() {
-            angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            return formatAngle(angles.angleUnit, angles.firstAngle);
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        return formatAngle(angles.angleUnit, angles.firstAngle);
     }
 
     String formatAngle(AngleUnit angleUnit, double angle) {
@@ -60,7 +60,7 @@ public class Gyro extends LinearOpMode {
     }
 
     String formatDegrees(double degrees){
-        return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
+        return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));    //посмотрел, как реализован метод normalize - а может не надо нормализовывать?
     }
 
 }
