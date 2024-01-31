@@ -18,6 +18,7 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.Traje
 import org.firstinspires.ftc.teamcode.visions.Recognition;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 @Autonomous(name = "Autotest123", group = "Actual")
@@ -49,8 +50,24 @@ public class AutoTest123 extends LinearOpMode {
         recognition.getAnalysis();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.setPipeline(recognition);
         webcam.openCameraDevice();
+        webcam.setPipeline(recognition);
+        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
+        {
+            @Override
+            public void onOpened()
+            {
+                webcam.startStreaming(1920,1080, OpenCvCameraRotation.UPRIGHT); //поменять ориентацию камеры  SIDEWAYS_LEFT
+            }
+
+            @Override
+            public void onError(int errorCode)
+            {
+                /*
+                 * This will be called if the camera could not be opened
+                 */
+            }
+        });
 
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");
