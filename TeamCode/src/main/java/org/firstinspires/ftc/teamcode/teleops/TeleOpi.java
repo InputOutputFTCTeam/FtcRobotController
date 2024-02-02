@@ -19,7 +19,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @TeleOp(name = "TeleOp")
 public class TeleOpi extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
-    Servo servobox, lohotronMain, lohotron, zahvat;
+    Servo servobox, lohotronMain, lohotron, zahvat, drop1, drop2;
 
     protected Recognition recognition;
     OpenCvCamera webcam;
@@ -80,6 +80,8 @@ public class TeleOpi extends LinearOpMode {
         lohotronMain = hardwareMap.servo.get("lohotronMain");
         lohotron = hardwareMap.servo.get("lohotron");
         zahvat = hardwareMap.servo.get("zahvat");
+        drop1 = hardwareMap.servo.get("drop1");
+        drop2 = hardwareMap.servo.get("drop2");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -107,18 +109,25 @@ public class TeleOpi extends LinearOpMode {
             BL.setPower(x+y+r);
             TL.setPower(-x+y+r);
 
+            if (gamepad1.dpad_up) {
+                drop2.setPosition(0);    //серва коробки поднимается в горизонтальное положение
+            }
+
+            if (gamepad1.dpad_down) {
+                drop2.setPosition(0.65);    //серва коробки поднимается в горизонтальное положение
+            }
+
             if (gamepad2.dpad_right) {
                 servobox.setPosition(0.55);    //серва коробки поднимается в горизонтальное положение
             }
+            //if (gamepad2.dpad_up) {
+                //servobox.setPosition(0.005);    //серва косается земли
+            //}
+            //if (gamepad2.dpad_down) {
+                //servobox.setPosition(0.7);
+            //}
 
-            if (gamepad2.dpad_up) {
-                servobox.setPosition(0.005);    //серва косается земли
-            }
-            if (gamepad2.dpad_down) {
-                servobox.setPosition(0.7);
-            }
-
-            Lift.setPower(-gamepad2.left_stick_y*0.6);    //выясним потом куда будет поднимать или опускать
+            //Lift.setPower(-gamepad2.left_stick_y*0.6);    //выясним потом куда будет поднимать или опускать
 
             if (gamepad2.y) {
                 armRaise();     //переворот захвата

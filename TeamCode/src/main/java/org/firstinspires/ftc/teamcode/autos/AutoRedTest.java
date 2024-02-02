@@ -45,7 +45,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 public class AutoRedTest extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
 
-    Servo servobox, lohotronMain, lohotron, zahvat;
+    Servo drop1, lohotronMain, lohotron, zahvat;
 
     protected Recognition recognition;
 
@@ -97,7 +97,7 @@ public class AutoRedTest extends LinearOpMode {
         Lift = hardwareMap.dcMotor.get("lift");
 
 
-        servobox = hardwareMap.servo.get("servobox");
+        drop1 = hardwareMap.servo.get("drop");
 
         lohotronMain = hardwareMap.servo.get("lohotronMain");
 
@@ -137,93 +137,36 @@ public class AutoRedTest extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+
+
+
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
 
-                .forward(18)
+           .back(44) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
 
-                .turn(90)
+                //.addTemporalMarker(5, () -> {
+                    //drop.setPosition(0);
+                //}) // сброс пикселфя на центр
 
-                .addTemporalMarker(5, () -> {
-                    servobox.setPosition(0);
-                })
+                //.back(2) //           //turn - поворот (в градусах)
 
-                .turn(-90)
+                //.strafeRight(18)// для дополнительных действий
 
-                .back(2)
+                //.turn(90)
 
-                .strafeRight(18)// для дополнительных действий
+                //.forward(54)
 
-                .turn(90)
+                //.addTemporalMarker(5, () -> {
+                    //drop//.setPosition(0);
+                //})
 
-                .forward(54)
+                //.strafeLeft(18)
 
-                .addTemporalMarker(5, () -> {
-                    servobox.setPosition(0);
-                })
-
-                .strafeLeft(18)
-
-                .forward(18)
+                //.forward(18)
 
                 .build();
 
 
-        TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
-
-                .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
-
-                .addTemporalMarker(5, () -> {
-                    servobox.setPosition(0);
-                }) // сброс пикселфя на центр
-
-                .back(2) //           //turn - поворот (в градусах)
-
-                .strafeRight(18)// для дополнительных действий
-
-                .turn(90)
-
-                .forward(54)
-
-                .addTemporalMarker(5, () -> {
-                    servobox.setPosition(0);
-                })
-
-                .strafeLeft(18)
-
-                .forward(18)
-
-                .build();
-
-
-        TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d())
-
-                .forward(18)
-
-                .turn(-90)
-
-                .addTemporalMarker(5, () -> {
-                    servobox.setPosition(0);
-                })
-
-                .turn(90)
-
-                .back(2)
-
-                .strafeRight(18)// для дополнительных действий
-
-                .turn(90)
-
-                .forward(54)
-
-                .addTemporalMarker(5, () -> {
-                    servobox.setPosition(0);
-                })
-
-                .strafeLeft(18)
-
-                .forward(18)
-
-                .build();
 
 
         waitForStart();
@@ -231,7 +174,7 @@ public class AutoRedTest extends LinearOpMode {
 
         if (opModeIsActive()) {
             if (recognition.getAnalysis() == ZERO) {
-                drive.followTrajectorySequence(traj1);
+                //drive.followTrajectorySequence(traj1);
 
                 telemetry.addLine("zone A");
 
@@ -239,22 +182,7 @@ public class AutoRedTest extends LinearOpMode {
 
             }
 
-            if (recognition.getAnalysis() == ONE) {
-                drive.followTrajectorySequence(traj2);
 
-                telemetry.addLine("zone B");
-                telemetry.update();
-
-            }
-
-            if (recognition.getAnalysis() == FOUR) {
-                drive.followTrajectorySequence(traj3);
-
-                telemetry.addLine("zone C");
-
-                telemetry.update();
-
-            }
 
 
             telemetry.addData("position is ", recognition.getAnalysis());

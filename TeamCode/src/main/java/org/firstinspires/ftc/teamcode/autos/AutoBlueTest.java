@@ -45,7 +45,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 public class AutoBlueTest extends LinearOpMode{
     DcMotor TR, TL, BR, BL, Intake, Lift;
 
-    Servo servobox, lohotronMain, lohotron, zahvat;
+    Servo servobox, lohotronMain, lohotron, zahvat, drop2;
 
     protected Recognition recognition;
 
@@ -112,6 +112,7 @@ public class AutoBlueTest extends LinearOpMode{
         lohotronMain = hardwareMap.servo.get("lohotronMain");
         lohotron = hardwareMap.servo.get("lohotron");
         zahvat = hardwareMap.servo.get("zahvat");
+        drop2 = hardwareMap.servo.get("drop2");
 
 
 
@@ -136,8 +137,8 @@ public class AutoBlueTest extends LinearOpMode{
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(44)
+        //TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d());
+                //.forward(44)
                 // .strafeRight(100) //позиция поворота
                 //.strafeLeft(12)
 //                 .turn(0.135)
@@ -152,37 +153,42 @@ public class AutoBlueTest extends LinearOpMode{
                 //.addTemporalMarker(5, () -> {armRaise(); zahvat.setPosition(0);})
                 //.strafeRight(18)
                 //.forward(18)    //*/
+                //.build();
+
+
+        TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
+                .back(33) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
+                .addTemporalMarker(5, () -> {drop2.setPosition(0);})
                 .build();
-
-/*
-        TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр (доп действия)
-                .back(2) //           //turn - поворот (в градусах)
-                .strafeLeft(18)
-                .turn(-90)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .forward(18)
-                .build();
+                //.addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр (доп действия)
+                //.back(2) //           //turn - поворот (в градусах)
+                //.strafeLeft(18)
+                //.turn(-90)
+                //.forward(54)
+                //.addTemporalMarker(5, () -> {servobox.setPosition(0);})
+                //.strafeRight(18)
+                //.forward(18)
+                //.build();
 
 
 
-        TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(18)
-                .turn(90)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .turn(-90)
-                .back(2)
-                .strafeLeft(18)
-                .turn(-90)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .forward(18)
-                .build();
-*/
+
+        //TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d())
+                //.forward(18)
+                //.turn(90)
+                //.addTemporalMarker(5, () -> {servobox.setPosition(0);})
+                //.turn(-90)
+                //.back(2)
+                //.strafeLeft(18)
+                //.turn(-90)
+               //.forward(54)
+                //.addTemporalMarker(5, () -> {servobox.setPosition(0);})
+                //.strafeRight(18)
+                //.forward(18)
+                //.build();
+
+        drop2.setPosition(0.7);
+
         waitForStart();
 
 
