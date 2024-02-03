@@ -194,7 +194,6 @@ public class AutoBlueTest extends LinearOpMode{
 
         if (opModeIsActive()) {
 
-
             if (recognition.getAnalysis() == ZERO) {
                 servobox.setPosition(0.55);
                 drive.followTrajectorySequence(traj1);
@@ -224,7 +223,6 @@ public class AutoBlueTest extends LinearOpMode{
             telemetry.addData("black avg is", recognition.getAvgs()[2]);
 
         }
-
     }
 
 }
