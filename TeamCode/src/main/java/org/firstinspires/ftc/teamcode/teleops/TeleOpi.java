@@ -86,9 +86,9 @@ public class TeleOpi extends LinearOpMode {
         push = hardwareMap.servo.get("push");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
-        TR.setDirection(DcMotorSimple.Direction.REVERSE);
+        TR.setDirection(DcMotorSimple.Direction.FORWARD);
         BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        BR.setDirection(DcMotorSimple.Direction.FORWARD);
         Intake.setDirection(DcMotorSimple.Direction.FORWARD);
         Lift.setDirection(DcMotorSimple.Direction.FORWARD);
 

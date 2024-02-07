@@ -33,6 +33,11 @@ public class enccoder extends LinearOpMode {
         BR.setDirection(DcMotorSimple.Direction.FORWARD);
 
         //включаем режим работы по энкодерам. все провода должны быть подкючены
+        TL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         TL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         TR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -47,11 +52,11 @@ public class enccoder extends LinearOpMode {
 
         waitForStart();
         if(opModeIsActive()){
-            moveBy4Encoders(0.5,0,0,50);
+            moveBy4Encoders(0.5,0,0,10);
             adjDelay();
-            moveBy4Encoders(0, 0.5, 0, 50);
+            moveBy4Encoders(0, 0.5, 0, 10);
             adjDelay();
-            moveBy4Encoders(0, 0, 0.5, 50);
+            moveBy4Encoders(0, 0, 0.5, 10);
         }
     }
 
@@ -97,6 +102,7 @@ public class enccoder extends LinearOpMode {
             telemetry.addData(" TR diff: ", Math.abs(Math.abs(TR.getCurrentPosition()) - ticks));
             telemetry.addData(" BL diff: ", Math.abs(Math.abs(BL.getCurrentPosition()) - ticks));
             telemetry.addData(" BR diff: ", Math.abs(Math.abs(BR.getCurrentPosition()) - ticks));
+            telemetry.update();
         }
         stopp();
 
@@ -104,7 +110,7 @@ public class enccoder extends LinearOpMode {
         telemetry.addLine();
         composeTelemetry();
         telemetry.update();
-    }
+}
 
     public void move(double x, double y, double r){
         TR.setPower(-x-y+r);
