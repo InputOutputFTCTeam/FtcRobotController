@@ -9,17 +9,16 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 /*
     TODO: test on robot;
-     возможно, оно не будет работать начиная с 62 строки...
+     надеюсь, что он не сломается из-за idle()
  */
 
 
-@TeleOp(name = "plane setter", group = "alfa")
-public class planeSetter extends LinearOpMode {
+@TeleOp(name = "plane setter while", group = "alfa")
+public class planeSetter_while extends LinearOpMode {
     Servo angle, shooter;
 
     DcMotor TR, TL, BR, BL;
     double x = 0, y = 0, r = 0, pos = 0;
-    boolean shotNewAngle = false;
 
     @Override
     public void runOpMode(){
@@ -60,21 +59,29 @@ public class planeSetter extends LinearOpMode {
             BL.setPower(x+y+r);
             TL.setPower(-x+y+r);
 
-            //опрашиваем переключатель, можем ли мы менять значение угла запуска
-            if(!shotNewAngle){
-                //я вам запрещаю... менять угол взлета, но в этот раз можно
-                shotNewAngle = !shotNewAngle;
+            //нажали на стрелку вверх на геймпаде
+            if(gamepad1.dpad_up){
+                //увеличиваем значение угла запуска на 9 градусов
+                pos+=0.05;
 
-                //нажимая на стрелку вверх или вниз, изменяем значение угла запуска на 9 градусов
-                if(gamepad1.dpad_up){
-                    pos += 0.05;
+                //ждем, пока драйвер отпустит кнопку
+                while(gamepad1.dpad_up && opModeIsActive()) {
+                    telemetry.addLine("RELEASE up BUTTON PLS");
+                    telemetry.update();
+                    idle();
                 }
-                if(gamepad1.dpad_down){
-                    pos -=0.05;
+            }
+
+            if(gamepad1.dpad_down){
+                //уменьшаем значение угла запуска на ~9 градусов
+                pos -= 0.05;
+
+                //ждем, пока драйвер отпустит кнопку
+                while(gamepad1.dpad_down && opModeIsActive()){
+                    telemetry.addLine("RELEASE down BUTTON PLS");
+                    telemetry.update();
+                    idle();
                 }
-            } else {
-                //а, я вам запретил, да? ну раз уж вы когда-то поменяли, то в следующий раз поменяете...
-                shotNewAngle = false;
             }
 
             //применяем измененное значение
