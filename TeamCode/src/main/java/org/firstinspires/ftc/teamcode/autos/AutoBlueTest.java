@@ -108,52 +108,33 @@ public class AutoBlueTest extends LinearOpMode{
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
                 .back(33) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
-                .addTemporalMarker(5, () -> {drop2.setPosition(0);})
                 .build();
-                //.addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр (доп действия)
-                //.back(2) //           //turn - поворот (в градусах)
-                //.strafeLeft(18)
-                //.turn(-90)
-                //.forward(54)
-                //.addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                //.strafeRight(18)
-                //.forward(18)
-                //.build();
 
-        drop2.setPosition(0.7);
+        TrajectorySequence traj1_2 = drive.trajectorySequenceBuilder(new Pose2d())
+                .turn(0.270)
+                //.back(50)
+
+                        .build();
+
+        drop2.setPosition(0.6);
 
         waitForStart();
 
 
         if (opModeIsActive()) {
+            //drive.followTrajectorySequence(traj1);
+            drop2.setPosition(0);
+            drive.followTrajectorySequence(traj1_2);
 
-            if (recognition.getAnalysis() == ZERO) {
-                servobox.setPosition(0.55);
-                drive.followTrajectorySequence(traj1);
-                telemetry.addLine("zone A");
-                telemetry.update();
-            }
 
-            /*if (recognition.getAnalysis() == ONE) {
-                drive.followTrajectorySequence(traj2);
-                telemetry.addLine("zone B");
-                telemetry.update();
-            }
 
-            if (recognition.getAnalysis() == FOUR) {
-                drive.followTrajectorySequence(traj3);
-                telemetry.addLine("zone C");
-                telemetry.update();
-            }*/
+
 
             sleep(1000);
-            armRaise();
-            zahvat.setPosition(0.5);
 
-            telemetry.addData("position is ", recognition.getAnalysis());
-            telemetry.addData("avg1 is ", recognition.getAvgs()[0]);
-            telemetry.addData("avg 2 is", recognition.getAvgs()[1]);
-            telemetry.addData("black avg is", recognition.getAvgs()[2]);
+
+
+
 
         }
     }
