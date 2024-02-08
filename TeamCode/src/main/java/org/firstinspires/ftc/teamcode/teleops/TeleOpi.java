@@ -19,34 +19,39 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 @TeleOp(name = "TeleOp")
 public class TeleOpi extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
-    Servo servobox, lohotronMain, lohotron, zahvat, drop1, drop2, angle, push, rightHook1, rightHook2, leftHook1, leftHook2;
+    Servo servobox, lohotronMain, lohotron, claw,
+            drop1, drop2,   //задний захват
+            angle, push,    //самолетопускатель
+            rightHook1, rightHook2, //правый крюк
+            leftHook1, leftHook2;   //левый крюк
 
     protected Recognition recognition;
     OpenCvCamera webcam;
 
     double x, y, r;     //переменные направления движения
-    double INTAKE_SPEED = 0.7;  //скорость вращения захвата         ("он очень резвый. мне нравится" (c) Николай Ростиславович)
+    double INTAKE_SPEED = 0.4;  //скорость вращения захвата         ("он очень резвый. мне нравится" (c) Николай Ростиславович)
 
-    //public void armRaise() {
-        //lohotronMain.setPosition(0.5);
-       // sleep(100);
-        //lohotron.setPosition(1);
-    //}
+
 
     public void Hook() {
         rightHook2.setPosition(0.5);
     }
 
-    public void armLower() {
-        lohotron.setPosition(0);
-        sleep(50);
-        //lohotronMain.setPosition(0);
+    public void armLower() {//0, m0
+        lohotronMain.setPosition(0);
+        sleep(100);
+        lohotron.setPosition(1);
+        claw.setPosition(0);
     }
 
-    public void armMiddle() {
-        lohotron.setPosition(0.6);
-        sleep(50);
-        //lohotronMain.setPosition(0.3);
+    public void armRaise() { //m0.5 1
+        lohotronMain.setPosition(0.5);
+        sleep(100);
+        lohotron.setPosition(0);
+    }
+
+    public void armMiddle() {//0.6 m0.3
+
     }
 
     @Override
@@ -63,7 +68,8 @@ public class TeleOpi extends LinearOpMode {
         servobox = hardwareMap.servo.get("servobox");
         rightHook2 = hardwareMap.servo.get("rightHook2");
         lohotron = hardwareMap.servo.get("lohotron");
-        zahvat = hardwareMap.servo.get("zahvat");
+        lohotronMain = hardwareMap.servo.get("lohotronMain");
+        claw = hardwareMap.servo.get("zahvat");
         drop1 = hardwareMap.servo.get("drop1");
         drop2 = hardwareMap.servo.get("drop2");
         angle = hardwareMap.servo.get("angle");
@@ -134,7 +140,7 @@ public class TeleOpi extends LinearOpMode {
             //Lift.setPower(-gamepad2.left_stick_y*0.6);    //выясним потом куда будет поднимать или опускать
 
             if (gamepad2.y) {
-           //     armRaise();     //переворот захвата
+                armRaise();     //переворот захвата
             }
 
             if (gamepad2.a) {
@@ -145,13 +151,13 @@ public class TeleOpi extends LinearOpMode {
                 armMiddle();
             }
 
-            if (gamepad2.left_bumper) {   //отпускает
+            /*if (gamepad2.left_bumper) {   //отпускает
                 zahvat.setPosition(0.6);
             }
 
             if (gamepad2.right_bumper) {     //захватывает
                 zahvat.setPosition(0);
-            }
+            }*/
 
             Intake.setPower((gamepad2.left_trigger - gamepad2.right_trigger) * INTAKE_SPEED);
 
