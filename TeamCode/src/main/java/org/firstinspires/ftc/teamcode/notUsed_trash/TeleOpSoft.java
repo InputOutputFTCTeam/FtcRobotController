@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.teleops;
+package org.firstinspires.ftc.teamcode.notUsed_trash;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
+/**
+ * Телеоп из сезона Powerplay
+ */
 @Disabled
 @TeleOp(name="TeleOp1")
 public class TeleOpSoft extends LinearOpMode {
@@ -40,6 +43,7 @@ public class TeleOpSoft extends LinearOpMode {
         Move(0,0,0,0);
 
         telemetry.addLine("Ready to start");
+        telemetry.update();
         waitForStart();
         while (opModeIsActive()) {
             Move(

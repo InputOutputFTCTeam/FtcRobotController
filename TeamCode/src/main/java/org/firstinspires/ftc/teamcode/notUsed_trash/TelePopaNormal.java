@@ -1,29 +1,24 @@
-package org.firstinspires.ftc.teamcode.teleops;
+package org.firstinspires.ftc.teamcode.notUsed_trash;
 
-import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-
-import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.Methods;
+import org.firstinspires.ftc.teamcode.notUsed_trash.Methods;
 
 //import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 //import org.firstinspires.ftc.teamcode.drive.StandardTrackingWheelLocalizer;
 
-@TeleOp(name = "TelePopaZadrota", group = "Actual")
+/**
+ * Телеоп из сезона Powerplay
+ */
+@TeleOp(name = "TelePopaNormal", group = "Actual")
 @Disabled
-public class TelePopa extends LinearOpMode {
+public class TelePopaNormal extends LinearOpMode {
     double k = 0.4;
     double servoPos;
-    public Servo intakeL, intakeR;
     public Servo ssl, ssr;
     public DcMotor TL, TR, BL, BR;
     public DcMotor lift;
@@ -55,9 +50,9 @@ public class TelePopa extends LinearOpMode {
             }
 
             methods.move(
-                    -gamepad1.right_stick_x,
-                    gamepad1.right_trigger - gamepad1.left_trigger + gamepad1.right_stick_y,
-                    -gamepad1.left_stick_x,
+                    gamepad1.left_stick_x + gamepad1.right_stick_x * 0.5,
+                    gamepad1.left_stick_y + gamepad1.right_stick_y * 0.5,
+                    gamepad1.right_trigger - gamepad1.left_trigger,
                     k
             );
 

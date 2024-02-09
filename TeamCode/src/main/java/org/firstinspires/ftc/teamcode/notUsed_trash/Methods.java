@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.notUsed_trash;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -20,8 +20,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.util.Locale;
 
-@Autonomous(name="Methods")
+/**
+ * Powerplay. Попытки подключить модули робота (hardware) через внешний класс
+ */
 @Disabled
+@Autonomous(name="Methods")
 
 public class Methods extends LinearOpMode {
     public DcMotor TL, TR, BL, BR;
@@ -254,37 +257,36 @@ public class Methods extends LinearOpMode {
 
         }*/
 
-//        lift.setPower(0);
-//        sleep(100);
-//    }
-//
-//    public void liftStep(int cm, double speed) {
-//        liftEnc(cm * 80, speed);
-//    }
-//
-//    public void liftDrop(double speed){
-//        while (digitalTouch.getState()) {
-//            liftRun(-speed);
-//        }
-//    }
-//
-//    public void liftTimer(int t, double speed) {
-//        liftRun(speed);
-//        sleep(t);
-//        liftStop();
-//    }
-//
-//    public void liftDrop() {
-//        while (digitalTouch.getState()) {
-//            liftRun(-1);
-//        }
-//        lift.setPower(0);
-//    }
-//
-//    public void liftStop() {
-//        lift.setPower(0);
-//    }
+   /*     lift.setPower(0);
+        sleep(100);
+    }
 
+    public void liftStep(int cm, double speed) {
+        liftEnc(cm * 80, speed);
+    }
+
+    public void liftDrop(double speed){
+        while (digitalTouch.getState()) {
+            liftRun(-speed);
+        }
+    }
+
+    public void liftTimer(int t, double speed) {
+        liftRun(speed);
+        sleep(t);
+        liftStop();
+    }
+
+    public void liftDrop() {
+        while (digitalTouch.getState()) {
+            liftRun(-1);
+        }
+        lift.setPower(0);
+    }
+
+    public void liftStop() {
+        lift.setPower(0);
+    } */
     //   для корректного завершения исполняющегося метода
     public void debugDelay() {
         Timer.reset();
