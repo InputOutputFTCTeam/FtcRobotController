@@ -11,6 +11,9 @@ public class TeleOperatingMode extends LinearOpMode {
     BasicDriveTrain wheelbase = new BasicDriveTrain(this);
     Intaker intake = new Intaker(this);
     Lohotron lohotron = new Lohotron(this);
+    Box box = new Box(this);
+    Lift lift = new Lift(this);
+    BackupCatch backupCatch = new BackupCatch(this);
 
     double INTAKE_SPEED = 0.4;
 
@@ -27,10 +30,21 @@ public class TeleOperatingMode extends LinearOpMode {
 
         lohotron.initLohotron(hardwareMap);
 
+        box.initBox();
+
+        lift.initLift();
+        lift.liftDirection(DcMotorSimple.Direction.FORWARD);
+        lift.liftMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        backupCatch.initBack();
+
         while(!isStarted()){
             wheelbase.wheelbaseTelemetry();
             lohotron.lohotronTelemetry();
             intake.telemetryIntaker();
+            box.telemetryBox();
+            lift.telemetryLift();
+            backupCatch.telemetryBack();
 
             telemetry.update();
             idle();
@@ -39,25 +53,25 @@ public class TeleOperatingMode extends LinearOpMode {
         while(opModeIsActive()){
             wheelbase.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
 
-            if(gamepad2.y) lohotron.armRaiser();    //better be 1 logical button with lowerer
-            if(gamepad2.a) lohotron.armLowerer();   //better be 1 logical button with raiser
-            if(gamepad2.b) lohotron.armMid();
+            //if(gamepad2.y) lohotron.armRaiser();    //better be 1 logical button with lowerer
+            //if(gamepad2.a) lohotron.armLowerer();   //better be 1 logical button with raiser
+            if(gamepad2.a) lohotron.armLogicalRaise_Lower();
+            if(gamepad2.y) lohotron.armMid();
+            if(gamepad2.x) lohotron.closeClaw();
+            if(gamepad2.b) lohotron.openClaw();
 
             intake.runIntake((gamepad2.right_trigger - gamepad2.left_trigger) * INTAKE_SPEED);
 
-            /*
-            if(gamepad2.x) lohotron.closeClaw();
-            if(gamepad2.y) lohotron.openClaw();
-
             if(gamepad2.dpad_down) box.down();
             if(gamepad2.dpad_right) box.mid();
-            if(gamepad2.dpad_up) box.up();
+            if(gamepad2.dpad_up) box.upp();
 
-            lift.run(gamepad2.right_trigger - gamepad2.left_trigger); //???????
+            lift.run(gamepad2.right_stick_y);
 
-            if(gamepad2.right_button) backup.down();    //или gamepad2.right_stick_button
-            if(gamepad2.left_button) backup.up();       //    gamepad2.left_stick_button
+            if(gamepad2.right_bumper) backupCatch.grab();    //или gamepad2.right_stick_button
+            if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
 
+            /*
             if(gamepad1.a) hook.openHook();
             if(gamepad1.b) hook.closeHook();
 

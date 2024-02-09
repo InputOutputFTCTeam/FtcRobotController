@@ -46,6 +46,12 @@ public class Lohotron {
         main.setPosition(0.4);
     }
 
+    boolean armRaised = false;
+    public void armLogicalRaise_Lower(){
+        if(armRaised) armRaiser(); else armLowerer();
+        armRaised = !armRaised;
+    }
+
     public void closeClaw(){
         claw.setPosition(0.15);
     }

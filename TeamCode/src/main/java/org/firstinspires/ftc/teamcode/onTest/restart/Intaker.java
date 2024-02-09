@@ -17,7 +17,7 @@ public class Intaker {
         intakerOpMode = opMode;
     }
     public void initIntake(HardwareMap hwMap){
-        intake = hwMap.dcMotor.get("intake");
+        intake = intakerOpMode.hardwareMap.dcMotor.get("intake"); //hwMap.dcMotor.get("intake");
         intake.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         intake.setDirection(DcMotorSimple.Direction.FORWARD);
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
