@@ -22,12 +22,12 @@ public class Box {
     }
 
     public void upp(){
-        //servoBox.setPosition();       //TODO: подобрать значение и подставить сюда
+        servoBox.setPosition(0);
     }
     public void down(){
-        //servoBox.setPosition();       //TODO: подобрать значение и подставить сюда
+        servoBox.setPosition(0.5);
     }
     public void mid(){
-        //servoBox.setPosition();       //TODO: подобрать значение и подставить сюда
+        servoBox.setPosition(0.79);
     }
 }

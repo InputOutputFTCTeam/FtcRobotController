@@ -37,7 +37,7 @@ public class Lohotron {
         down = false;
     }
     public void armLowerer(){
-        perevorot.setPosition(1);
+        perevorot.setPosition(0.97);            ////Тестить это
         lohotronOpMode.sleep(100);
         main.setPosition(0);
         down = true;

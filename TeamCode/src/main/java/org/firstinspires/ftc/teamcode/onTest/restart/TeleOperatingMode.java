@@ -82,7 +82,7 @@ public class TeleOperatingMode extends LinearOpMode {
             if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
 
             if(gamepad1.a) hook.switchHook();
-            if(gamepad1.x) plane.fly();
+            if(gamepad1.x) plane.pushUp();
         }
     }
 }

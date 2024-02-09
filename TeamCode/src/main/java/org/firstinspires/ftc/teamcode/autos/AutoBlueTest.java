@@ -45,7 +45,7 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 public class AutoBlueTest extends LinearOpMode{
     DcMotor TR, TL, BR, BL;
 
-    Servo servobox, lohotronMain, lohotron, zahvat, drop2;
+    Servo servobox, lohotronMain, lohotron, zahvat, drop2, drop1;
 
 
 
@@ -86,6 +86,7 @@ public class AutoBlueTest extends LinearOpMode{
         lohotron = hardwareMap.servo.get("lohotron");
         zahvat = hardwareMap.servo.get("zahvat");
         drop2 = hardwareMap.servo.get("drop2");
+        drop1 = hardwareMap.servo.get("drop1");
 
 
 
@@ -112,11 +113,12 @@ public class AutoBlueTest extends LinearOpMode{
 
         TrajectorySequence traj1_2 = drive.trajectorySequenceBuilder(new Pose2d())
                 .turn(0.270)
-                //.back(50)
+                .back(50)
 
                         .build();
 
         drop2.setPosition(0.6);
+        drop1.setPosition(0.6);
 
         waitForStart();
 

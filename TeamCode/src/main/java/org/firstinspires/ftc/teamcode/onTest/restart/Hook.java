@@ -26,23 +26,23 @@ public class Hook {
     }
 
     public void openHook(){
-        //leftHook1.setPosition();      //TODO: подобрать значения для четырех серв
-        //rightHook1.setPosition();
+        leftHook1.setPosition(0.05);
+        rightHook1.setPosition(0.05);
 
         hookOpMode.sleep(100);
 
-        //leftHook2.setPosition();
-        //rightHook2.setPosition();
+        leftHook2.setPosition(1);
+        rightHook2.setPosition(1);
     }
 
     public void closeHook(){
-        //leftHook2.setPosition();      //TODO: подобрать значения для четырех серв
-        //rightHook2.setPosition();
+        leftHook2.setPosition(0.07);
+        rightHook2.setPosition(0.07);
 
         hookOpMode.sleep(100);
 
-        //leftHook1.setPosition();
-        //rightHook1.setPosition();
+        leftHook1.setPosition(0.7);
+        rightHook1.setPosition(0.7);
     }
     public void switchHook(){
         if(hooked) openHook(); else closeHook();
