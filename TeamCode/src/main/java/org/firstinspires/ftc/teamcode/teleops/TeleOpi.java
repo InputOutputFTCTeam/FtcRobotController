@@ -15,6 +15,9 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
+/**
+ * Это наш самописный телеоп без всяких этих ваших ООП...
+ */
 
 @TeleOp(name = "TeleOp")
 public class TeleOpi extends LinearOpMode {
@@ -59,7 +62,6 @@ public class TeleOpi extends LinearOpMode {
     }
 
     @Override
-
     public void runOpMode() {
 
         TL = hardwareMap.dcMotor.get("leftFront");
