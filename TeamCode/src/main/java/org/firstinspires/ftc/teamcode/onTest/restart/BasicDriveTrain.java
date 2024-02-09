@@ -1,0 +1,133 @@
+package org.firstinspires.ftc.teamcode.onTest.restart;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
+
+/**
+ * В этом классе описываются основные методы для управления колесной базой из 4 меканум колес
+ * установленных крестом.
+ */
+public class BasicDriveTrain {
+    private DcMotor TL, TR, BL, BR;
+
+    private LinearOpMode driveTrainOpMode = null;
+    private boolean inited = false, encoded = false;
+
+    public BasicDriveTrain(LinearOpMode opMode) {
+        driveTrainOpMode = opMode;
+    }
+
+    public void initMotors(HardwareMap hwmap){
+        TL = hwmap.dcMotor.get("leftFront");
+        TR = hwmap.dcMotor.get("rightFront");
+        BL = hwmap.dcMotor.get("leftRear");
+        BR = hwmap.dcMotor.get("rightRear");
+        inited = true;
+
+        driveTrainOpMode.telemetry.addLine("Driver ready!");
+    }
+
+    /**
+     * [энкодеры] моторы можно запустить в режиме run_to_position или run_using_encoder или run_without_encoder
+     */
+    public void setModes(DcMotor.RunMode mode){
+        if(inited){
+            TL.setMode(mode);
+            TR.setMode(mode);
+            BL.setMode(mode);
+            BR.setMode(mode);
+            if(mode == DcMotor.RunMode.RUN_USING_ENCODER || mode == DcMotor.RunMode.RUN_TO_POSITION)
+                encoded = true;
+        } else {
+            driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");
+            driveTrainOpMode.telemetry.addLine("must repair code");
+            driveTrainOpMode.telemetry.update();
+        }
+    }
+
+
+    /**
+     * [энкодеры] новая целевая позиция для мотора
+     */
+    public void setTargets(int newTarget){
+        if(inited){
+            TL.setTargetPosition(newTarget);
+            TR.setTargetPosition(newTarget);
+            BL.setTargetPosition(newTarget);
+            BR.setTargetPosition(newTarget);
+        } else {
+            driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");
+            driveTrainOpMode.telemetry.addLine("must repair code");
+            driveTrainOpMode.telemetry.update();
+        }
+    }
+
+    /**
+     * устанавливает направление вращения моторов
+     * @param dir FORWARD или REVERSE
+     */
+    public void setOneDirection(DcMotorSimple.Direction dir){
+        if(inited){
+            TL.setDirection(dir);
+            TR.setDirection(dir);
+            BL.setDirection(dir);
+            BR.setDirection(dir);
+        } else {
+            driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");
+            driveTrainOpMode.telemetry.addLine("must repair code");
+            driveTrainOpMode.telemetry.update();
+        }
+    }
+
+    /**
+     * задает режим остановки всем 4м моторам
+     */
+    public void setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior behavior) {
+        if (inited) {
+            TL.setZeroPowerBehavior(behavior);
+            TR.setZeroPowerBehavior(behavior);
+            BL.setZeroPowerBehavior(behavior);
+            BR.setZeroPowerBehavior(behavior);
+        } else {
+            driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");
+            driveTrainOpMode.telemetry.addLine("must repair code");
+            driveTrainOpMode.telemetry.update();
+        }
+    }
+
+    /**
+     * движение колесной базы робота
+     * @param x движение вдоль оси x. меньше 0 - ехать влево, больше 0 - ехать вправо
+     * @param y движение вдоль оси y. меньше 0 - ехать назад, больше 0 - ехать вперед
+     * @param r движение вокруг своей оси. больше 0 - разворот по часовой, меньше 0 - разворот против часовой.
+     */
+    public void move(double x, double y, double r){
+        if(inited){
+            TL.setPower(Range.clip((x+y+r), -1, 1));
+            TR.setPower(Range.clip((x-y+r), -1, 1));
+            BL.setPower(Range.clip((-x+y+r), -1, 1));
+            BR.setPower(Range.clip((-x-y+r), -1, 1));
+        }
+        else {
+            driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");
+            driveTrainOpMode.telemetry.addLine("must repair code");
+            driveTrainOpMode.telemetry.update();
+        }
+    }
+
+    public void wheelbaseTelemetry(){
+        driveTrainOpMode.telemetry.addData("TL : TR ", "%2.3f : %2.3f", TL.getPower(), TR.getPower());
+        driveTrainOpMode.telemetry.addData("BL : BR ", "%2.3f : %2.3f", BL.getPower(), BR.getPower());
+        if(inited && encoded){
+            driveTrainOpMode.telemetry.addLine();
+            driveTrainOpMode.telemetry.addData("TL: actual : target ", "%4d : %4d", TL.getCurrentPosition(), TL.getTargetPosition());
+            driveTrainOpMode.telemetry.addData("TR: actual : target ", "%4d : %4d", TR.getCurrentPosition(), TR.getTargetPosition());
+            driveTrainOpMode.telemetry.addData("BL: actual : target ", "%4d : %4d", BL.getCurrentPosition(), BL.getTargetPosition());
+            driveTrainOpMode.telemetry.addData("BR: actual : target ", "%4d : %4d", BR.getCurrentPosition(), BR.getTargetPosition());
+        }
+    }
+
+}
