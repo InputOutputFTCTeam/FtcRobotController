@@ -8,6 +8,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.hardware.Servo;
 
+/**
+ * [Документацию писать здесь]
+ */
+
+/*
+ * TODO:    написать комментарии к этому коду
+ *          написать документацию к этому коду
+ */
 @Disabled
 @TeleOp(name = "PushTest")
 public class PushTest extends LinearOpMode {
@@ -15,12 +23,12 @@ public class PushTest extends LinearOpMode {
 
     @Override
     public void runOpMode(){
-
-
         up = hardwareMap.servo.get("Up");
         Airplane = hardwareMap.servo.get("Airplane");
 
         telemetry.addLine("Ready to start");
+        telemetry.update();
+
         waitForStart();
         while(opModeIsActive()) {
 
@@ -29,7 +37,7 @@ public class PushTest extends LinearOpMode {
             }
 
             if (gamepad2.a) {
-                Airplane.setPosition(1.0);     //переворот захвата
+                Airplane.setPosition(1.0);
             }
 
             telemetry.addData("up position: ", up.getPosition());

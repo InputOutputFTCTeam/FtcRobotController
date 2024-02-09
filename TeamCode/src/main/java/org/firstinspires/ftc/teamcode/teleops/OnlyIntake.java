@@ -1,15 +1,18 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.teleops;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-//автоном чтобы тестить сервы!
+
+/**
+ * Этот класс описывает все действия по захвату и подъему пикселей в телеуправляемом режиме
+ */
+@Disabled
 @TeleOp(name = "servelat")
-public class servotest extends LinearOpMode {
+public class OnlyIntake extends LinearOpMode {
     DcMotor Intake, Lift;
     Servo servobox, lohotronMain, lohotron, zahvat;
     double x, y, r;

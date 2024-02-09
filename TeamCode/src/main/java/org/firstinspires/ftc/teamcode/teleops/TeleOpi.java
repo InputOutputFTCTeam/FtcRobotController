@@ -45,13 +45,17 @@ public class TeleOpi extends LinearOpMode {
     }
 
     public void armRaise() { //m0.5 1
-        lohotronMain.setPosition(0.5);
+        claw.setPosition(0.15);
+        lohotronMain.setPosition(0.57);
         sleep(100);
         lohotron.setPosition(0);
     }
 
     public void armMiddle() {//0.6 m0.3
-
+        lohotronMain.setPosition(0.3);
+        sleep(100);
+        lohotron.setPosition(1);
+        claw.setPosition(0.15);
     }
 
     @Override

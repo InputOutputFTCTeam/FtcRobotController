@@ -14,16 +14,22 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
-import org.firstinspires.ftc.teamcode.Methods;
 
 import java.util.Locale;
 
-//@Disabled
+/**
+ * Этот телеоп позволяет проверить работу встроенного в наш Rev Control Hub датчика гироскопа.
+ *
+ * В нашем CH установлен  BNO055IMU, однако, у тех, кто планирует использовать наш код в Control Hub
+ * может быть установлен гироскоп другой модели. Проверить модель установленного гироскопа
+ * можно в приложении REV Hardware Client.
+ *
+ * По сути это полная копия встроенного класса SensorBNO055IMU.java (external samples)
+ */
+
 @Disabled
 @TeleOp(name = "test imu", group = "beta")
 public class ImuRotate extends LinearOpMode {
-    //Methods methods = new Methods(hardwareMap);
-
     BNO055IMU imu;
     Orientation angles;
     Acceleration gravity;
