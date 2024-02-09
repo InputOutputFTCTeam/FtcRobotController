@@ -14,6 +14,8 @@ public class TeleOperatingMode extends LinearOpMode {
     Box box = new Box(this);
     Lift lift = new Lift(this);
     BackupCatch backupCatch = new BackupCatch(this);
+    Hook hook = new Hook(this);
+    Plane plane = new Plane(this);
 
     double INTAKE_SPEED = 0.4;
 
@@ -38,6 +40,12 @@ public class TeleOperatingMode extends LinearOpMode {
 
         backupCatch.initBack();
 
+        plane.initPlane();
+
+        hook.initHooks();
+
+        telemetry.update();
+
         while(!isStarted()){
             wheelbase.wheelbaseTelemetry();
             lohotron.lohotronTelemetry();
@@ -45,6 +53,8 @@ public class TeleOperatingMode extends LinearOpMode {
             box.telemetryBox();
             lift.telemetryLift();
             backupCatch.telemetryBack();
+            hook.telemetryHooks();
+            plane.telemetryPlane();
 
             telemetry.update();
             idle();
@@ -71,12 +81,8 @@ public class TeleOperatingMode extends LinearOpMode {
             if(gamepad2.right_bumper) backupCatch.grab();    //или gamepad2.right_stick_button
             if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
 
-            /*
-            if(gamepad1.a) hook.openHook();
-            if(gamepad1.b) hook.closeHook();
-
+            if(gamepad1.a) hook.switchHook();
             if(gamepad1.x) plane.fly();
-             */
         }
     }
 }

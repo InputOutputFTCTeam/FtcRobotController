@@ -33,11 +33,11 @@ public class Lohotron {
     public void armRaiser(){
         main.setPosition(0.57);
         lohotronOpMode.sleep(100);
-        //perevorot.setPosition();      //TODO: подобрать значение и внести в эту строку
+        perevorot.setPosition(0);
         down = false;
     }
     public void armLowerer(){
-        //perevorot.setPosition();      //TODO: подобрать значение и внести в эту строку
+        perevorot.setPosition(1);
         lohotronOpMode.sleep(100);
         main.setPosition(0);
         down = true;
