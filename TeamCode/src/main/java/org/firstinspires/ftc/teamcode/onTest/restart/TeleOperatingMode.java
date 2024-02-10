@@ -17,7 +17,7 @@ public class TeleOperatingMode extends LinearOpMode {
     Hook hook = new Hook(this);
     Plane plane = new Plane(this);
 
-    double INTAKE_SPEED = 0.4;
+    double INTAKE_SPEED = -0.4;
 
     @Override
     public void runOpMode(){
@@ -81,8 +81,10 @@ public class TeleOperatingMode extends LinearOpMode {
             if(gamepad2.right_bumper) backupCatch.grab();    //или gamepad2.right_stick_button
             if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
 
-            if(gamepad1.a) hook.switchHook();
+            //if(gamepad1.a) hook.switchHook();
+            if(gamepad1.dpad_up) hook.openHook();
             if(gamepad1.x) plane.pushUp();
+            if (gamepad1.b) plane.angleUp();
         }
     }
 }

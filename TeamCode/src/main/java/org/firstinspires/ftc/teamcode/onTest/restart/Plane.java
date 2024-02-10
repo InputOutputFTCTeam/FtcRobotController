@@ -33,6 +33,9 @@ public class Plane {
     public void pushUp() {
         push.setPosition(0.65);
     }
+
+    //public void planeUp()
+
     public void telemetryPlane(){
         planeOpMode.telemetry.addData("pushPosition", push.getPosition());
         planeOpMode.telemetry.addData("anglePosition", angle.getPosition());

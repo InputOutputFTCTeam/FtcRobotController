@@ -72,4 +72,9 @@ public class LohotronSetter extends LinearOpMode {
             telemetry.update();
         }
     }
-}
+
+    //@Override
+    //public void runOpMode() throws InterruptedException {
+
+    }
+

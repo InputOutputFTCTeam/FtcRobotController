@@ -17,13 +17,13 @@ public class BackupCatch {
         inited = true;
     }
     public void grab(){
-        //left.setPosition();   //TODO: подобрать значение
-        //right.setPosition();   //TODO: подобрать значение
+        left.setPosition(0.6);   //TODO: подобрать значение
+        right.setPosition(0.6);   //TODO: подобрать значение
         grabbed = true;
     }
     public void ungrab(){
-        //left.setPosition();   //TODO: подобрать значение
-        //right.setPosition();   //TODO: подобрать значение
+        left.setPosition(0);   //TODO: подобрать значение
+        right.setPosition(0);   //TODO: подобрать значение
         grabbed = false;
     }
     public void telemetryBack(){

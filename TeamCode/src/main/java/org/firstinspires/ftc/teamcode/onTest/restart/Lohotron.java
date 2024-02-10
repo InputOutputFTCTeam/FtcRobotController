@@ -31,16 +31,18 @@ public class Lohotron {
     }
 
     public void armRaiser(){
-        main.setPosition(0.57);
+        main.setPosition(0.6);
         lohotronOpMode.sleep(100);
         perevorot.setPosition(0);
         down = false;
+        lohotronOpMode.sleep(50);
     }
     public void armLowerer(){
         perevorot.setPosition(0.97);            ////Тестить это
         lohotronOpMode.sleep(100);
         main.setPosition(0);
         down = true;
+        lohotronOpMode.sleep(50);
     }
     public void armMid(){
         main.setPosition(0.4);

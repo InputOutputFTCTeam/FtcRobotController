@@ -25,9 +25,9 @@ public class Box {
         servoBox.setPosition(0);
     }
     public void down(){
-        servoBox.setPosition(0.5);
+        servoBox.setPosition(0.79);
     }
     public void mid(){
-        servoBox.setPosition(0.79);
+        servoBox.setPosition(0.5);
     }
 }

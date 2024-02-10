@@ -45,7 +45,8 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 public class AutoBlueTest extends LinearOpMode{
     DcMotor TR, TL, BR, BL;
 
-    Servo servobox, lohotronMain, lohotron, zahvat, drop2, drop1;
+    Servo servobox, lohotronMain, lohotron, zahvat, drop2, drop1, leftHook1, rightHook1;
+
 
     double INTAKE_SPEED = 0.7;
 
@@ -83,6 +84,9 @@ public class AutoBlueTest extends LinearOpMode{
         zahvat = hardwareMap.servo.get("zahvat");
         drop2 = hardwareMap.servo.get("drop2");
         drop1 = hardwareMap.servo.get("drop1");
+        rightHook1 = hardwareMap.servo.get("rightHook1");
+        leftHook1 = hardwareMap.servo.get("leftHook1");
+
 
 
 
@@ -104,24 +108,33 @@ public class AutoBlueTest extends LinearOpMode{
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(33) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
+
+                .strafeRight(33) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
                 .build();
 
         TrajectorySequence traj1_2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .turn(0.270)
-                .back(50)
+                .back(60)
+                .build();
 
-                        .build();
+        TrajectorySequence traj1_3 = drive.trajectorySequenceBuilder(new Pose2d())
+                .strafeLeft(15)
+                .build();
 
-        drop2.setPosition(0.6);
-        drop1.setPosition(0.6);
+        //drop2.setPosition(0.6);
+        //drop1.setPosition(0.6);
 
         waitForStart();
 
         if (opModeIsActive()) {
-            //drive.followTrajectorySequence(traj1);
-            drop2.setPosition(0);
-            drive.followTrajectorySequence(traj1_2);
+            drive.followTrajectorySequence(traj1);
+
+            leftHook1.setPosition(0.5);
+            rightHook1.setPosition(-0.5);
+
+            drive.followTrajectorySequence(traj1);
+            //drop2.setPosition(0);
+
+
             sleep(1000);
         }
     }
