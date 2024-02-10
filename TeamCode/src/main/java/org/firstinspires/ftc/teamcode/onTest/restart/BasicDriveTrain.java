@@ -16,6 +16,7 @@ public class BasicDriveTrain {
     private LinearOpMode driveTrainOpMode = null;
     private boolean inited = false, encoded = false;
 
+    public BasicDriveTrain(){}
     public BasicDriveTrain(LinearOpMode opMode) {
         driveTrainOpMode = opMode;
     }
@@ -129,5 +130,14 @@ public class BasicDriveTrain {
             driveTrainOpMode.telemetry.addData("BR: actual : target ", "%4d : %4d", BR.getCurrentPosition(), BR.getTargetPosition());
         }
     }
+
+    public int getPosition(DcMotor motor){
+        return motor.getCurrentPosition();
+    }
+    public DcMotor getTL() {return TL;}     //change motor modifier on "protected" recommended
+    public DcMotor getTR() {return TR;}
+    public DcMotor getBL() {return BL;}
+    public DcMotor getBR() {return BR;}
+
 
 }

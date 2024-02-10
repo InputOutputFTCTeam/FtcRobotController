@@ -47,10 +47,6 @@ public class AutoBlueTest extends LinearOpMode{
 
     Servo servobox, lohotronMain, lohotron, zahvat, drop2, drop1;
 
-
-
-
-
     double INTAKE_SPEED = 0.7;
 
     public void armRaise(){
@@ -122,23 +118,11 @@ public class AutoBlueTest extends LinearOpMode{
 
         waitForStart();
 
-
         if (opModeIsActive()) {
             //drive.followTrajectorySequence(traj1);
             drop2.setPosition(0);
             drive.followTrajectorySequence(traj1_2);
-
-
-
-
-
             sleep(1000);
-
-
-
-
-
         }
     }
-
 }
