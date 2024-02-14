@@ -31,21 +31,23 @@ public class Lohotron {
     }
 
     public void armRaiser(){
-        main.setPosition(0.6);
-        lohotronOpMode.sleep(100);
+        main.setPosition(0.64);
+        lohotronOpMode.sleep(150);
         perevorot.setPosition(0);
         down = false;
         lohotronOpMode.sleep(75);
     }
     public void armLowerer(){
-        perevorot.setPosition(0.97);            ////Тестить это
-        lohotronOpMode.sleep(100);
-        main.setPosition(0);
+        perevorot.setPosition(0.88);            ////Тестить это
+        lohotronOpMode.sleep(150);
+        main.setPosition(0.03);
         down = true;
         lohotronOpMode.sleep(75);
     }
     public void armMid(){
-        main.setPosition(0.4);
+        main.setPosition(0.08);
+        perevorot.setPosition(0.95);
+        down = false;
     }
 
     boolean armRaised = false;
@@ -58,7 +60,7 @@ public class Lohotron {
      * держать пиксель
      */
     public void closeClaw(){
-        claw.setPosition(0.85);
+        claw.setPosition(0.1);
     }
 
     /**

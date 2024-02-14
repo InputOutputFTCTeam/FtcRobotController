@@ -41,7 +41,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name = "AutoBlue", group = "Actul")
+@Autonomous(name = "AutoBlueTest", group = "Actul")
 
 public class AutoBlueTest extends LinearOpMode{
     DcMotor TR, TL, BR, BL;

@@ -51,6 +51,30 @@ public class LohotronSetter extends LinearOpMode {
                 }
             }
 
+            if(gamepad2.dpad_right){
+                //увеличиваем значение угла на 1.8 градусов
+                pos+=0.1;
+
+                //ждем, пока драйвер отпустит кнопку
+                while(gamepad2.dpad_right && opModeIsActive()) {
+                    telemetry.addLine("RELEASE right BUTTON PLS");
+                    telemetry.update();
+                    idle();
+                }
+            }
+
+            if(gamepad2.dpad_left){
+                //увеличиваем значение угла на 1.8 градусов
+                pos-=0.1;
+
+                //ждем, пока драйвер отпустит кнопку
+                while(gamepad2.dpad_left && opModeIsActive()) {
+                    telemetry.addLine("RELEASE left BUTTON PLS");
+                    telemetry.update();
+                    idle();
+                }
+            }
+
             // передаем значение в соответствующую серву. записываем на бумажке начение,
             // которое мы только что передали.     (Это конечно не control award... но попробуйте сами написать настройку четырех серв с возможностью сохранения данных! Это займет больше времени, чем у нас есть)
             if(gamepad2.a){

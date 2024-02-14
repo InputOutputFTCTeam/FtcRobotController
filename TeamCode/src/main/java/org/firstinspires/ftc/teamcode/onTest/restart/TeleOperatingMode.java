@@ -61,7 +61,7 @@ public class TeleOperatingMode extends LinearOpMode {
         }
 
         while(opModeIsActive()){
-            wheelbase.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+            wheelbase.move(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
 
             //if(gamepad2.y) lohotron.armRaiser();    //better be 1 logical button with lowerer
             //if(gamepad2.a) lohotron.armLowerer();   //better be 1 logical button with raiser
@@ -85,6 +85,20 @@ public class TeleOperatingMode extends LinearOpMode {
             if(gamepad1.dpad_up) hook.openHook();
             if(gamepad1.x) plane.pushUp();
             if (gamepad1.b) plane.angleUp();
+            composeTelemery();
         }
+    }
+
+    public void composeTelemery(){
+        wheelbase.wheelbaseTelemetry();
+        lohotron.lohotronTelemetry();
+        intake.telemetryIntaker();
+        box.telemetryBox();
+        lift.telemetryLift();
+        backupCatch.telemetryBack();
+        hook.telemetryHooks();
+        plane.telemetryPlane();
+
+        telemetry.update();
     }
 }
