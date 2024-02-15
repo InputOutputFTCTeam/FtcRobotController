@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest.restart;
+package org.firstinspires.ftc.teamcode.restart;
 
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -6,7 +6,16 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@TeleOp(name = "Tele V8", group = "alfa")
+import org.firstinspires.ftc.teamcode.robotModules.BackupCatch;
+import org.firstinspires.ftc.teamcode.robotModules.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.robotModules.Box;
+import org.firstinspires.ftc.teamcode.robotModules.Hook;
+import org.firstinspires.ftc.teamcode.robotModules.Intaker;
+import org.firstinspires.ftc.teamcode.robotModules.Lift;
+import org.firstinspires.ftc.teamcode.robotModules.Lohotron;
+import org.firstinspires.ftc.teamcode.robotModules.Plane;
+
+@TeleOp(name = "Tele V8", group = "1alfa")
 public class TeleOperatingMode extends LinearOpMode {
     BasicDriveTrain wheelbase = new BasicDriveTrain(this);
     Intaker intake = new Intaker(this);
