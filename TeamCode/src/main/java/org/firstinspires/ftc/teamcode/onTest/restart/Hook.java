@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Hook {
     private Servo leftHook1, rightHook1;
-    private CRServo leftHook2, rightHook2;
+    private Servo leftHook2, rightHook2;
     private boolean inited = true, hooked = false;
     private LinearOpMode hookOpMode;
 
@@ -16,9 +16,9 @@ public class Hook {
 
     public void initHooks(){
         leftHook1 = hookOpMode.hardwareMap.servo.get("leftHook1");
-        leftHook2 = hookOpMode.hardwareMap.crservo.get("leftHook2");
+        leftHook2 = hookOpMode.hardwareMap.servo.get("leftHook2");
         rightHook1 = hookOpMode.hardwareMap.servo.get("rightHook1");
-        rightHook2 = hookOpMode.hardwareMap.crservo.get("rightHook2");
+        rightHook2 = hookOpMode.hardwareMap.servo.get("rightHook2");
 
         hookOpMode.telemetry.addLine("Hook ready!");
     }
@@ -28,27 +28,33 @@ public class Hook {
     }
 
     public void openHook(){
-        leftHook1.setPosition(0.010);
-        rightHook1.setPosition(0.010);
+        leftHook1.setPosition(0.03);
+        rightHook1.setPosition(0.945);
 
         hookOpMode.sleep(100);
 
-        leftHook2.setPower(-1);
-        rightHook2.setPower(1);
+        //leftHook2.setPosition(0);
+        //rightHook2.setPosition(1);
 
-        hookOpMode.sleep(50);
+        //hookOpMode.sleep(50);
     }
 
     public void closeHook(){
-        leftHook2.setPower(1);
-        rightHook2.setPower(1);
+        //leftHook2.setPosition(0.7);
+        //rightHook2.setPosition(0.3);
 
-        hookOpMode.sleep(1000);
+        hookOpMode.sleep(100);
 
-        leftHook1.setPosition(-0.3);
-        rightHook1.setPosition(0.5);
+        leftHook1.setPosition(0.7);
+        rightHook1.setPosition(0.3);
 
-        hookOpMode.sleep(50);
+        //hookOpMode.sleep(50);
+    }
+
+    public void midHook(){
+        leftHook1.setPosition(0.46);
+        rightHook1.setPosition(0.57);
+        hookOpMode.sleep(100);
     }
     public void switchHook(){
         if(hooked) openHook(); else closeHook();

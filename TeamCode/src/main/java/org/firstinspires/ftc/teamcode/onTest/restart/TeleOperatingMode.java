@@ -66,23 +66,23 @@ public class TeleOperatingMode extends LinearOpMode {
             //if(gamepad2.y) lohotron.armRaiser();    //better be 1 logical button with lowerer
             //if(gamepad2.a) lohotron.armLowerer();   //better be 1 logical button with raiser
             if(gamepad2.a) lohotron.armLogicalRaise_Lower();
-            if(gamepad2.y) lohotron.armMid();
+            if(gamepad2.y) lohotron.armLogicalMid_Lower();
             if(gamepad2.x) lohotron.closeClaw();
             if(gamepad2.b) lohotron.openClaw();
 
             intake.runIntake((gamepad2.right_trigger - gamepad2.left_trigger) * INTAKE_SPEED);
 
-            if(gamepad2.dpad_down) box.down();
-            if(gamepad2.dpad_right) box.mid();
-            if(gamepad2.dpad_up) box.upp();
+            if(gamepad2.dpad_down) hook.closeHook();
+            if(gamepad2.dpad_right) hook.midHook();
+            if(gamepad2.dpad_up) hook.openHook();
 
             lift.run(gamepad2.right_stick_y);
 
             if(gamepad2.right_bumper) backupCatch.grab();    //или gamepad2.right_stick_button
             if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
 
-            //if(gamepad1.a) hook.switchHook();
-            if(gamepad1.dpad_up) hook.openHook();
+            ////if(gamepad1.a) hook.switchHook();
+            //if(gamepad1.dpad_up) hook.openHook();
             if(gamepad1.x) plane.pushUp();
             if (gamepad1.b) plane.angleUp();
             composeTelemery();
