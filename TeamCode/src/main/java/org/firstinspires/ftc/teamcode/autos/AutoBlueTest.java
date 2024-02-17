@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
 
-import org.firstinspires.ftc.teamcode.robotModules.Lohotron;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
 
 
 @Autonomous(name = "AutoBlueTest", group = "Actul")
