@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules;
+package org.firstinspires.ftc.teamcode.robotModules.Basic;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
