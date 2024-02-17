@@ -1,8 +1,4 @@
-package org.firstinspires.ftc.teamcode.visions;
-
-import static org.firstinspires.ftc.teamcode.visions.Recognition.RingPosition.FOUR;
-import static org.firstinspires.ftc.teamcode.visions.Recognition.RingPosition.ONE;
-import static org.firstinspires.ftc.teamcode.visions.Recognition.RingPosition.ZERO;
+package org.firstinspires.ftc.teamcode.robotModules.Sensors.visions;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -27,15 +23,15 @@ public class visiontelemetry extends LinearOpMode {
 
         waitForStart();
         while (opModeIsActive()) {
-            if (recognition.getAnalysis() == ZERO) {
+            if (recognition.getAnalysis() == Recognition.RingPosition.ZERO) {
                 telemetry.addLine("zone A");
                 telemetry.update();
             }
-            if (recognition.getAnalysis() == ONE) {
+            if (recognition.getAnalysis() == Recognition.RingPosition.ONE) {
                 telemetry.addLine("zone B");
                 telemetry.update();
             }
-            if (recognition.getAnalysis() == FOUR) {
+            if (recognition.getAnalysis() == Recognition.RingPosition.FOUR) {
                 telemetry.addLine("zone C");
                 telemetry.update();
             }
