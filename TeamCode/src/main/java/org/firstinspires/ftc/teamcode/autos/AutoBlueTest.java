@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.autos;
 
-
-
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -21,16 +19,13 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.Traje
 
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
 
-
 @Autonomous(name = "AutoBlueTest", group = "Actul")
-
 public class AutoBlueTest extends LinearOpMode{
     DcMotor TR, TL, BR, BL;
 
     Servo servobox, lohotronMain, lohotron, zahvat, drop2, drop1, leftHook1, rightHook1;
 
     Lohotron pixel = new Lohotron(this);
-
 
     double INTAKE_SPEED = 0.7;
 
@@ -55,7 +50,6 @@ public class AutoBlueTest extends LinearOpMode{
     }
 
     @Override
-
     public void runOpMode() {
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");

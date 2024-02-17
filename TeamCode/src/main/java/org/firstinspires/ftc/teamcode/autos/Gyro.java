@@ -24,7 +24,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import java.util.Locale;
 
-@Autonomous(name = "Gyro monitoring")
+@Disabled
+@Autonomous(name = "imu monitoring")
 public class Gyro extends LinearOpMode {
 
     BNO055IMU imu;
