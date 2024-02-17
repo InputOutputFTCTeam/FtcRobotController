@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules;
+package org.firstinspires.ftc.teamcode.robotModules.Sensors;
 
 /**
  * В этом классе описывается метод работы с камерой для распознования командного реквизита.

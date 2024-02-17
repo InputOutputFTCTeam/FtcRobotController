@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules;
+package org.firstinspires.ftc.teamcode.robotModules.Basic;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -16,11 +16,23 @@ public class BasicDriveTrain {
     private LinearOpMode driveTrainOpMode = null;
     private boolean inited = false, encoded = false;
 
+    /**
+     * Создаем колесную базу, как класс внутри opMod-а
+     */
     public BasicDriveTrain(){}
+
+    /**
+     * Создаем колесную базу, как класс внутри opMod-а
+     * @param opMode - обычно "this", задает в каком потоке оперирует наша кб
+     */
     public BasicDriveTrain(LinearOpMode opMode) {
         driveTrainOpMode = opMode;
     }
 
+    /**
+     * Инициализация кб для opMode. Добавление в конфигурацию
+     * @param hwmap - hardwareMap, который используется внутри opMode
+     */
     public void initMotors(HardwareMap hwmap){
         TL = hwmap.dcMotor.get("leftFront");
         TR = hwmap.dcMotor.get("rightFront");
@@ -53,12 +65,12 @@ public class BasicDriveTrain {
     /**
      * [энкодеры] новая целевая позиция для мотора
      */
-    public void setTargets(int newTarget){
+    public void setTargets(int[] newTarget){
         if(inited){
-            TL.setTargetPosition(newTarget);
-            TR.setTargetPosition(newTarget);
-            BL.setTargetPosition(newTarget);
-            BR.setTargetPosition(newTarget);
+            TL.setTargetPosition(newTarget[0]);
+            TR.setTargetPosition(newTarget[1]);
+            BL.setTargetPosition(newTarget[2]);
+            BR.setTargetPosition(newTarget[3]);
         } else {
             driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");
             driveTrainOpMode.telemetry.addLine("must repair code");
@@ -119,6 +131,9 @@ public class BasicDriveTrain {
         }
     }
 
+    /**
+     * Добавляем в телеметрию основную информацию о состоянии моторов колесной базы
+     */
     public void wheelbaseTelemetry(){
         driveTrainOpMode.telemetry.addData("TL : TR ", "%2.3f : %2.3f", TL.getPower(), TR.getPower());
         driveTrainOpMode.telemetry.addData("BL : BR ", "%2.3f : %2.3f", BL.getPower(), BR.getPower());
@@ -131,6 +146,11 @@ public class BasicDriveTrain {
         }
     }
 
+    /**
+     * Метод возвращает количество импульсов которые посчитал энкодер
+     * @param motor мотор с которого мы принимаем значение энкодера
+     * @return возвращает положение энкодеров (количество посчитанных ими импульсов)
+     */
     public int getPosition(DcMotor motor){
         return motor.getCurrentPosition();
     }
@@ -138,6 +158,4 @@ public class BasicDriveTrain {
     public DcMotor getTR() {return TR;}
     public DcMotor getBL() {return BL;}
     public DcMotor getBR() {return BR;}
-
-
 }
