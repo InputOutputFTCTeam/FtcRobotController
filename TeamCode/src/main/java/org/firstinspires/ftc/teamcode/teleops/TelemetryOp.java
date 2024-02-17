@@ -1,48 +1,82 @@
 package org.firstinspires.ftc.teamcode.teleops;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 /**
- *  Этот телеоп проверяет работоспособность геймпада. Проверяем значения, получаемые из геймпада
+ *  Этот телеоп проверяет работоспособность геймпадов. Проверяем значения, получаемые из геймпада
  *  через вывод в телеметрию.
  */
-@Disabled
-@TeleOp(name = "telemetry")
+
+//@Disabled
+@TeleOp(name = "gamepads", group = "testing")
 public class TelemetryOp extends LinearOpMode {
+    boolean gm1 = false, gm2 = false;
 
     @Override
     public void runOpMode() {
+        int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+        final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+        float[] values = {0,0,0};
+
         waitForStart();
         while (opModeIsActive()) {
-            //double тип данных.
-            telemetry.addData("left_stick_y", gamepad1.left_stick_y);
-            telemetry.addData("left_stick_x", gamepad1.left_stick_x);
-            telemetry.addData("right_stick_y", gamepad1.right_stick_y);
-            telemetry.addData("right_stick_x", gamepad1.right_stick_x);
-            telemetry.addData("right_trigger", gamepad1.right_trigger);
-            telemetry.addData("left_trigger", gamepad1.left_trigger);
-            telemetry.addData("right_bumper", gamepad1.right_bumper);
-            telemetry.addData("left_bumper", gamepad1.left_bumper);
+            //стики
+            telemetry.addData("left_stick_y: ", "%5.3f : %5.3f", gamepad1.left_stick_y, gamepad2.left_stick_y);
+            telemetry.addData("left_stick_x: ", "%5.3f : %5.3f", gamepad1.left_stick_x, gamepad2.left_stick_x);
+            telemetry.addData("right_stick_y: ", "%5.3f : %5.3f", gamepad1.right_stick_y, gamepad2.right_stick_y);
+            telemetry.addData("right_stick_x: ", "%5.3f : %5.3f", gamepad1.right_stick_x, gamepad2.right_stick_x);
+            telemetry.addData("left_stick_button: ", "%b : %b", gamepad1.left_stick_button, gamepad2.left_stick_button);
+            telemetry.addData("right_stick_button: ", "%b : %b", gamepad1.right_stick_button, gamepad2.right_stick_button);
 
-            //boolean тип данных.
-            //может быть лучший метод сделать отдельный вывод состояния кнопки, но мы его не знаем :)
-            if(gamepad1.a) telemetry.addLine("'a' is pressed");
-            if(gamepad1.b) telemetry.addLine("'b' is pressed");
-            if(gamepad1.x) telemetry.addLine("'x' is pressed");
-            if(gamepad1.y) telemetry.addLine("'y' is pressed");
+            //курки
+            telemetry.addData("left_trigger: ", "%5.3f : %5.3f", gamepad1.left_trigger, gamepad2.left_trigger);
+            telemetry.addData("right_trigger: ", "%5.3f : %5.3f", gamepad1.right_trigger, gamepad2.right_trigger);
+            telemetry.addData("left_bumper: ", "%b : %b", gamepad1.left_bumper, gamepad2.left_bumper);
+            telemetry.addData("right_bumper: ", "%b : %b", gamepad1.right_bumper, gamepad2.right_bumper);
 
-            if(gamepad1.dpad_down)  telemetry.addLine("'dpad_down' is pressed");
-            if(gamepad1.dpad_right) telemetry.addLine("'dpad_right' is pressed");
-            if(gamepad1.dpad_left)  telemetry.addLine("'dpad_left' is pressed");
-            if(gamepad1.dpad_up)    telemetry.addLine("'dpad_up' is pressed");
+            //левый крест
+            telemetry.addData("right: ", "%b : %b", gamepad1.dpad_right, gamepad2.dpad_right);
+            telemetry.addData("left ", "%b : %b", gamepad1.dpad_left, gamepad2.dpad_left);
+            telemetry.addData("up: ", "%b : %b", gamepad1.dpad_up, gamepad2.dpad_up);
+            telemetry.addData("down: ", "%b : %b", gamepad1.dpad_down, gamepad2.dpad_down);
 
-            if(gamepad1.right_stick_button) telemetry.addLine("'right_stick_button' is pressed");
-            if(gamepad1.left_stick_button)  telemetry.addLine("'left_stick_button' is pressed");
+            //правый крест
+            telemetry.addData("x: ", "%b : %b", gamepad1.x, gamepad2.x);
+            telemetry.addData("y: ", "%b : %b", gamepad1.y, gamepad2.y);
+            telemetry.addData("a: ", "%b", gamepad2.a); //проверяем статус кнопки несоответствующего геймпада в последнюю очередь
+            telemetry.addData("b: ", "%b", gamepad1.b);
 
-            if(gamepad1.right_bumper)   telemetry.addLine("'right_bumper' is pressed");
-            if(gamepad1.left_bumper)    telemetry.addLine("'left_bumper' is pressed");
+            //проверили, что все работает - жмем соответствующую кнопку и меняем цвет фона
+            //+синий - первый, +красный - второй. желтый - обоссаться, ничего не работает... фиолетовый - играем!
+            if(gamepad1.a) gm1 = true;
+            if(gamepad2.b) gm2 = true;
+
+            if(gm1) relativeLayout.post(new Runnable() {
+                public void run() {
+                    relativeLayout.setBackgroundColor(Color.BLUE);
+                }
+            });
+            if(gm2) relativeLayout.post(new Runnable() {
+                public void run() {
+                    relativeLayout.setBackgroundColor(Color.RED);
+                }
+            });
+            if(!gm1 && !gm2) relativeLayout.post(new Runnable() {
+                public void run() {
+                    relativeLayout.setBackgroundColor(Color.YELLOW);
+                }
+            });
+            if(gm1 && gm2) relativeLayout.post(new Runnable() {
+                public void run() {
+                    relativeLayout.setBackgroundColor(0xFF00FF);    //это фиолетовый. смесь Red и Blue, где Green == 0
+                }
+            });
 
             telemetry.update();
         }
