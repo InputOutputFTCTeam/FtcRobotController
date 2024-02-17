@@ -27,9 +27,9 @@ import java.util.Locale;
  * По сути это полная копия встроенного класса SensorBNO055IMU.java (external samples)
  */
 
-@Disabled
-@TeleOp(name = "test imu", group = "beta")
-public class ImuRotate extends LinearOpMode {
+//@Disabled
+@TeleOp(name = "imu, how r u?", group = "testing")
+public class ImuDataCollecting extends LinearOpMode {
     BNO055IMU imu;
     Orientation angles;
     Acceleration gravity;

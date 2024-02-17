@@ -1,19 +1,13 @@
 package org.firstinspires.ftc.teamcode.teleops;
 
-import android.renderscript.ScriptGroup;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.visions.Recognition;
+import org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition;
 import org.openftc.easyopencv.OpenCvCamera;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 
 /**
  * Это наш самописный телеоп без всяких этих ваших ООП...
