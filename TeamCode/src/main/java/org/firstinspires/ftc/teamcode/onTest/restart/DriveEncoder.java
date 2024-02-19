@@ -12,7 +12,7 @@ public class DriveEncoder extends BasicDriveTrain{
     public DriveEncoder(LinearOpMode opMode){
         encoderLinearOpMode = opMode;
         //train = new BasicDriveTrain(encoderLinearOpMode);
-        initMotors(encoderLinearOpMode.hardwareMap);
+        initMotors();
         setModes(DcMotor.RunMode.RUN_USING_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);

@@ -21,11 +21,15 @@ public class BasicDriveTrain {
         driveTrainOpMode = opMode;
     }
 
-    public void initMotors(HardwareMap hwmap){
-        TL = hwmap.dcMotor.get("leftFront");
-        TR = hwmap.dcMotor.get("rightFront");
-        BL = hwmap.dcMotor.get("leftRear");
-        BR = hwmap.dcMotor.get("rightRear");
+    public LinearOpMode getOpMode(){
+        return driveTrainOpMode;
+    }
+    public void setOpMode(LinearOpMode opMode) { driveTrainOpMode = opMode;}
+    public void initMotors(){
+        TL = driveTrainOpMode.hardwareMap.dcMotor.get("leftFront");
+        TR = driveTrainOpMode.hardwareMap.dcMotor.get("rightFront");
+        BL = driveTrainOpMode.hardwareMap.dcMotor.get("leftRear");
+        BR = driveTrainOpMode.hardwareMap.dcMotor.get("rightRear");
         inited = true;
 
         driveTrainOpMode.telemetry.addLine("Driver ready!");

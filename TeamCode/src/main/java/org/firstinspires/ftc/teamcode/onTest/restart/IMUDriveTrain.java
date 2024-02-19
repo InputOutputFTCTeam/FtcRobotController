@@ -1,24 +1,23 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.onTest.restart;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
+import com.qualcomm.hardware.bosch.BNO055IMUNew;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.IMU;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
-@Autonomous(name = "prostecki")
-public class ProsteckiAutonom extends LinearOpMode {
-    //моторы
-    DcMotor TR=null, TL=null, BR=null, BL=null;
-    IMU imu = null;
+public class IMUDriveTrain extends BasicDriveTrain {
+
+    BNO055IMUNew imu = null;
     double headingError  = 0;
-    static final double     P_TURN_GAIN            = 0.02;
+    static final double     P_TURN_GAIN            = 0.01;
     static final double     P_DRIVE_GAIN           = 0.03;
     private double  targetHeading = 0;
     private double  driveSpeed    = 0;
@@ -29,64 +28,39 @@ public class ProsteckiAutonom extends LinearOpMode {
     private int     rightTarget   = 0;
 
     static final double     HEADING_THRESHOLD       = 1.0 ;
-    double x, y;
-    //объявить хардвер
-    @Override
-    public void runOpMode(){
-        TL = hardwareMap.dcMotor.get("leftFront");
-        TR = hardwareMap.dcMotor.get("rightFront");
-        BL = hardwareMap.dcMotor.get("leftRear");
-        BR = hardwareMap.dcMotor.get("rightRear");
+    static final double     SPEED_THRESHOLD         = 0.2 ;
+    static final double     COUNTS_PER_MOTOR_REV    = 1440 ;
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;
+    static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
 
-        TL.setDirection(DcMotorSimple.Direction.FORWARD);
-        TR.setDirection(DcMotorSimple.Direction.REVERSE);
-        BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        BR.setDirection(DcMotorSimple.Direction.REVERSE);
+    RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;       //направление того, как установлен Rev Hub (logo)
+    RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;   //направление того, как установлен Rev Hub (USB)
+    RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
-        RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.UP;       //направление того, как установлен Rev Hub (logo)
-        RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.FORWARD;   //направление того, как установлен Rev Hub (USB)
-        RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
-
-        imu = hardwareMap.get(IMU.class, "imu");
-        imu.initialize(new IMU.Parameters(orientationOnRobot));
-        imu.resetYaw();
-
-        telemetry.addLine("Ready to start");
-        telemetry.update();
-
-        waitForStart();
-
-        if(opModeIsActive()) {   //действия, которые будут выполняться во время автонома
-            turnToHeading(0.2, 90);
-        }
+    public IMUDriveTrain() {}
+    public IMUDriveTrain(LinearOpMode gyroOpMode){
+        //new BasicDriveTrain(gyroOpMode);
+        setOpMode(gyroOpMode);
     }
 
-    /*public void MoveByTime(double x, double y, int milliseconds){     //а зачем оно вообще тут?? (не используется)
-
-        TR.setPower(-x-y);
-        BR.setPower(x-y);
-        BL.setPower(x+y);
-        TL.setPower(-x+y);
-        telemetry.addLine("running");
-        telemetry.update();
-
-        sleep(milliseconds);
-    }*/
-
-    /*public void Ostanovka(){                                          //а зачем оно вообще тут?? (не используется)
-            TR.setPower(0);
-            BR.setPower(0);
-            BL.setPower(0);
-            TL.setPower(0);
-    }*/
+    public void initIDT() {
+        initMotors();
+        setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setOneDirection(DcMotorSimple.Direction.FORWARD);
+        setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
+        imu = getOpMode().hardwareMap.get(BNO055IMUNew.class, "imu");
+        imu.initialize(new com.qualcomm.robotcore.hardware.IMU.Parameters(orientationOnRobot));
+        imu.resetYaw();
+    }
 
     public void turnToHeading(double maxTurnSpeed, double heading) {
 
         // Run getSteeringCorrection() once to pre-calculate the current error
-        getSteeringCorrection(heading, P_DRIVE_GAIN);
+        getSteeringCorrection(heading, P_TURN_GAIN);
 
         // keep looping while we are still active, and not on heading.
-        while (opModeIsActive() && (Math.abs(headingError) > HEADING_THRESHOLD)) {
+        while (getOpMode().opModeIsActive() && (Math.abs(headingError) > HEADING_THRESHOLD)) {
 
             // Determine required steering to keep on heading
             turnSpeed = getSteeringCorrection(heading, P_TURN_GAIN);
@@ -95,21 +69,35 @@ public class ProsteckiAutonom extends LinearOpMode {
             turnSpeed = Range.clip(turnSpeed, -maxTurnSpeed, maxTurnSpeed);
 
             // Pivot in place by applying the turning correction
-            moveRobot(0, turnSpeed);
+            //moveRobot(0, turnSpeed);
+            moveRobot(0,turnSpeed);
 
             // Display drive status for the driver.
-            sendTelemetry(false);
+            //sendTelemetry(false);
+
+            getOpMode().telemetry.addData("turnSpeed: ", turnSpeed);    //рост
+            getOpMode().telemetry.addData("heading: ", getHeading());   //отрицательный рост
+            getOpMode().telemetry.addData("heading Error: ", headingError); //рост
+            getOpMode().telemetry.addData("steering correction: ", getSteeringCorrection(90, P_TURN_GAIN)); //рост
+            getOpMode().telemetry.update();
+
+
         }
 
         // Stop all motion;
-        moveRobot(0, 0);
+        //moveRobot(0, 0);
+        move(0,0,0);
+    }
+
+    public void stopp(){    //7 БЕД ОДИН ОТВЕТ КОСТЫЛЬ И ВЕЛОСИПЕД
+        move(0,0,0);
     }
 
     public double getSteeringCorrection(double desiredHeading, double proportionalGain) {       //П-регулируемый поворот
         targetHeading = desiredHeading;  // Save for telemetry
 
         // Determine the heading current error
-        headingError = targetHeading - getHeading();
+        headingError = Math.abs(Math.abs(targetHeading) - Math.abs(getHeading()));
 
         // Normalize the error to be within +/- 180 degrees
         while (headingError > 180)  headingError -= 360;
@@ -134,18 +122,15 @@ public class ProsteckiAutonom extends LinearOpMode {
             rightSpeed /= max;
         }
 
-        TL.setPower(leftSpeed);
-        TR.setPower(rightSpeed);
-        BR.setPower(rightSpeed);
-        BL.setPower(leftSpeed);
+        move(0,0,rightSpeed - leftSpeed);
     }
     private void sendTelemetry(boolean straight) {
 
         if (straight) {
             telemetry.addData("Motion", "Drive Straight");
             telemetry.addData("Target Pos L:R",  "%7d:%7d",      leftTarget,  rightTarget);
-            telemetry.addData("Actual Pos L:R",  "%7d:%7d",      TL.getCurrentPosition(),
-                    TR.getCurrentPosition(), BL.getCurrentPosition(), BR.getCurrentPosition());
+            telemetry.addData("Actual Pos L:R",  "%7d:%7d",      getTL().getCurrentPosition(),
+                    getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition());
         } else {
             telemetry.addData("Motion", "Turning");
         }

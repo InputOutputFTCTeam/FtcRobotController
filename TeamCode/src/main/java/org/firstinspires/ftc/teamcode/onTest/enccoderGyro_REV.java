@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.onTest;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.BNO055IMUNew;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,14 +13,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 @Autonomous(name = "ecnGyro_REV 90R_90L", group = "alfa")
 public class enccoderGyro_REV extends enccoder{
-    IMU imu = null;
+    BNO055IMUNew imu = null;
 
     double tolerance = 5;
     double kp = 1;
 
     @Override
     public void runOpMode(){
-        //create what has to be created in runOpMode (because we Override it actually)
+        //create what hsa to be created in runOpMode (because we Override it actually)
         //тут началась инициализация...
 
         //записываем моторы и сервы для проверки конфигурационным файлом (а может быть можно создать xml файл и разметить в нем конфигурацию, чтобы никогда не приходилось ее настраивать???)
@@ -44,7 +46,7 @@ public class enccoderGyro_REV extends enccoder{
         RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.UP;
         RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
-        imu = hardwareMap.get(IMU.class, "imu");
+        imu = hardwareMap.get(BNO055IMUNew.class, "imu");
         imu.initialize(new IMU.Parameters(orientationOnRobot));
 
         while(!isStarted()){
