@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest.restart;
+package org.firstinspires.ftc.teamcode.autos;
 
 import com.qualcomm.hardware.bosch.BNO055IMUNew;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -14,8 +14,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 @Disabled
-@Autonomous(name = "Gyro")
-public class IMU extends LinearOpMode {
+@Autonomous(name = "Gyro Rotate 90", group = "testing")
+public class OurIMU extends LinearOpMode {
     //моторы
     DcMotor TR=null, TL=null, BR=null, BL=null;
     BNO055IMUNew imu = null;

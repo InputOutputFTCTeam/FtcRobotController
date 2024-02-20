@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.onTest;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.robotModules.DriveEncoder;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.DriveEncoder;
 
 /**
  * Это автоном, с помощью которого можно проверить, как работает езда по энкодерам

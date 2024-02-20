@@ -5,7 +5,7 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
-public class OurColor{
+public class OurColor {
     ColorSensor colorSensor;
     ElapsedTime timer = new ElapsedTime();
     public void init (HardwareMap hwMap){

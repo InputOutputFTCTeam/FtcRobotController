@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest.restart;
+package org.firstinspires.ftc.teamcode.robotModules.Sensored;
 
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
 
 public class IMUDriveTrain extends BasicDriveTrain {
 
@@ -86,10 +87,6 @@ public class IMUDriveTrain extends BasicDriveTrain {
 
         // Stop all motion;
         //moveRobot(0, 0);
-        move(0,0,0);
-    }
-
-    public void stopp(){    //7 БЕД ОДИН ОТВЕТ КОСТЫЛЬ И ВЕЛОСИПЕД
         move(0,0,0);
     }
 

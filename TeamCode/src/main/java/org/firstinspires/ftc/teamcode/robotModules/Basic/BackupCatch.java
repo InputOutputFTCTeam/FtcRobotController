@@ -30,7 +30,7 @@ public class BackupCatch {
     }
 
     /**
-     * захватить захват завхатывать захват вооруженный одной сервой
+     * Захватить захват завхатывать захват вооруженный одной сервой
      */
     public void grab(){
         left.setPosition(0.6);   //TODO: подобрать значение
@@ -39,7 +39,7 @@ public class BackupCatch {
     }
 
     /**
-     * отпустить захват
+     * Отпустить захват
      */
     public void ungrab(){
         left.setPosition(0);  //TODO: подобрать значение

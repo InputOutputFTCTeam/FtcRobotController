@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * какие значения надо задавать для телеопа.
  *
  */
-@TeleOp(name = "lohoSet", group = "alfa")
+@TeleOp(name = "lohoSet", group = "testing")
 public class LohotronSetter extends LinearOpMode {
     Servo servobox, lohotronMain, lohotron, claw;   //объявили сервы нашего лохотрона
     Servo leftHook1, leftHook2, rightHook1, rightHook2;
