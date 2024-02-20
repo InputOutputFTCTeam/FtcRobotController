@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.onTest;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -7,12 +8,17 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
-/*
-    TODO: test on robot;
-     надеюсь, что он не сломается из-за idle()
+/**
+ * Это рабочая заготовка кода. отсюда можно взять пример, как сделать кнопку срабатывающую в режиме
+ * нажал-отпустил
+ * <p>
+ * Этот код работает через цикл while. В external.samples есть пример рабочего кода с датчиком цвета. Там
+ * переключается встроенный в датчик светодиод. Тот пример реализован через if (отслеживается xButtonPreviouslyPressed)
  */
 
+//  todo: переместить в Мусор после Национального
 
+@Disabled
 @TeleOp(name = "plane setter while", group = "alfa")
 public class planeSetter_while extends LinearOpMode {
     Servo angle, shooter;
