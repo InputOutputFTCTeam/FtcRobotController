@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.visions;
+package org.firstinspires.ftc.teamcode.robotModules.Sensors.visions;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;

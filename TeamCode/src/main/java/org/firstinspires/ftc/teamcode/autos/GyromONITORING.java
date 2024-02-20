@@ -12,7 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Locale;
 
 @Autonomous(name = "Gyro monitoring")
-public class GyromONITORING extends LinearOpMode {
+public class GyroMonitoring extends LinearOpMode {
 
     BNO055IMU imu;
     Orientation angles;

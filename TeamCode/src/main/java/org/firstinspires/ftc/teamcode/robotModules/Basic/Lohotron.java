@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest.restart;
+package org.firstinspires.ftc.teamcode.robotModules.Basic;
 
 import static java.lang.Thread.sleep;
 
@@ -6,14 +6,27 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
+/**
+ * Этот класс описывает работу лохотрона на нашем роботе
+ */
+
 public class Lohotron {
     private Servo perevorot, main, claw;
     private LinearOpMode lohotronOpMode = null; //объект описывающий опмод, в котором будет использоваться наш лохотрон
     private boolean down = false, mid = false, clawClosed = false;
+
+    /**
+     * Создаем лохотрон, как класс внутри opMod-а
+     * @param opMode - обычно "this", задает в каком потоке оперирует наш лохотрон
+     */
     public Lohotron(LinearOpMode opMode){
         lohotronOpMode = opMode;
     }
 
+    /**
+     * Инициализация лохотрона для opMode. Добавление в конфигурацию
+     * @param hwMap - hardwareMap того OpMode в котором запускается робот
+     */
     public void initLohotron(HardwareMap hwMap){
         perevorot = hwMap.servo.get("lohotron");
         main =      hwMap.servo.get("lohotronMain");
@@ -25,6 +38,9 @@ public class Lohotron {
         lohotronOpMode.telemetry.addLine("Lohotron ready!");
     }
 
+    /**
+     * Добавляем в телементрию информацию о положении ключевых механизмов
+     */
     public void lohotronTelemetry(){
         //lohotronOpMode.telemetry.addData("lohotron ", down ? "opushen" : "podniat");
         lohotronOpMode.telemetry.addData("lohorton ", down ? "opushen" : mid ? "mid" : "podniat");
@@ -34,6 +50,9 @@ public class Lohotron {
         lohotronOpMode.telemetry.addData("zahvacheno: ", isClawClosed());
     }
 
+    /**
+     * Поднимает лохотрон
+     */
     public void armRaiser(){
         main.setPosition(0.66);     //поменять на 0.5 чтобы было параллельно заднику         //0.64 - касается распорки-ограничителя
         lohotronOpMode.sleep(150);
@@ -43,6 +62,10 @@ public class Lohotron {
         down = false;
         mid = false;
     }
+
+    /**
+     * Опускает лохотрон
+     */
     public void armLowerer(){
         perevorot.setPosition(0.905);            ////Тестить это
         lohotronOpMode.sleep(150);
@@ -52,6 +75,10 @@ public class Lohotron {
         down = true;
         mid = false;
     }
+
+    /**
+     * Ставим лохотрон в серединное положение
+     */
     public void armMid(){
         main.setPosition(0.1);
         perevorot.setPosition(0.95);
@@ -64,6 +91,9 @@ public class Lohotron {
     boolean armRaised = false;
     boolean armMid = false;
 
+    /**
+     * Поднимаем и опускаем лохотрон с помощью одной кнопки
+     */
     public void armLogicalRaise_Lower(){
         if(!armRaised) armRaiser(); else armLowerer();
         armRaised = !armRaised;
@@ -77,7 +107,7 @@ public class Lohotron {
     }
 
     /**
-     * держать пиксель
+     * Держать пиксель
      */
     public void closeClaw(){
         claw.setPosition(0.1);
@@ -85,12 +115,17 @@ public class Lohotron {
     }
 
     /**
-     * отпустить пиксель
+     * Отпустить пиксель
      */
     public void openClaw(){
         claw.setPosition(0);
         clawClosed = false;
     }
+
+    /**
+     * Логическая функция, которая возвращает информацию о нынешнем положении захвата
+     * @return
+     */
     public boolean isClawClosed(){
         return clawClosed;
     }

@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode.onTest.restart;
+package org.firstinspires.ftc.teamcode.onTest;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.teamcode.robotModules.DriveEncoder;
 
 /**
  * Это автоном, с помощью которого можно проверить, как работает езда по энкодерам

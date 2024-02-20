@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.teleops;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -27,9 +26,9 @@ import java.util.Locale;
  * По сути это полная копия встроенного класса SensorBNO055IMU.java (external samples)
  */
 
-@Disabled
-@TeleOp(name = "test imu", group = "beta")
-public class ImuRotate extends LinearOpMode {
+//@Disabled
+@TeleOp(name = "imu monitoring", group = "testing")
+public class ImuMonitoring extends LinearOpMode {
     BNO055IMU imu;
     Orientation angles;
     Acceleration gravity;

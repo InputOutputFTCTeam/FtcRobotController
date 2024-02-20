@@ -2,11 +2,7 @@ package org.firstinspires.ftc.teamcode.autos;
 
 
 
-import static org.firstinspires.ftc.teamcode.visions.Recognition.RingPosition.FOUR;
-
-import static org.firstinspires.ftc.teamcode.visions.Recognition.RingPosition.ONE;
-
-import static org.firstinspires.ftc.teamcode.visions.Recognition.RingPosition.ZERO;
+import static org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition.RingPosition.ZERO;
 
 
 
@@ -16,8 +12,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-import com.qualcomm.robotcore.hardware.CRServo;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -33,7 +27,7 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
 
-import org.firstinspires.ftc.teamcode.visions.Recognition;
+import org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition;
 
 import org.openftc.easyopencv.OpenCvCamera;
 
