@@ -33,11 +33,11 @@ public class BasicDriveTrain {
      * Инициализация кб для opMode. Добавление в конфигурацию
      * @param hwmap - hardwareMap, который используется внутри opMode
      */
-    public void initMotors(HardwareMap hwmap){
-        TL = hwmap.dcMotor.get("leftFront");
-        TR = hwmap.dcMotor.get("rightFront");
-        BL = hwmap.dcMotor.get("leftRear");
-        BR = hwmap.dcMotor.get("rightRear");
+    public void initMotors(){
+        TL = driveTrainOpMode.hardwareMap.dcMotor.get("leftFront");
+        TR = driveTrainOpMode.hardwareMap.dcMotor.get("rightFront");
+        BL = driveTrainOpMode.hardwareMap.dcMotor.get("leftRear");
+        BR = driveTrainOpMode.hardwareMap.dcMotor.get("rightRear");
         inited = true;
 
         driveTrainOpMode.telemetry.addLine("Driver ready!");

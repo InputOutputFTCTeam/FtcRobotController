@@ -31,7 +31,7 @@ public class TeleOperatingMode extends LinearOpMode {
     @Override
     public void runOpMode(){
 
-        wheelbase.initMotors(hardwareMap);
+        wheelbase.initMotors();
         wheelbase.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         wheelbase.setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         wheelbase.setOneDirection(DcMotorSimple.Direction.FORWARD);
