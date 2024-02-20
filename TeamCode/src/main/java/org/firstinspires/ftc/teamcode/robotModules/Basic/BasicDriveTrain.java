@@ -29,8 +29,6 @@ public class BasicDriveTrain {
         driveTrainOpMode = opMode;
     }
 
-
-
     public LinearOpMode getOpMode() {
         return driveTrainOpMode;
     }

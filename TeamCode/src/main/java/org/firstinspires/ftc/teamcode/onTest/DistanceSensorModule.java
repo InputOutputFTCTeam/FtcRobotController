@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  * Класс датчика расстояния для измерения расстояния до Задника, чтобы притормозить, когда будем
  * близко к заднику
  * <p>
- * Измеримое расстояние от 5см до 200см
+ * Измеримое расстояние от 50мм до 2000мм
  */
 
 public class DistanceSensorModule {

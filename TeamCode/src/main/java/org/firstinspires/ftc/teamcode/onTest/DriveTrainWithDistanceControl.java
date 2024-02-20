@@ -4,38 +4,47 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
 
 //TODO: добавить в Robot/modules
 
 public class DriveTrainWithDistanceControl extends BasicDriveTrain{
-    DistanceSensorModule ds = new DistanceSensorModule(this);
-    BasicDriveTrain dt = new BasicDriveTrain(this);
+    private LinearOpMode DTDSOpMode = null;
+    private DistanceSensorModule ds = null;
 
-    double POWER_CONTROL = 1;
-    @Override
-    public void runOpMode(){
+    private static final double POWER_CONTROL = 1;
+
+    public DriveTrainWithDistanceControl(LinearOpMode opMode){
+        DTDSOpMode = opMode;
+        ds = new DistanceSensorModule(DTDSOpMode);
+    }
+
+    public void initDTDS(){
         ds.initDistanceSensor();
-        dt.initMotors();
-        dt.setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        dt.setOneDirection(DcMotorSimple.Direction.FORWARD);
-        dt.setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
+        initMotors();
+        setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setOneDirection(DcMotorSimple.Direction.FORWARD);
+        setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
+    }
 
-        waitForStart();
-        while (opModeIsActive()){
-            if(ds.distanceMM() > 200){
-                POWER_CONTROL = 1;
-            } else if (ds.distanceMM() > 50 && ds.distanceMM() < 200) {
-                POWER_CONTROL = 0.4;
-            }
-            dt.move(POWER_CONTROL * gamepad1.left_stick_x,
-                    POWER_CONTROL * gamepad1.left_stick_y,
-                    POWER_CONTROL * (gamepad1.right_trigger - gamepad2.left_trigger));
-
-            telemetry.addData("Power control: ", POWER_CONTROL);
-            telemetry.addData("Distance: ", ds.distanceMM());
-            telemetry.update();
+    //@Override     //to do this superclass must be abstract. but is it possible to make it abstract?
+    public void move(double x, double y, double r){
+        if(ds.distanceMM() > 200){
+            getTL().setPower(Range.clip((x+y+r), -1, 1));
+            getTR().setPower(Range.clip((x-y+r), -1, 1));
+            getBL().setPower(Range.clip((-x+y+r), -1, 1));
+            getBR().setPower(Range.clip((-x-y+r), -1, 1));
+        } else if((ds.distanceMM() > 50 && ds.distanceMM() < 200) || ds.distanceMM()<50){   //блин, а какие значения он будет выдавать на расстоянии меньше 5 см и на расстоянии больше 200 см???
+            getTL().setPower(Range.clip((x+y+r) * POWER_CONTROL, -1, 1));
+            getTR().setPower(Range.clip((x-y+r) * POWER_CONTROL, -1, 1));
+            getBL().setPower(Range.clip((-x+y+r) * POWER_CONTROL, -1, 1));
+            getBR().setPower(Range.clip((-x-y+r) * POWER_CONTROL, -1, 1));
         }
+    }
+
+    public void dtdsTelemetry() {
+        DTDSOpMode.telemetry.addData("distance: ", ds.distanceMM());
     }
 }
