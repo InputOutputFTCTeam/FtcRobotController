@@ -28,7 +28,7 @@ public class colorSens extends LinearOpMode {
     int startPositionTL, startPositionTR, startPositionBL, startPositionBR;
 
     @Override
-    public void runOpMode(){
+    public void runOpMode() {
         //init sensor and motors
         //записываем моторы и сервы для проверки конфигурационным файлом (а может быть можно создать xml файл и разметить в нем конфигурацию, чтобы никогда не приходилось ее настраивать???)
         TL = hardwareMap.dcMotor.get("leftFront");
@@ -51,49 +51,53 @@ public class colorSens extends LinearOpMode {
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
 
         if (colorSensor instanceof SwitchableLight) {
-            ((SwitchableLight)colorSensor).enableLight(true);   //люстра
+            ((SwitchableLight) colorSensor).enableLight(true);   //люстра
         }
 
         //было бы здорово понимать, что происходит с данными робота и геймпадов, пока кнопка старт не была нажата
-        while(!isStarted()){
-            composeTelemetry();
+        while (!isStarted()) {
+            //composeTelemetry();
+            Color.colorToHSV(colorSensor.getNormalizedColors().toColor(), hsvValues);
+            telemetry.addData("hue: %f \nsaturation: %f \nvalue: %f", hsvValues);
             telemetry.update();
+
             idle();
         }
 
         waitForStart();
-        if(opModeIsActive()){
-            if(!isOnBlueLine()){
-                moveBy4Encoders(0, 0.5, 0, 100, true);
+        if (opModeIsActive()) {
+            if (!isOnBlueLine()) {
+                //moveBy4Encoders(0, 0.5, 0, 100, true);
                 sleep(500);
             }
         }
     }
+
     //функция опроса датчика  цвета
-    boolean isOnBlueLine(){
+    boolean isOnBlueLine() {
         boolean res = false;
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), hsvValues);
 
-        if(hsvValues[0] > 190 && hsvValues[0] < 250){ //синий цвет в этом диапозоне
+        if (hsvValues[0] > 190 && hsvValues[0] < 250) { //синий цвет в этом диапозоне
             res = true;
         }
         return res;
     }
 
-    boolean isOnRedLine(){
+    boolean isOnRedLine() {
         boolean res = false;
         NormalizedRGBA colors = colorSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), hsvValues);
 
-        if((hsvValues[0] > 0 && hsvValues[0] < 50) || hsvValues[0] > 320 && hsvValues[0] < 360){ //красный цвет в этом диапозоне
+        if ((hsvValues[0] > 0 && hsvValues[0] < 50) || hsvValues[0] > 320 && hsvValues[0] < 360) { //красный цвет в этом диапозоне
             res = true;
         }
         return res;
     }
 
     //полиморфизм. в одном из методов не проверяется наличие линии, чтобы тот в котором проверяется наличие линии мог сделать небольшой проезд
-    public void moveBy4Encoders(double x, double y, double r, double distanceCM){
+    /*public void moveBy4Encoders(double x, double y, double r, double distanceCM){
         startPositionTL = TL.getCurrentPosition();
         startPositionTR = TR.getCurrentPosition();
         startPositionBL = BL.getCurrentPosition();
@@ -124,9 +128,9 @@ public class colorSens extends LinearOpMode {
         telemetry.addLine();
         composeTelemetry();
         telemetry.update();
-    }
+    }*/
 
-    public void moveBy4Encoders(double x, double y, double r, double distanceCM, boolean lines){
+    /*public void moveBy4Encoders(double x, double y, double r, double distanceCM, boolean lines){
         startPositionTL = TL.getCurrentPosition();
         startPositionTR = TR.getCurrentPosition();
         startPositionBL = BL.getCurrentPosition();
@@ -178,20 +182,20 @@ public class colorSens extends LinearOpMode {
         telemetry.addLine();
         composeTelemetry();
         telemetry.update();
+    }*/
+
+    public void move(double x, double y, double r) {
+        TR.setPower(-x - y + r);
+        BR.setPower(x - y + r);
+        BL.setPower(x + y + r);
+        TL.setPower(-x + y + r);
     }
 
-    public void move(double x, double y, double r){
-        TR.setPower(-x-y+r);
-        BR.setPower(x-y+r);
-        BL.setPower(x+y+r);
-        TL.setPower(-x+y+r);
+    public void stopp() {
+        move(0, 0, 0);
     }
 
-    public void stopp(){
-        move(0,0,0);
-    }
-
-    void composeTelemetry(){
+    /*void composeTelemetry(){
         //значения rgb и hsv с датчика цвета
         colors = colorSensor.getNormalizedColors();     //получить значения с датчика в стандартном виде в RGB палитре
         Color.colorToHSV(colors.toColor(), hsvValues);  //перевод значений из датчика в массив, хранящий значения hsv палитры
@@ -220,5 +224,5 @@ public class colorSens extends LinearOpMode {
                 .addData("TL: ", TL.getPower())
                 .addData("BR: ", BR.getPower())
                 .addData("BL: ", BL.getPower());
-    }
+    }*/
 }
