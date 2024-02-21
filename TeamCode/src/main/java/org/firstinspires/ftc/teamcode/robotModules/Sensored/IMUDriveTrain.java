@@ -14,8 +14,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
 
+/**
+ * В этом классе описываются основные методы для гироскопа на основе BNO055IMU.
+ * Класс наследуется от BasicDriveTrain
+ */
 public class IMUDriveTrain extends BasicDriveTrain {
-
     BNO055IMUNew imu = null;
     double headingError  = 0;
     static final double     P_TURN_GAIN            = 0.01;
@@ -34,16 +37,23 @@ public class IMUDriveTrain extends BasicDriveTrain {
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;
 
+    /**
+     * Настроиваем ориентацию Контрол/Экспеншн хаба в пространстве
+     */
     RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;       //направление того, как установлен Rev Hub (logo)
     RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;   //направление того, как установлен Rev Hub (USB)
     RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
+
     public IMUDriveTrain() {}
+     /** Создаём КБ, как класс внутри opMode */
     public IMUDriveTrain(LinearOpMode gyroOpMode){
-        //new BasicDriveTrain(gyroOpMode);
         setOpMode(gyroOpMode);
     }
 
+    /**
+     * инициалируем КБ для opMode,настроиваем гироскоп
+     */
     public void initIDT() {
         initMotors();
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -55,12 +65,11 @@ public class IMUDriveTrain extends BasicDriveTrain {
         imu.resetYaw();
     }
 
+    /**  метод для поворота на n гразусов с n-й скоростью */
     public void turnToHeading(double maxTurnSpeed, double heading) {
 
-        // Run getSteeringCorrection() once to pre-calculate the current error
         getSteeringCorrection(heading, P_TURN_GAIN);
 
-        // keep looping while we are still active, and not on heading.
         while (getOpMode().opModeIsActive() && (Math.abs(headingError) > HEADING_THRESHOLD)) {
 
             // Determine required steering to keep on heading
@@ -89,7 +98,7 @@ public class IMUDriveTrain extends BasicDriveTrain {
         //moveRobot(0, 0);
         move(0,0,0);
     }
-
+/** метод для коррекции отклонения от целеого значения */
     public double getSteeringCorrection(double desiredHeading, double proportionalGain) {       //П-регулируемый поворот
         targetHeading = desiredHeading;  // Save for telemetry
 
@@ -103,15 +112,16 @@ public class IMUDriveTrain extends BasicDriveTrain {
         // Multiply the error by the gain to determine the required steering correction/  Limit the result to +/- 1.0
         return Range.clip(headingError * proportionalGain, -1, 1);
     }
-
+/**
+ * метод для передвижения робота в пространстве
+ */
     public void moveRobot(double drive, double turn) {
-        driveSpeed = drive;     // save this value as a class member so it can be used by telemetry.
-        turnSpeed  = turn;      // save this value as a class member so it can be used by telemetry.
+        driveSpeed = drive;
+        turnSpeed  = turn;
 
         leftSpeed  = drive - turn;
         rightSpeed = drive + turn;
 
-        // Scale speeds down if either one exceeds +/- 1.0;
         double max = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));
         if (max > 1.0)
         {
@@ -125,8 +135,8 @@ public class IMUDriveTrain extends BasicDriveTrain {
 
         if (straight) {
             telemetry.addData("Motion", "Drive Straight");
-            telemetry.addData("Target Pos L:R",  "%7d:%7d",      leftTarget,  rightTarget);
-            telemetry.addData("Actual Pos L:R",  "%7d:%7d",      getTL().getCurrentPosition(),
+            telemetry.addData("Target Pos Left:Right",  "%7d:%7d",      leftTarget,  rightTarget);
+            telemetry.addData("Actual Pos Left:Right",  "%7d:%7d",      getTL().getCurrentPosition(),
                     getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition());
         } else {
             telemetry.addData("Motion", "Turning");
