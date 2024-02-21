@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -11,42 +12,18 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 
 /*
-    TODO: проверить enccoder.java сначала!
-        проверить цвета внутри инициализации
-        протестировать остальную часть этого opMode
+    TODO:проверить цвета внутри инициализации
  */
 
-@Autonomous(name = "skiesOfBlue", group = "alfa")
+@TeleOp(name = "skiesOfBlue", group = "alfa")
 public class colorSens extends LinearOpMode {
-    //создать датчик цвета и моторы
-    DcMotor TL, TR, BL, BR;
     NormalizedColorSensor colorSensor;
     NormalizedRGBA colors;
 
     float hsvValues[] = new float[3];
 
-    int startPositionTL, startPositionTR, startPositionBL, startPositionBR;
-
     @Override
     public void runOpMode() {
-        //init sensor and motors
-        //записываем моторы и сервы для проверки конфигурационным файлом (а может быть можно создать xml файл и разметить в нем конфигурацию, чтобы никогда не приходилось ее настраивать???)
-        TL = hardwareMap.dcMotor.get("leftFront");
-        TR = hardwareMap.dcMotor.get("rightFront");
-        BL = hardwareMap.dcMotor.get("leftRear");
-        BR = hardwareMap.dcMotor.get("rightRear");
-
-        //задаем моторам направление вращения
-        TL.setDirection(DcMotorSimple.Direction.FORWARD);
-        TR.setDirection(DcMotorSimple.Direction.FORWARD);
-        BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        BR.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        //включаем режим работы по энкодерам. все провода должны быть подкючены
-        TL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        TR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        BR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         colorSensor = hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
 
@@ -58,10 +35,9 @@ public class colorSens extends LinearOpMode {
         while (!isStarted()) {
             //composeTelemetry();
             Color.colorToHSV(colorSensor.getNormalizedColors().toColor(), hsvValues);
-            telemetry.addData("hue: %f \nsaturation: %f \nvalue: %f", hsvValues);
+            telemetry.addLine("hue: " + hsvValues[0] + "\nsaturation: " + hsvValues[1] + "\nvalue: " + hsvValues[2]);
             telemetry.update();
-//
-            idle();
+            //idle();
         }
 
         waitForStart();
@@ -184,16 +160,7 @@ public class colorSens extends LinearOpMode {
         telemetry.update();
     }*/
 
-    public void move(double x, double y, double r) {
-        TR.setPower(-x - y + r);
-        BR.setPower(x - y + r);
-        BL.setPower(x + y + r);
-        TL.setPower(-x + y + r);
-    }
 
-    public void stopp() {
-        move(0, 0, 0);
-    }
 
     /*void composeTelemetry(){
         //значения rgb и hsv с датчика цвета
