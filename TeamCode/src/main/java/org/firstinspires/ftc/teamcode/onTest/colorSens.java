@@ -60,7 +60,7 @@ public class colorSens extends LinearOpMode {
             Color.colorToHSV(colorSensor.getNormalizedColors().toColor(), hsvValues);
             telemetry.addData("hue: %f \nsaturation: %f \nvalue: %f", hsvValues);
             telemetry.update();
-
+//
             idle();
         }
 
