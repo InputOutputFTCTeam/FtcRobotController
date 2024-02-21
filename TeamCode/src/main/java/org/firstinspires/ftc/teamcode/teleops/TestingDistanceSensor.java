@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.teleops;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
 
 /**
  * А работает ли он вообще, в принципе?
@@ -9,7 +11,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  */
 
 @TeleOp(name = "testing Distance Sensor", group = "alfa")
-public class T_TestingDistanceSensor extends LinearOpMode {
+public class TestingDistanceSensor extends LinearOpMode {
     DistanceSensorModule dsens = new DistanceSensorModule(this);
 
     @Override

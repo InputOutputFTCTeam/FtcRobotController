@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.robotModules.Sensors;
 
 /*
 TODO: добавить этот класс в Robot.Sensors
