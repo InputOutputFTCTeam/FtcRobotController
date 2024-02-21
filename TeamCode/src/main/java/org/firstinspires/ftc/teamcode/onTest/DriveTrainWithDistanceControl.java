@@ -1,12 +1,12 @@
 package org.firstinspires.ftc.teamcode.onTest;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
 
 //TODO: добавить в Robot/modules
 
@@ -14,7 +14,7 @@ public class DriveTrainWithDistanceControl extends BasicDriveTrain{
     private LinearOpMode DTDSOpMode = null;
     private DistanceSensorModule ds = null;
 
-    private static final double POWER_CONTROL = 1;
+    private static final double POWER_CONTROL = 0.3;
 
     public DriveTrainWithDistanceControl(LinearOpMode opMode){
         DTDSOpMode = opMode;

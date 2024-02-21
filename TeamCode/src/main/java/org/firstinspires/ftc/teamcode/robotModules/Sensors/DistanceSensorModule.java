@@ -1,9 +1,5 @@
 package org.firstinspires.ftc.teamcode.robotModules.Sensors;
 
-/*
-TODO: добавить этот класс в Robot.Sensors
- */
-
 import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;

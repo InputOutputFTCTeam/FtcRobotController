@@ -6,6 +6,10 @@ package org.firstinspires.ftc.teamcode.onTest;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+/**
+ * Этот телеоп создан, чтобы протестировать езду с контролем скорости при приближении к препятсвию (заднику)
+ */
+
 @TeleOp(name = "Tele V9", group = "alfa")
 public class TeleOperatingMode extends LinearOpMode {
     DriveTrainWithDistanceControl dtdc = new DriveTrainWithDistanceControl(this);
