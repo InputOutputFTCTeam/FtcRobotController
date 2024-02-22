@@ -12,17 +12,19 @@ public class DriveEncoder extends BasicDriveTrain {
     //BasicDriveTrain train;
 
     public DriveEncoder(LinearOpMode opMode){
+        new BasicDriveTrain(opMode);
+        setOpMode(opMode);
         encoderLinearOpMode = opMode;
         //train = new BasicDriveTrain(encoderLinearOpMode);
+    }
+
+    public void initDE(){
         initMotors();
+        setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setModes(DcMotor.RunMode.RUN_USING_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
     }
-
-    public void createBasic(){
-    }
-
     public void oneSpin(DcMotor motor){
         int stPos = Math.abs(motor.getCurrentPosition());
         while(encoderLinearOpMode.opModeIsActive() && Math.abs(Math.abs(motor.getCurrentPosition()) - stPos) < 1440){

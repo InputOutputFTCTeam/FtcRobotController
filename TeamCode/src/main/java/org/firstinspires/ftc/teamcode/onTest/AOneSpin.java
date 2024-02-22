@@ -22,7 +22,7 @@ public class AOneSpin extends LinearOpMode {
     @Override
     public void runOpMode(){
         encodedTrain = new DriveEncoder(this);
-        encodedTrain.createBasic(); //это обязательно
+        encodedTrain.initDE();
 
         if(opModeIsActive()) {
             encodedTrain.oneSpin(encodedTrain.getTR());//TODO: сначала тестить это
