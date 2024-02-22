@@ -25,6 +25,7 @@ public class OurColor {
         RED,
         BLACK
     }
+
     public LineColor getWhiteLine(){
         if (getHsv()[2]>42 && getHsv()[0]>100 && getHsv()[0]<190 ){ // getHSV[2]:middle gray-35 black-31(last-18)
             return LineColor.WHITE;
