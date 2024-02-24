@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  */
 
 //@Disabled
-@TeleOp(name = "gamepads", group = "testing")
+@TeleOp(name = "gamepads monitor", group = "testing")
 public class TelemetryOp extends LinearOpMode {
     boolean gm1 = false, gm2 = false;
 

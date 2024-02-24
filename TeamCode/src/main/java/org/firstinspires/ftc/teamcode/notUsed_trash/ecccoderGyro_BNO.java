@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.notUsed_trash;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
@@ -7,6 +7,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -14,6 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 
 import java.util.Locale;
 
+@Disabled
 @Autonomous(name = "encGyro_BNO 90R_90L", group = "alfa")
 public class ecccoderGyro_BNO extends enccoder{
     //initialize imu

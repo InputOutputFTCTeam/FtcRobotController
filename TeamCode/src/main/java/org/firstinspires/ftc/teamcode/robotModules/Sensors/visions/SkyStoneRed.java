@@ -23,6 +23,7 @@ import java.util.List;
  * 100% accurate) method of detecting the skystone when lined up with
  * the sample regions over the first 3 stones.
  */
+@Disabled
 @TeleOp (name = "SkystoneRed")
 public class SkyStoneRed extends LinearOpMode
 {

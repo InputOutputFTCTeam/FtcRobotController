@@ -1,6 +1,7 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.notUsed_trash;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -9,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 /*
     TODO: run test on robot
  */
-
+@Disabled
 @Autonomous(name = "encoder test", group = "alfa")
 public class enccoder extends LinearOpMode {
     DcMotor TL, TR, BL, BR;

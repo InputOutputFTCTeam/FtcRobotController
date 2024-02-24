@@ -27,7 +27,7 @@ import java.util.Locale;
  */
 
 //@Disabled
-@TeleOp(name = "imu monitoring", group = "testing")
+@TeleOp(name = "imu monitor", group = "testing")
 public class ImuMonitoring extends LinearOpMode {
     BNO055IMU imu;
     Orientation angles;

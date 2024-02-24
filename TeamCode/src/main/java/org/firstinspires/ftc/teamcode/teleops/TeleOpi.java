@@ -13,7 +13,7 @@ import org.openftc.easyopencv.OpenCvCamera;
  * Это наш самописный телеоп без всяких этих ваших ООП...
  */
 
-@TeleOp(name = "TeleOp")
+@TeleOp(name = "TeleOp" , group = "z deprecated")   //z to make it's name last
 public class TeleOpi extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
     Servo servobox, lohotronMain, lohotron, claw,

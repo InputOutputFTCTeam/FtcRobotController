@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.robotModules.Sensors.visions;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -7,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 
+@Disabled
 @TeleOp(name = "camtest")
 public class visiontelemetry extends LinearOpMode {
     protected Recognition recognition;

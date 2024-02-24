@@ -3,6 +3,10 @@ package org.firstinspires.ftc.teamcode.onTest;
 //тестовый телеоп
 //TODO: написать телеоп только с колеской и с контролем скорости (тест DriveTrainWithDistanceControl)
 // для чего? чтобы потом реализовать эти настройки в актуальном телеопе и в автономе
+
+
+
+//ждем, пока моделисты смоделит крепление для датчика расстояния, харды установят его... и только тогда мы сможем протестить этот телеоп с этим модулем...
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -10,7 +14,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * Этот телеоп создан, чтобы протестировать езду с контролем скорости при приближении к препятсвию (заднику)
  */
 
-@TeleOp(name = "Tele V9", group = "alfa")
+@TeleOp(name = "distance driver", group = "alfa")
 public class TeleOperatingMode extends LinearOpMode {
     DriveTrainWithDistanceControl dtdc = new DriveTrainWithDistanceControl(this);
 
