@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.robotModules.Sensors;
 
 import android.graphics.Color;
 
@@ -27,9 +27,11 @@ public class ColorSensorModule {
 
     public void initColorSensor() {
         colorSensor = colorSensorOpMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
-        ((SwitchableLight) colorSensor).enableLight(true);
+        //((SwitchableLight) colorSensor).enableLight(true);
         setCSGain();
         colors = colorSensor.getNormalizedColors();
+        Color.colorToHSV(colors.toColor(), hsvValues);
+        colorRGB();
     }
 
     public void setCSGain() {
@@ -59,37 +61,60 @@ public class ColorSensorModule {
         return ((DistanceSensor) colorSensor).getDistance(DistanceUnit.MM);
     }
 
-    public enum colorOf {
+    public enum colorsField {
         WHITE,
         BLACK,
-        BLUE,   //line colors
         RED,
-        YELLOW, //pixel colors
+        BLUE,
+        idkWtfIsThisColor
+    }
+    public enum colorsPixels {
+        WHITE,
+        YELLOW,
         PURPLE,
-        GREEN
+        GREEN,
+        idkWtfIsThisColor
     }
 
-    public colorOf getColorOf() {
-        boolean condition = false;
+    public colorsField getColorOfField() {
         //TODO: написать условия, при которых будут соответствующие цвета
         // (можно через ИЛИ || добавить условия в RGB. или сделать отдельным методом,
         // возращающим colorOf значения
 
-        if(condition)
-            return colorOf.BLACK;
-        if(condition)
-            return colorOf.WHITE;
-        if(condition)
-            return colorOf.BLUE;
-        if(colorHSV()[0] > 0 && colorHSV()[0] < 50 && colorHSV()[1] > 0.5 && colorHSV()[2] > 0.5)
-            return colorOf.RED;
-        if(condition)
-            return colorOf.YELLOW;
-        if(condition)
-            return colorOf.PURPLE;
-        if(condition)
-            return colorOf.GREEN;
+        if (colorRGB()[0] > 0.9 && colorRGB()[1] > 0.9 && colorRGB()[2] > 0.9)
+            return colorsField.WHITE;
+        if (colorRGB()[0] < 0.3 && colorRGB()[1] < 0.3 && colorRGB()[2] < 0.3)
+            return colorsField.BLACK;
+        if (colorHSV()[0] > 180 && colorHSV()[0] < 260 && colorHSV()[1] > 0.3 && colorHSV()[2] > 0.5)
+            return colorsField.BLUE;
+        if (!(colorHSV()[0] > 30 && colorHSV()[0] < 320) && colorHSV()[1] > 0.3 && colorHSV()[2] > 0.5)
+            return colorsField.RED;
+        return colorsField.idkWtfIsThisColor;
+    }
 
-        return null;
+    public colorsPixels getColorOfPixel(float[] color) {
+        if (colorRGB()[0] > 0.9 && colorRGB()[1] > 0.9 && colorRGB()[2] > 0.9)
+            return colorsPixels.WHITE;
+        if (colorHSV()[0] > 35 && colorHSV()[0] < 60 && colorHSV()[1] > 0.75 && colorHSV()[2] > 0.75)
+            return colorsPixels.YELLOW;
+        if (colorHSV()[0] > 260 && colorHSV()[0] < 320 && colorHSV()[1] > 0.75 && colorHSV()[2] > 0.75)
+            return colorsPixels.PURPLE;
+        if (colorHSV()[0] > 70 && colorHSV()[0] < 170 && colorHSV()[1] > 0.75 && colorHSV()[2] > 0.75)
+            return colorsPixels.GREEN;
+        return colorsPixels.idkWtfIsThisColor;
+    }
+
+    public void telemetryColor(){
+        colorSensorOpMode.telemetry.addLine(
+                "red: " + colorRGB()[0] +
+                "\ngreen: " + colorRGB()[1] +
+                "\nblue: " + colorRGB()[2]
+        );
+        colorSensorOpMode.telemetry.addLine(
+                "\nhue: " + colorHSV()[0] +
+                        "\nsaturation: " + colorHSV()[1] +
+                        "\nvalue: " + colorHSV()[2]
+        );
+        colorSensorOpMode.telemetry.addData("\ni see ", getColorOfField());
     }
 }

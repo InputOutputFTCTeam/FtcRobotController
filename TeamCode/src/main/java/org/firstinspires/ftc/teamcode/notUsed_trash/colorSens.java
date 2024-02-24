@@ -1,8 +1,9 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.notUsed_trash;
 
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -11,10 +12,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 
-/*
-    TODO:проверить цвета внутри инициализации
- */
-
+@Disabled
 @TeleOp(name = "skiesOfBlue", group = "alfa")
 public class colorSens extends LinearOpMode {
     NormalizedColorSensor colorSensor;

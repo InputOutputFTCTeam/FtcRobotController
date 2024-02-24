@@ -15,6 +15,7 @@ public class BasicDriveTrain {
 
     private LinearOpMode driveTrainOpMode = null;
     private boolean inited = false, encoded = false;
+    double maximumSpeed = 1;
 
     /**
      * Создаем колесную базу, как класс внутри opMod-а
@@ -124,10 +125,10 @@ public class BasicDriveTrain {
      */
     public void move(double x, double y, double r){
         if(inited){
-            TL.setPower(Range.clip((x+y+r), -1, 1));
-            TR.setPower(Range.clip((x-y+r), -1, 1));
-            BL.setPower(Range.clip((-x+y+r), -1, 1));
-            BR.setPower(Range.clip((-x-y+r), -1, 1));
+            TL.setPower(Range.clip((x+y+r), -maximumSpeed, maximumSpeed));
+            TR.setPower(Range.clip((x-y+r), -maximumSpeed, maximumSpeed));
+            BL.setPower(Range.clip((-x+y+r), -maximumSpeed, maximumSpeed));
+            BR.setPower(Range.clip((-x-y+r), -maximumSpeed, maximumSpeed));
         }
         else {
             driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");
@@ -163,4 +164,8 @@ public class BasicDriveTrain {
     public DcMotor getTR() {return TR;}
     public DcMotor getBL() {return BL;}
     public DcMotor getBR() {return BR;}
+
+    public void setMaximumSpeed(double maximumSpeed) {
+        this.maximumSpeed = maximumSpeed;
+    }
 }
