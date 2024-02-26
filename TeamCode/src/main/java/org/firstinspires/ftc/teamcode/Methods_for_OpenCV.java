@@ -1,32 +1,23 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.methods;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
 import org.opencv.core.Point;
 import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
-import org.openftc.easyopencv.OpenCvWebcam;
-
-import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.ArrayList;
 import java.util.List;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 //Todo: create there all necessary for OpenCV instead of creating new instance in every Autonomous Method
-
-@Autonomous (name = "OpenCV")
 public class Methods_for_OpenCV extends  LinearOpMode{
     static int valLeft;
     static int valRight;
-    public OpenCvWebcam phoneCam;
-    private final ElapsedTime runtime = new ElapsedTime();
     private static double rectHeight = 0.5 / 8;
     private static double rectWidth = 0.5 / 8;
     private static double rectHeight1 = 0.5 / 8;
@@ -86,22 +77,6 @@ public class Methods_for_OpenCV extends  LinearOpMode{
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Methods_for_OpenCV methodsForOpenCV = new Methods_for_OpenCV();
-        int rows = methodsForOpenCV.getRows();
-        int cols = methodsForOpenCV.getCols();
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        phoneCam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        phoneCam.openCameraDevice();
-        phoneCam.setPipeline(new Methods_for_OpenCV.StageSwitchingPipeline());
-        phoneCam.startStreaming(rows, cols, OpenCvCameraRotation.UPRIGHT);
-        telemetry.addData("Values", valLeft + "  " + valRight);
-        telemetry.update();
-        // visionPortall.telemetryAprilTag();
-        valLeft = Methods_for_OpenCV.getValLeft();
-        valRight = Methods_for_OpenCV.getValRight();
-        runtime.reset();
-        waitForStart();
-
     }
 
     public static class StageSwitchingPipeline extends OpenCvPipeline {
@@ -116,8 +91,8 @@ public class Methods_for_OpenCV extends  LinearOpMode{
             RAW_IMAGE,//displays raw view
         }
 
-        private Stage stageToRenderToViewport = Stage.detection;
-        private  Stage[] stages = Stage.values();
+        private Methods_for_OpenCV.StageSwitchingPipeline.Stage stageToRenderToViewport = Methods_for_OpenCV.StageSwitchingPipeline.Stage.detection;
+        private  Methods_for_OpenCV.StageSwitchingPipeline.Stage[] stages = Methods_for_OpenCV.StageSwitchingPipeline.Stage.values();
 
         @Override
         public void onViewportTapped() {
@@ -156,8 +131,8 @@ public class Methods_for_OpenCV extends  LinearOpMode{
             Scalar upperRed = new Scalar(160,255,255);
 
             // Определение диапазона синего цвета в HSV
-            Scalar lowerBlue = new Scalar(210, 73, 90);
-            Scalar upperBlue = new Scalar(220, 80, 100);
+            Scalar lowerBlue = new Scalar(160, 40, 40);
+            Scalar upperBlue = new Scalar(255, 255, 255);
 
             // Создание масок для красного и синего цветов
             Mat redMask = new Mat();
