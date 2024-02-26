@@ -156,8 +156,8 @@ public class Methods_for_OpenCV extends  LinearOpMode{
             Scalar upperRed = new Scalar(160,255,255);
 
             // Определение диапазона синего цвета в HSV
-            Scalar lowerBlue = new Scalar(160, 40, 40);
-            Scalar upperBlue = new Scalar(255, 255, 255);
+            Scalar lowerBlue = new Scalar(210, 73, 90);
+            Scalar upperBlue = new Scalar(220, 80, 100);
 
             // Создание масок для красного и синего цветов
             Mat redMask = new Mat();
