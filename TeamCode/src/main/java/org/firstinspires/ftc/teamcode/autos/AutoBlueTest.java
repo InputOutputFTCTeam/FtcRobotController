@@ -17,55 +17,32 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
 
+import org.firstinspires.ftc.teamcode.robotModules.Basic.BackupCatch;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
+
+//TODO: AutoBlue2
 
 @Autonomous(name = "AutoBlueTest", group = "Actul")
-public class AutoBlueTest extends LinearOpMode{
+public class AutoBlueTest extends LinearOpMode {
     DcMotor TR, TL, BR, BL;
 
-    Servo servobox, lohotronMain, lohotron, zahvat, drop2, drop1, leftHook1, rightHook1;
+    BackupCatch pixel = new BackupCatch(this);
+    IMUDriveTrain idt = new IMUDriveTrain(this);
+    Lohotron lohotron = new Lohotron(this);
 
-    Lohotron pixel = new Lohotron(this);
-
-    double INTAKE_SPEED = 0.7;
-
-    public void armRaise(){
-        lohotronMain.setPosition(0.9); //lohotronMain - подымает всю палку
-        sleep(100);
-        lohotron.setPosition(1); //lohotron - серва на захвате у лохотрона0
-
-    }
-
-    public void armLower(){
-        lohotronMain.setPosition(0);
-        sleep(50);
-        lohotron.setPosition(0);
-
-    }
-
-    public void armMiddle(){
-        lohotron.setPosition(0.6);
-        sleep(50);
-        lohotronMain.setPosition(0.5);
-    }
 
     @Override
     public void runOpMode() {
+        idt.initIDT();
+        lohotron.initLohotron(this.hardwareMap);
+
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
 
-        servobox = hardwareMap.servo.get("servobox");
-        //lohotronMain = hardwareMap.servo.get("lohotronMain");
-        //lohotron = hardwareMap.servo.get("lohotron");
-        //zahvat = hardwareMap.servo.get("zahvat");
-        drop2 = hardwareMap.servo.get("drop2");
-        drop1 = hardwareMap.servo.get("drop1");
-        rightHook1 = hardwareMap.servo.get("rightHook1");
-        leftHook1 = hardwareMap.servo.get("leftHook1");
-
-        pixel.initLohotron(hardwareMap);
+        pixel.initBack();
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -86,46 +63,95 @@ public class AutoBlueTest extends LinearOpMode{
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
 
-                .strafeLeft(50) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
+                .back(31) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
                 .build();
 
         TrajectorySequence traj1_1 = drive.trajectorySequenceBuilder(new Pose2d())
-                .strafeRight(10)
+                .forward(27)
                 .build();
 
         TrajectorySequence traj1_2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(40)
+                .turn(0.192)
                 .build();
 
         TrajectorySequence traj1_3 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(9)
+                .back(120)
                 .build();
 
-        pixel.closeClaw();
-        servobox.setPosition(0.5);
+        TrajectorySequence traj1_4 = drive.trajectorySequenceBuilder(new Pose2d())
+                .turn(-0.192)
+                .build();
+
+        TrajectorySequence traj1_5 = drive.trajectorySequenceBuilder(new Pose2d())
+                .back(15)
+                .build();
+
+        TrajectorySequence traj1_6 = drive.trajectorySequenceBuilder(new Pose2d())
+                .turn(0.192)
+                .build();
+
+        TrajectorySequence traj1_7 = drive.trajectorySequenceBuilder(new Pose2d())
+                .back(10)
+                .build();
+
+        TrajectorySequence traj1_8 = drive.trajectorySequenceBuilder(new Pose2d())
+                .forward(10)
+                .build();
+
+        TrajectorySequence traj1_9 = drive.trajectorySequenceBuilder(new Pose2d())
+                .strafeRight(40)
+                .build();
+
+        TrajectorySequence traj_costil = drive.trajectorySequenceBuilder(new Pose2d())
+                .turn(0)
+                .build();
+
+        TrajectorySequence traj1_10 = drive.trajectorySequenceBuilder(new Pose2d())
+                .back(15)
+                .build();
+
+        pixel.ungrab();
+
 
         waitForStart();
 
         if (opModeIsActive()) {
             drive.followTrajectorySequence(traj1);
 
+            pixel.grab();
+
             drive.followTrajectorySequence(traj1_1);
 
+            pixel.ungrab();
+
             drive.followTrajectorySequence(traj1_2);
-
-            pixel.armRaiser();
-
-            sleep(1000);
-
-            pixel.openClaw();
-
-            sleep(1000);
-
-
+            /*idt.initIDT();
+            idt.turnToHeading(0.7, -90);*/
 
             drive.followTrajectorySequence(traj1_3);
 
-            sleep(1000);
+            drive.followTrajectorySequence(traj1_4);
+
+            drive.followTrajectorySequence(traj1_5);
+
+            drive.followTrajectorySequence(traj1_6);
+
+            sleep(500);
+
+            lohotron.armRaiser();
+            //чуть медленно взад
+            drive.followTrajectorySequence(traj1_7);
+
+            lohotron.openClaw();
+            //вперед немного
+            drive.followTrajectorySequence(traj1_8);
+
+            //в бок
+            drive.followTrajectorySequence(traj1_9);
+
+            //назад парковка
+            drive.followTrajectorySequence(traj1_10);
+            drive.followTrajectorySequence(traj_costil);
         }
     }
 }

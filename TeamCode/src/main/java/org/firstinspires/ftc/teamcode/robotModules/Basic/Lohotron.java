@@ -32,7 +32,8 @@ public class Lohotron {
         main =      hwMap.servo.get("lohotronMain");
         claw =      hwMap.servo.get("zahvat");
 
-        openClaw();
+        closeClaw();
+        //openClaw();
         armMid();
 
         lohotronOpMode.telemetry.addLine("Lohotron ready!");
