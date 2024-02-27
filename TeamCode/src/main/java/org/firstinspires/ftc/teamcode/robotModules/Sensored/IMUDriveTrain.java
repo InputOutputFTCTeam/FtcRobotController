@@ -11,16 +11,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.Func;
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
-
-import java.util.Locale;
 
 /**
  * В этом классе описываются основные методы для гироскопа на основе BNO055IMU.
@@ -50,18 +43,22 @@ public class IMUDriveTrain extends BasicDriveTrain {
      * Настроиваем ориентацию Контрол/Экспеншн хаба в пространстве
      */
     RevHubOrientationOnRobot.LogoFacingDirection logoDirection = RevHubOrientationOnRobot.LogoFacingDirection.RIGHT;       //направление того, как установлен Rev Hub (logo)
-    RevHubOrientationOnRobot.UsbFacingDirection  usbDirection  = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;   //направление того, как установлен Rev Hub (USB)
+    RevHubOrientationOnRobot.UsbFacingDirection usbDirection = RevHubOrientationOnRobot.UsbFacingDirection.DOWN;   //направление того, как установлен Rev Hub (USB)
     RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
 
-    public IMUDriveTrain() {}
-     /** Создаём КБ, как класс внутри opMode */
-    public IMUDriveTrain(LinearOpMode gyroOpMode){
+    public IMUDriveTrain() {
+    }
+
+    /**
+     * Создаём КБ, как класс внутри opMode
+     */
+    public IMUDriveTrain(LinearOpMode gyroOpMode) {
         setOpMode(gyroOpMode);
     }
 
     /**
-     * инициалируем КБ для opMode,настроиваем гироскоп
+     * Инициалируем КБ для opMode,настроиваем гироскоп
      */
     public void initIDT() {
         initMotors();
@@ -81,7 +78,12 @@ public class IMUDriveTrain extends BasicDriveTrain {
         getBR().setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
-    /**  метод для поворота на n градусов с n-й скоростью */
+    /**
+     * Метод для поворота на heading гразусов с n-й скоростью
+     *
+     * @param maxTurnSpeed максимальная корость поворота
+     * @param heading      новое направление
+     */
     public void turnToHeading(double maxTurnSpeed, double heading) {
 
         getSteeringCorrection(heading, P_TURN_GAIN);
@@ -112,9 +114,12 @@ public class IMUDriveTrain extends BasicDriveTrain {
 
         // Stop all motion;
         //moveRobot(0, 0);
-        move(0,0,0);
+        move(0, 0, 0);
     }
-/** метод для коррекции отклонения от целеого значения */
+
+    /**
+     * Метод для коррекции отклонения от целевого значения
+     */
     public double getSteeringCorrection(double desiredHeading, double proportionalGain) {       //П-регулируемый поворот
         targetHeading = desiredHeading;  // Save for telemetry
 
@@ -122,30 +127,30 @@ public class IMUDriveTrain extends BasicDriveTrain {
         headingError = targetHeading - getHeading();
 
         // Normalize the error to be within +/- 180 degrees
-        while (headingError > 180)  headingError -= 360;
+        while (headingError > 180) headingError -= 360;
         while (headingError <= -180) headingError += 360;
 
         // Multiply the error by the gain to determine the required steering correction/  Limit the result to +/- 1.0
         return Range.clip(headingError * proportionalGain, -1, 1);
     }
-/**
- * метод для передвижения робота в пространстве
- */
+
+    /**
+     * Метод для передвижения робота в пространстве
+     */
     public void moveRobot(double drive, double turn) {
         driveSpeed = drive;
-        turnSpeed  = turn;
+        turnSpeed = turn;
 
-        leftSpeed  = drive - turn;
+        leftSpeed = drive - turn;
         rightSpeed = drive + turn;
 
         double max = Math.max(Math.abs(leftSpeed), Math.abs(rightSpeed));
-        if (max > 1.0)
-        {
+        if (max > 1.0) {
             leftSpeed /= max;
             rightSpeed /= max;
         }
 
-        move(0,0,rightSpeed - leftSpeed);
+        move(0, 0, rightSpeed - leftSpeed);
     }
 
     /** выводим телеметрию */
