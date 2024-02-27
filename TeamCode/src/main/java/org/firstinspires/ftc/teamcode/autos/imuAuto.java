@@ -17,7 +17,13 @@ public class imuAuto extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()){
-            imuDriveTrain.turnToHeading(0.5, 90);
+            imuDriveTrain.turnToHeading(0.2, 90);
+            sleep(1000);
+            imuDriveTrain.turnToHeading(0.2, 90);
+            sleep(1000);
+            imuDriveTrain.turnToHeading(0.2, 0);
+            sleep(1000);
+            imuDriveTrain.turnToHeading(0.2, -90);
         }
     }
 }
