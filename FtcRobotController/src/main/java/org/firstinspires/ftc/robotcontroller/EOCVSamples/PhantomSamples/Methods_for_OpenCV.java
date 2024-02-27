@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.methods;
+package org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -10,10 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+@Disabled
 //Todo: create there all necessary for OpenCV instead of creating new instance in every Autonomous Method
 public class Methods_for_OpenCV extends  LinearOpMode{
     static int valLeft;
