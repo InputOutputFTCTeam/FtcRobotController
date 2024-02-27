@@ -31,63 +31,29 @@ public class AutoBlueTest extends LinearOpMode {
     IMUDriveTrain idt = new IMUDriveTrain(this);
     Lohotron lohotron = new Lohotron(this);
 
-
     @Override
     public void runOpMode() {
         idt.initIDT();
         lohotron.initLohotron(this.hardwareMap);
-
-        TL = hardwareMap.dcMotor.get("leftFront");
-        TR = hardwareMap.dcMotor.get("rightFront");
-        BL = hardwareMap.dcMotor.get("leftRear");
-        BR = hardwareMap.dcMotor.get("rightRear");
-
         pixel.initBack();
-
-        TL.setDirection(DcMotorSimple.Direction.FORWARD);
-        TR.setDirection(DcMotorSimple.Direction.REVERSE);
-        BL.setDirection(DcMotorSimple.Direction.FORWARD);
-        BR.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-
-        //тута штуки всяике тестятся
-
-        ///!протестить и исправить если надо!!
+        idt.switchToRRDirections();
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
-
-                .back(31) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
+                .back(35) //к линии        //проезды задаются непонятной системой мер forward - вперед, back - назад, strafeRight/Left - стрейфить
                 .build();
 
         TrajectorySequence traj1_1 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(27)
-                .build();
-
-        TrajectorySequence traj1_2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .turn(0.192)
+                .forward(25)
                 .build();
 
         TrajectorySequence traj1_3 = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(120)
-                .build();
-
-        TrajectorySequence traj1_4 = drive.trajectorySequenceBuilder(new Pose2d())
-                .turn(-0.192)
+                .back(180)
                 .build();
 
         TrajectorySequence traj1_5 = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(15)
-                .build();
-
-        TrajectorySequence traj1_6 = drive.trajectorySequenceBuilder(new Pose2d())
-                .turn(0.192)
+                .back(65)
                 .build();
 
         TrajectorySequence traj1_7 = drive.trajectorySequenceBuilder(new Pose2d())
@@ -95,63 +61,90 @@ public class AutoBlueTest extends LinearOpMode {
                 .build();
 
         TrajectorySequence traj1_8 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(10)
+                .forward(20)
                 .build();
 
         TrajectorySequence traj1_9 = drive.trajectorySequenceBuilder(new Pose2d())
-                .strafeRight(40)
+                .strafeRight(75)
+                .build();
+
+        TrajectorySequence traj1_10 = drive.trajectorySequenceBuilder(new Pose2d())
+                .back(45)
                 .build();
 
         TrajectorySequence traj_costil = drive.trajectorySequenceBuilder(new Pose2d())
                 .turn(0)
                 .build();
 
-        TrajectorySequence traj1_10 = drive.trajectorySequenceBuilder(new Pose2d())
-                .back(15)
-                .build();
-
         pixel.ungrab();
-
 
         waitForStart();
 
         if (opModeIsActive()) {
-            drive.followTrajectorySequence(traj1);
+            int i = 0; //0 - right 1 - center 2 - left ------------->>>>//МЕНЯТЬ ЭТО ЗНАЧЕНИЕ!!!        <<<---------------------------------
 
-            pixel.grab();
+            drive.followTrajectorySequence(traj1);  //проезд к трем линиям
 
-            drive.followTrajectorySequence(traj1_1);
+            if (i == 0) {
+                //сюда добавить небольшой проезд, потому что держатель пикселя находится слева у робота. из-за этого нам надо доезжать
+                idt.initIDT();
+                idt.turnToHeading(0.7, -90);        //поворот к линии
+                idt.switchToRRDirections();
 
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d()).back(20).build());
+                pixel.grab();                   //чуть чуть отъезжаем от нее и сбрасываем. потом подъезжаем обратно к линии
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d()).forward(25).build());
+
+                idt.initIDT();
+                idt.turnToHeading(0.7, 90);         //поворот в изначальное положение
+                idt.switchToRRDirections();
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d()).forward(40).build());
+            } else if (i == 1) {
+                pixel.grab();
+            } else if (i == 2) {
+                idt.initIDT();
+                idt.turnToHeading(0.7, 90);        //поворот к линии
+                idt.switchToRRDirections();
+
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d()).back(15).build());
+                pixel.grab();                   //чуть чуть отъезжаем от нее и сбрасываем. потом подъезжаем обратно к линии
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d()).forward(25).build());
+
+                idt.initIDT();
+                idt.turnToHeading(0.7, -90);         //поворот в изначальное положение
+                idt.switchToRRDirections();
+                drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d()).forward(40).build());
+
+            }
+
+            drive.followTrajectorySequence(traj1_1);        //возврат к борту поля
             pixel.ungrab();
+            idt.initIDT();
+            idt.turnToHeading(0.7, 90); //поворот на самый большой проезд
+            idt.switchToRRDirections();
 
-            drive.followTrajectorySequence(traj1_2);
-            /*idt.initIDT();
-            idt.turnToHeading(0.7, -90);*/
+            drive.followTrajectorySequence(traj1_3);    //самый длинный омуль
+            idt.initIDT();
+            idt.turnToHeading(0.7, -90);    //поворот на проезды к подъездам
+            idt.switchToRRDirections();
 
-            drive.followTrajectorySequence(traj1_3);
+            drive.followTrajectorySequence(traj1_5);    //центральное положение
+            idt.initIDT();
+            idt.turnToHeading(0.7, 90);     //разворот, чтобы смотреть на доску
+            idt.switchToRRDirections();
 
-            drive.followTrajectorySequence(traj1_4);
-
-            drive.followTrajectorySequence(traj1_5);
-
-            drive.followTrajectorySequence(traj1_6);
-
-            sleep(500);
-
-            lohotron.armRaiser();
-            //чуть медленно взад
-            drive.followTrajectorySequence(traj1_7);
-
-            lohotron.openClaw();
+            lohotron.armRaiser();                       //подняли
+            drive.followTrajectorySequence(traj1_7);    //чуть медленно взад, чтобы коснуться рукой доски
+            lohotron.openClaw();                        //отпустили
             //вперед немного
-            drive.followTrajectorySequence(traj1_8);
-
+            drive.followTrajectorySequence(traj1_8);    //убираем руку от доски
             //в бок
-            drive.followTrajectorySequence(traj1_9);
-
+            drive.followTrajectorySequence(traj1_9);    //бочком катимся к парковке
+            lohotron.armLowerer();                      //опускаем руку                     //можно будет закомментить, если времени не будет хватать
             //назад парковка
-            drive.followTrajectorySequence(traj1_10);
-            drive.followTrajectorySequence(traj_costil);
+            drive.followTrajectorySequence(traj1_10);   //парковка
+            drive.followTrajectorySequence(traj_costil);//не нужный кусок, но пусть будет, так как он ничего не делает.
+
         }
     }
 }

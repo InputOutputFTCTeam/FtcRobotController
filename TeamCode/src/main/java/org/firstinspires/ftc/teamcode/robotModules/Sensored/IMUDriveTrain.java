@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.robotModules.Sensored;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.BNO055IMUNew;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -10,9 +11,16 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
+import org.firstinspires.ftc.robotcore.external.Func;
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
+
+import java.util.Locale;
 
 /**
  * В этом классе описываются основные методы для гироскопа на основе BNO055IMU.
@@ -21,7 +29,7 @@ import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
 public class IMUDriveTrain extends BasicDriveTrain {
     BNO055IMUNew imu = null;
     double headingError  = 0;
-    static final double     P_TURN_GAIN            = 0.01;
+    static final double     P_TURN_GAIN            = -0.02;
     static final double     P_DRIVE_GAIN           = 0.03;
     private double  targetHeading = 0;
     private double  driveSpeed    = 0;
@@ -31,6 +39,7 @@ public class IMUDriveTrain extends BasicDriveTrain {
     private int     leftTarget    = 0;
     private int     rightTarget   = 0;
 
+    final double MIN_TURN_SPEED = 0.08;
     static final double     HEADING_THRESHOLD       = 1.0 ;
     static final double     SPEED_THRESHOLD         = 0.2 ;
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;
@@ -65,12 +74,19 @@ public class IMUDriveTrain extends BasicDriveTrain {
         imu.resetYaw();
     }
 
-    /**  метод для поворота на n гразусов с n-й скоростью */
+    public void switchToRRDirections(){
+        getTL().setDirection(DcMotorSimple.Direction.FORWARD);
+        getTR().setDirection(DcMotorSimple.Direction.REVERSE);
+        getBL().setDirection(DcMotorSimple.Direction.FORWARD);
+        getBR().setDirection(DcMotorSimple.Direction.REVERSE);
+    }
+
+    /**  метод для поворота на n градусов с n-й скоростью */
     public void turnToHeading(double maxTurnSpeed, double heading) {
 
         getSteeringCorrection(heading, P_TURN_GAIN);
 
-        while (getOpMode().opModeIsActive() && (Math.abs(headingError) > HEADING_THRESHOLD)) {
+        while (getOpMode().opModeIsActive() && (Math.abs(headingError) > HEADING_THRESHOLD)){
 
             // Determine required steering to keep on heading
             turnSpeed = getSteeringCorrection(heading, P_TURN_GAIN);
@@ -79,7 +95,6 @@ public class IMUDriveTrain extends BasicDriveTrain {
             turnSpeed = Range.clip(turnSpeed, -maxTurnSpeed, maxTurnSpeed);
 
             // Pivot in place by applying the turning correction
-            //moveRobot(0, turnSpeed);
             moveRobot(0,turnSpeed);
 
             // Display drive status for the driver.
@@ -91,7 +106,8 @@ public class IMUDriveTrain extends BasicDriveTrain {
             getOpMode().telemetry.addData("steering correction: ", getSteeringCorrection(90, P_TURN_GAIN)); //рост
             getOpMode().telemetry.update();
 
-
+            if (Math.abs(turnSpeed) < MIN_TURN_SPEED)
+                break;
         }
 
         // Stop all motion;
@@ -103,7 +119,7 @@ public class IMUDriveTrain extends BasicDriveTrain {
         targetHeading = desiredHeading;  // Save for telemetry
 
         // Determine the heading current error
-        headingError = Math.abs(Math.abs(targetHeading) - Math.abs(getHeading()));
+        headingError = targetHeading - getHeading();
 
         // Normalize the error to be within +/- 180 degrees
         while (headingError > 180)  headingError -= 360;
@@ -131,25 +147,28 @@ public class IMUDriveTrain extends BasicDriveTrain {
 
         move(0,0,rightSpeed - leftSpeed);
     }
-    private void sendTelemetry(boolean straight) {
+
+    /** выводим телеметрию */
+    public void sendTelemetry(boolean straight) {
 
         if (straight) {
-            telemetry.addData("Motion", "Drive Straight");
-            telemetry.addData("Target Pos Left:Right",  "%7d:%7d",      leftTarget,  rightTarget);
-            telemetry.addData("Actual Pos Left:Right",  "%7d:%7d",      getTL().getCurrentPosition(),
+            getOpMode().telemetry.addData("Motion", "Drive Straight");
+            getOpMode().telemetry.addData("Target Pos Left:Right",  "%7d:%7d",      leftTarget,  rightTarget);
+            getOpMode().telemetry.addData("Actual Pos Left:Right",  "%7d:%7d",      getTL().getCurrentPosition(),
                     getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition());
         } else {
-            telemetry.addData("Motion", "Turning");
+            getOpMode().telemetry.addData("Motion", "Turning");
         }
 
-        telemetry.addData("Heading- Target : Current", "%5.2f : %5.0f", targetHeading, getHeading());
-        telemetry.addData("Error  : Steer Pwr",  "%5.1f : %5.1f", headingError, turnSpeed);
-        telemetry.addData("Wheel Speeds L : R", "%5.2f : %5.2f", leftSpeed, rightSpeed);
-        telemetry.update();
+        getOpMode().telemetry.addData("Heading- Target : Current", "%5.2f : %5.0f", targetHeading, getHeading());
+        getOpMode().telemetry.addData("Error  : Steer Pwr",  "%5.1f : %5.1f", headingError, turnSpeed);
+        getOpMode().telemetry.addData("Wheel Speeds L : R", "%5.2f : %5.2f", leftSpeed, rightSpeed);
+        getOpMode().telemetry.update();
     }
 
     public double getHeading() {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         return orientation.getYaw(AngleUnit.DEGREES);
     }
+
 }
