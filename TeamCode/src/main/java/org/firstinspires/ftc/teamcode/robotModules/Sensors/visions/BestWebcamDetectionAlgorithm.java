@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.opencv.core.Mat;
+import org.opencv.core.Point;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -73,9 +74,19 @@ public class BestWebcamDetectionAlgorithm extends LinearOpMode {
     }
 
     private class DETERMINATOR extends OpenCvPipeline { //собственно, алгоритм определения будет внутри этого класса
-        public DETERMINATOR() {
+        //у нас изображение 640*480
 
-        }
+        //определяем константы для областей определения
+        static final int WIDTH = 20;
+        static final int HEIGHT = 20;
+        final Point left_TL_square = new Point(40, 300);
+        final Point center_TL_square = new Point(310, 300);
+        final Point right_TL_square = new Point(550, 300);
+        final Point left_BR_square = new Point(left_TL_square.x+WIDTH, left_TL_square.y+HEIGHT);
+        final Point center_BR_square = new Point(center_TL_square.x+WIDTH, center_TL_square.y+HEIGHT);
+        final Point right_BR_square = new Point(right_TL_square.x+WIDTH, right_TL_square.y+HEIGHT);
+
+        private volatile powifion pos = powifion.CENTER;
 
 
 
