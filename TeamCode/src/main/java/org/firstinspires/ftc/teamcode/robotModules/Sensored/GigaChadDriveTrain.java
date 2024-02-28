@@ -14,6 +14,8 @@ import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.IMUAsSensor;
 
+import java.lang.reflect.Array;
+
 public class GigaChadDriveTrain extends BasicDriveTrain {
     //объявить imu, color sensor, motors in encoder mode, distance
     LinearOpMode gigaOpMode;
@@ -31,7 +33,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
 
     public void initGigaChad() {
         initMotors();
-        setModes(DcMotor.RunMode.RUN_TO_POSITION);
+        setModes(DcMotor.RunMode.RUN_USING_ENCODER);
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -39,6 +41,8 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         dist.initDistanceSensor();
         clr.initColorSensor();
         imu.initIMU();
+        gigaOpMode.telemetry.addLine("all inited");
+        gigaOpMode.telemetry.update();
     }
 
     /*
@@ -121,14 +125,16 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
     public void encoderRun(double x, double y, double distanceMM) {
         int[] startPosition = {getTL().getCurrentPosition(), getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition()};
         DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
-
+        //надо ли сделать STOP_AND_RESET_ENCODER?
         for (DcMotor motor : motors) {
-            motor.setTargetPosition(distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
+            motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
+            setModes(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
         while (getOpMode().opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
             move(x, y, 0);
         }
+
         move(0, 0, 0);
     }
 
@@ -174,9 +180,43 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         move(0, 0, 0);
     }
 
-    public void imuSteerEncoder(double x, double y ,double r, double desiredDirection){
+    /**
+     * Проезд на расстояние с контролем направления этого движения. Можно повернуться просто, а можно проехать поворачиваясь.
+     * @param x скорость вдоль оси x (езда вправо-влево)
+     * @param y скорость вдоль оси y (езда вперед-назад)
+     * @param r скорость поворота вокруг своей оси
+     * @param desiredDirection напраление в котором должен смотреть робот
+     * @param distanceMM максимальное расстояние между объектом и датчиком расстояния
+     */
+    public void imuSteerEncoder(double x, double y ,double r, double desiredDirection, double distanceMM){
         //возможно, оригинальное moveRobot из IMUDriveTrain позволит сделать такой проезд, но хзхз
         //encoderRun(x,y,turnToHeading, desiredDirection)??? где turnToHeading будет зависеть от desiredDirection
+        // Determine new target position, and pass to motor controller
+        DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
+        //надо ли сделать STOP_AND_RESET_ENCODER?
+        for (DcMotor motor : motors) {
+            motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
+            setModes(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        move(x, y, 0);
+
+        // keep looping while we are still active, and BOTH motors are running.
+        while (gigaOpMode.opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
+
+            // Determine required steering to keep on heading
+            turnSpeed = getSteeringCorrection(desiredDirection, P_TURN_GAIN);
+
+            // if driving in reverse, the motor correction also needs to be reversed
+            if (distanceMM < 0)
+                turnSpeed *= -1.0;
+
+            // Apply the turning correction to the current driving speed.
+            move(x, y, turnSpeed);
+        }
+
+        // Stop all motion & Turn off RUN_TO_POSITION
+        move(0, 0, 0);
+        setModes(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }
 
