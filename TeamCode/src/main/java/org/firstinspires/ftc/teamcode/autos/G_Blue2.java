@@ -18,14 +18,20 @@ public class G_Blue2 extends LinearOpMode {
         if (opModeIsActive()) {
             telemetry.addLine("spj 108");
             telemetry.update();
-            robot.dt.move(0, 0.5, 0);
-            sleep(1000);
-            robot.dt.move(0,0,0);
+
+            robot.move(0, 1, 0);
+
+            telemetry.addLine("storming");
+            telemetry.update();
+            sleep(10000);
+
+            robot.move(0,0,0);
+
             telemetry.addLine("stormed");
             telemetry.update();
             sleep(1000);
-/*
-            robot.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.BLUE);
+
+            robot.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE);
 
             telemetry.addLine("to the RIGHT");
             telemetry.update();
