@@ -81,7 +81,7 @@ public class AutoBlueTest extends LinearOpMode {
         waitForStart();
 
         if (opModeIsActive()) {
-            int i = 0; //0 - right 1 - center 2 - left ------------->>>>//МЕНЯТЬ ЭТО ЗНАЧЕНИЕ!!!        <<<---------------------------------
+            int i = 1; //0 - right 1 - center 2 - left ------------->>>>//МЕНЯТЬ ЭТО ЗНАЧЕНИЕ!!!        <<<---------------------------------
 
             drive.followTrajectorySequence(traj1);  //проезд к трем линиям
 
