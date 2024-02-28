@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.autos;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.robotModules.Sensored.GigaChadDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 
+@Autonomous(name = "g_blue2")
 public class G_Blue2 extends LinearOpMode {
     GigaChadDriveTrain robot = new GigaChadDriveTrain(this);
 

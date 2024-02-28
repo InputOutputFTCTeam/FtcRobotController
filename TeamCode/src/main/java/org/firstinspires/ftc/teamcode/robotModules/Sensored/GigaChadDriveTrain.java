@@ -56,7 +56,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
     // ------------------>>>    imu
     // TODO: вставить сюда значения из IMUDriveTrain
     private double headingError = 0;
-    private final double P_TURN_GAIN = -0.01;
+    private final double P_TURN_GAIN = -0.02;
     private double targetHeading = 0;
     private double turnSpeed = 0;
     private double leftSpeed = 0;
@@ -102,7 +102,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             moveRobot(0, turnSpeed);
             if (abs(turnSpeed) < MIN_TURN_SPEED) break;
         }
-        //остановка??
+        move(0, 0, 0);
     }
 
     private int distanceMM2Ticks(double distanceMM) {

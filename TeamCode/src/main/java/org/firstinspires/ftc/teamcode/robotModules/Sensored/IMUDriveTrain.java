@@ -70,7 +70,7 @@ public class IMUDriveTrain extends BasicDriveTrain {
         imu.initialize(new com.qualcomm.robotcore.hardware.IMU.Parameters(orientationOnRobot));
         imu.resetYaw();
     }
-
+    /** переключение направлений моторов для работы Road Runner */
     public void switchToRRDirections(){
         getTL().setDirection(DcMotorSimple.Direction.FORWARD);
         getTR().setDirection(DcMotorSimple.Direction.REVERSE);
@@ -119,6 +119,8 @@ public class IMUDriveTrain extends BasicDriveTrain {
 
     /**
      * Метод для коррекции отклонения от целевого значения
+     * @param desiredHeading желаемое направление в пространстве
+     * @param proportionalGain пропорциональный коэффициент изменения скорости
      */
     public double getSteeringCorrection(double desiredHeading, double proportionalGain) {       //П-регулируемый поворот
         targetHeading = desiredHeading;  // Save for telemetry
