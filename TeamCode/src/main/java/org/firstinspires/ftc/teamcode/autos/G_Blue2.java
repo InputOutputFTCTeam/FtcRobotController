@@ -11,15 +11,26 @@ public class G_Blue2 extends LinearOpMode {
     GigaChadDriveTrain robot = new GigaChadDriveTrain(this);
 
     @Override
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode(){
         robot.initGigaChad();
 
+        waitForStart();
         if (opModeIsActive()) {
+            telemetry.addLine("spj 108");
+            telemetry.update();
+            robot.dt.move(0, 0.5, 0);
+            sleep(1000);
+            robot.dt.move(0,0,0);
+            telemetry.addLine("stormed");
+            telemetry.update();
+            sleep(1000);
+/*
             robot.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.BLUE);
 
             telemetry.addLine("to the RIGHT");
             telemetry.update();
-            robot.encoderRun(0.5, 0, 1000);sleep(1000);
+            sleep(500);
+            /*robot.encoderRun(0.5, 0, 1000);sleep(1000);
 
             telemetry.addLine("to the FORWARD");
             telemetry.update();
@@ -40,7 +51,7 @@ public class G_Blue2 extends LinearOpMode {
             robot.imuTurn(0.5, 90);
             robot.imuTurn(0.5, 90);
             robot.imuTurn(0.5, 90);
-            robot.imuTurn(0.5, 90);
+            robot.imuTurn(0.5, 90);*/
         }
     }
 }

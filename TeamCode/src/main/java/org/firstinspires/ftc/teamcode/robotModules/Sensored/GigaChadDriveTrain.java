@@ -14,29 +14,36 @@ import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.IMUAsSensor;
 
-import java.lang.reflect.Array;
-
-public class GigaChadDriveTrain extends BasicDriveTrain {
+public class GigaChadDriveTrain {
     //объявить imu, color sensor, motors in encoder mode, distance
-    LinearOpMode gigaOpMode;
-    DistanceSensorModule dist;
-    ColorSensorModule clr;
-    IMUAsSensor imu;
+    private LinearOpMode gigaOpMode = null;
+    public BasicDriveTrain dt = null;
+    public DistanceSensorModule dist = null;
+    public ColorSensorModule clr = null;
+    public IMUAsSensor imu = null;
 
     public GigaChadDriveTrain(LinearOpMode opMode) {
-        super(opMode);  //new BasicDriveTrain(opMode);
         gigaOpMode = opMode;
-        dist = new DistanceSensorModule(gigaOpMode);
-        clr = new ColorSensorModule(gigaOpMode);
-        imu = new IMUAsSensor(gigaOpMode);
     }
 
     public void initGigaChad() {
-        initMotors();
-        setModes(DcMotor.RunMode.RUN_USING_ENCODER);
-        setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        setOneDirection(DcMotorSimple.Direction.FORWARD);
-        setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        if (gigaOpMode != null) {
+            gigaOpMode.telemetry.addLine("giga works");
+            gigaOpMode.telemetry.update();
+
+            dist = new DistanceSensorModule(gigaOpMode);
+            clr = new ColorSensorModule(gigaOpMode);
+            imu = new IMUAsSensor(gigaOpMode);
+            dt = new BasicDriveTrain(gigaOpMode);
+
+            gigaOpMode.sleep(100);
+        }
+        dt.initMotors();
+        dt.setModes(DcMotor.RunMode.RUN_USING_ENCODER);
+        dt.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        dt.setOneDirection(DcMotorSimple.Direction.FORWARD);
+        dt.setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
         dist.initDistanceSensor();
         clr.initColorSensor();
@@ -54,7 +61,6 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      */
 
     // ------------------>>>    imu
-    // TODO: вставить сюда значения из IMUDriveTrain
     private double headingError = 0;
     private final double P_TURN_GAIN = -0.02;
     private double targetHeading = 0;
@@ -86,7 +92,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             rightSpeed /= max;
         }
 
-        move(0, 0, rightSpeed - leftSpeed);
+        dt.move(0, 0, rightSpeed - leftSpeed);
     }
 
     /**
@@ -102,7 +108,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             moveRobot(0, turnSpeed);
             if (abs(turnSpeed) < MIN_TURN_SPEED) break;
         }
-        move(0, 0, 0);
+        dt.move(0, 0, 0);
     }
 
     private int distanceMM2Ticks(double distanceMM) {
@@ -123,19 +129,19 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      * @param distanceMM расстояние на которое надо проехать
      */
     public void encoderRun(double x, double y, double distanceMM) {
-        int[] startPosition = {getTL().getCurrentPosition(), getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition()};
-        DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
+        int[] startPosition = {dt.getTL().getCurrentPosition(), dt.getTR().getCurrentPosition(), dt.getBL().getCurrentPosition(), dt.getBR().getCurrentPosition()};
+        DcMotor[] motors = {dt.getTL(), dt.getTR(), dt.getBL(), dt.getBR()};
         //надо ли сделать STOP_AND_RESET_ENCODER?
         for (DcMotor motor : motors) {
             motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
-            setModes(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
 
-        while (getOpMode().opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
-            move(x, y, 0);
+        while (gigaOpMode.opModeIsActive() && dt.getTL().isBusy() && dt.getTR().isBusy() && dt.getBL().isBusy() && dt.getBR().isBusy()) {
+            dt.move(x, y, 0);
         }
 
-        move(0, 0, 0);
+        dt.move(0, 0, 0);
     }
 
     /**
@@ -146,10 +152,17 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      * @param colorName название цвета линии на поле
      */
     public void colorRun(double x, double y, double r, ColorSensorModule.colorsField colorName) {
-        while (gigaOpMode.opModeIsActive() && clr.getColorOfField() != colorName) {
-            move(x, y, r);
+        while (gigaOpMode.opModeIsActive() && !clr.getColorOfField().equals(colorName)) {
+            dt.move(x, y, r);
+            gigaOpMode.telemetry.addLine(String.format("%5f %5f", dt.getTL().getPower(), dt.getTR().getPower()));
+            gigaOpMode.telemetry.addLine(String.format("%5f %5f", dt.getBL().getPower(), dt.getBR().getPower()));
+
+            gigaOpMode.telemetry.addData("i see ", clr.getColorOfField());
+            clr.telemetryColor();
+            gigaOpMode.telemetry.update();
         }
-        move(0, 0, 0);
+        dt.move(0, 0, 0);
+        gigaOpMode.sleep(1000);
     }
 
     /**
@@ -161,9 +174,9 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      */
     public void distanceRunEnclose(double x, double y, double r, int distanceMM) {
         while (gigaOpMode.opModeIsActive() && dist.distanceMM() >= distanceMM) {
-            move(x, y, r);
+            dt.move(x, y, r);
         }
-        move(0, 0, 0);
+        dt.move(0, 0, 0);
     }
 
     /**
@@ -175,9 +188,9 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      */
     public void distanceRunRetreat(double x, double y, double r, int distanceMM) {
         while (gigaOpMode.opModeIsActive() && dist.distanceMM() <= distanceMM) {
-            move(x, y, r);
+            dt.move(x, y, r);
         }
-        move(0, 0, 0);
+        dt.move(0, 0, 0);
     }
 
     /**
@@ -192,16 +205,17 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         //возможно, оригинальное moveRobot из IMUDriveTrain позволит сделать такой проезд, но хзхз
         //encoderRun(x,y,turnToHeading, desiredDirection)??? где turnToHeading будет зависеть от desiredDirection
         // Determine new target position, and pass to motor controller
-        DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
+        DcMotor[] motors = {dt.getTL(), dt.getTR(), dt.getBL(), dt.getBR()};
         //надо ли сделать STOP_AND_RESET_ENCODER?
         for (DcMotor motor : motors) {
             motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
-            setModes(DcMotor.RunMode.RUN_TO_POSITION);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        move(x, y, 0);
+        dt.move(x, y, 0);
 
+        getSteeringCorrection(desiredDirection, P_TURN_GAIN);
         // keep looping while we are still active, and BOTH motors are running.
-        while (gigaOpMode.opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
+        while (gigaOpMode.opModeIsActive() && dt.getTL().isBusy() && dt.getTR().isBusy() && dt.getBL().isBusy() && dt.getBR().isBusy()) {
 
             // Determine required steering to keep on heading
             turnSpeed = getSteeringCorrection(desiredDirection, P_TURN_GAIN);
@@ -211,12 +225,12 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
                 turnSpeed *= -1.0;
 
             // Apply the turning correction to the current driving speed.
-            move(x, y, turnSpeed);
+            dt.move(x, y, turnSpeed);
         }
 
         // Stop all motion & Turn off RUN_TO_POSITION
-        move(0, 0, 0);
-        setModes(DcMotor.RunMode.RUN_USING_ENCODER);
+        dt.move(0, 0, 0);
+        dt.setModes(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }
 

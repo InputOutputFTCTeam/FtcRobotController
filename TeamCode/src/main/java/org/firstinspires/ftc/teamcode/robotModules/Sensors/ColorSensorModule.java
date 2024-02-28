@@ -34,7 +34,7 @@ public class ColorSensorModule {
         colorRGB();
     }
 
-    public void setCSGain() {
+    public void setCSGain() {  //задаём баланс белого (gain - баланс белого)
         float gain = 30;
         colorSensor.setGain(gain);
     }
