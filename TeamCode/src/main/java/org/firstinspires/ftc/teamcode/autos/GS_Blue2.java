@@ -1,19 +1,20 @@
 package org.firstinspires.ftc.teamcode.autos;
 
-import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.GigaChadDriveTrain;
+import org.apache.commons.math3.optimization.DifferentiableMultivariateOptimizer;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.SimplifiedChadDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 
-@Autonomous(name = "g_blue2")
-public class G_Blue2 extends LinearOpMode {
-    GigaChadDriveTrain robot = null;
+public class GS_Blue2 extends LinearOpMode {
+    //create Simplified Chad
+    SimplifiedChadDriveTrain robot = null;
 
     @Override
-    public void runOpMode(){
-        robot = new GigaChadDriveTrain(this);
-        robot.initGigaChad();
+    public void runOpMode() {
+        //init Chad
+        robot = new SimplifiedChadDriveTrain(this);
+        robot.initSimple();
 
         waitForStart();
         if (opModeIsActive()) {
@@ -65,6 +66,7 @@ public class G_Blue2 extends LinearOpMode {
             telemetry.addLine("4FREEE BIIIIRDDD YEAH");
             telemetry.update();
             robot.imuTurn(0.5, 90);
+
             */
         }
     }
