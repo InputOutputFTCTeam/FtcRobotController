@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.robotModules.Basic.Plane;
 
 @TeleOp(name = "Tele V8", group = "1alfa")
 public class TeleOperatingMode extends LinearOpMode {
+    Thread movement, raiseaArm, midlower, closeClaw, openClaw, intakethread, closehook, midhook, openhook, liftThread, grab, ungrab, pushUp, agelUp;
     BasicDriveTrain wheelbase = new BasicDriveTrain(this);
     Intaker intake = new Intaker(this);
     Lohotron lohotron = new Lohotron(this);
@@ -70,30 +71,57 @@ public class TeleOperatingMode extends LinearOpMode {
         }
 
         while(opModeIsActive()){
-            wheelbase.move(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+            movement = new Thread(() -> {
+                wheelbase.move(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+            });movement.start();
 
-            //if(gamepad2.y) lohotron.armRaiser();    //better be 1 logical button with lowerer
-            //if(gamepad2.a) lohotron.armLowerer();   //better be 1 logical button with raiser
-            if(gamepad2.a) lohotron.armLogicalRaise_Lower();
-            if(gamepad2.y) lohotron.armLogicalMid_Lower();
-            if(gamepad2.x) lohotron.closeClaw();
-            if(gamepad2.b) lohotron.openClaw();
+            raiseaArm = new Thread(() -> {
+                //if(gamepad2.y) lohotron.armRaiser();    //better be 1 logical button with lowerer
+                //if(gamepad2.a) lohotron.armLowerer();   //better be 1 logical button with raiser
+                if(gamepad2.a) lohotron.armLogicalRaise_Lower();
+            }); raiseaArm.start();
+            midlower = new Thread(() -> {
+                if(gamepad2.y) lohotron.armLogicalMid_Lower();
+            }); midlower.start();
+            closeClaw = new Thread(() -> {
+                if(gamepad2.x) lohotron.closeClaw();
+            });closeClaw.start();
+            openClaw = new Thread(() -> {
+                if(gamepad2.b) lohotron.openClaw();
+            }); openClaw.start();
 
-            intake.runIntake((gamepad2.right_trigger - gamepad2.left_trigger) * INTAKE_SPEED);
+            intakethread = new Thread(() -> {
+                intake.runIntake((gamepad2.right_trigger - gamepad2.left_trigger) * INTAKE_SPEED);
+            }); intakethread.start();
 
-            if(gamepad2.dpad_down) hook.closeHook();
-            if(gamepad2.dpad_right) hook.midHook();
-            if(gamepad2.dpad_up) hook.openHook();
+            closehook = new Thread(() -> {
+                if(gamepad2.dpad_down) hook.closeHook();
+            }); closehook.start();
+            midhook = new Thread(() -> {
+                if(gamepad2.dpad_right) hook.midHook();
+            }); midhook.start();
+            openhook = new Thread(() -> {
+                if(gamepad2.dpad_up) hook.openHook();
+            }); openhook.start();
+            liftThread = new Thread(() -> {
+                lift.run(gamepad2.right_stick_y);
+            }); liftThread.start();
 
-            lift.run(gamepad2.right_stick_y);
-
-            if(gamepad2.right_bumper) backupCatch.grab();    //или gamepad2.right_stick_button
-            if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
+            grab = new Thread(() -> {
+                if(gamepad2.right_bumper) backupCatch.grab();    //или gamepad2.right_stick_button
+            }); grab.start();
+            ungrab = new Thread(() -> {
+                if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
+            }); ungrab.start();
 
             ////if(gamepad1.a) hook.switchHook();
             //if(gamepad1.dpad_up) hook.openHook();
-            if(gamepad1.x) plane.pushUp();
-            if (gamepad1.b) plane.angleUp();
+            pushUp = new Thread(() -> {
+                if(gamepad1.x) plane.pushUp();
+            }); pushUp.start();
+            agelUp = new Thread(() -> {
+                if (gamepad1.b) plane.angleUp();
+            }); agelUp.start();
             composeTelemery();
         }
     }

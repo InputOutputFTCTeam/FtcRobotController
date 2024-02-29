@@ -88,8 +88,6 @@ public class BestWebcamDetectionAlgorithm extends LinearOpMode {
 
         private volatile powifion pos = powifion.CENTER;
 
-
-
         @Override
         public Mat processFrame(Mat input) {
             return null;
