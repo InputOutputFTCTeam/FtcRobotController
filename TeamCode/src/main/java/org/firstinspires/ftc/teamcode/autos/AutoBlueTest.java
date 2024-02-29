@@ -13,6 +13,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
+import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive;
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
@@ -20,19 +22,42 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.Traje
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BackupCatch;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
 import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
+import org.openftc.easyopencv.OpenCvWebcam;
 
 //TODO: AutoBlue2
 
 @Autonomous(name = "AutoBlueTest", group = "Actul")
 public class AutoBlueTest extends LinearOpMode {
     DcMotor TR, TL, BR, BL;
-
+    private static int valLeft = -1;
+    private static int valRight = -1;
+    public OpenCvWebcam phoneCam;
     BackupCatch pixel = new BackupCatch(this);
     IMUDriveTrain idt = new IMUDriveTrain(this);
     Lohotron lohotron = new Lohotron(this);
 
     @Override
     public void runOpMode() {
+        Methods_for_OpenCV methodsForOpenCV  = new Methods_for_OpenCV();
+        int rows = methodsForOpenCV.getRows();
+        int cols = methodsForOpenCV.getCols();
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        phoneCam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        phoneCam.openCameraDevice();
+        phoneCam.setPipeline(new org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV.StageSwitchingPipeline());
+        phoneCam.startStreaming(rows, cols, OpenCvCameraRotation.UPRIGHT);
+        Thread thread = new Thread(() -> {
+            while (!opModeIsActive()){
+                telemetry.addData("Values", valLeft + "  " + valRight);
+                telemetry.update();
+                // visionPortall.telemetryAprilTag();
+                valLeft = Methods_for_OpenCV.getValLeft();
+                valRight = Methods_for_OpenCV.getValRight();
+            }
+        });
+        thread.start();
         idt.initIDT();
         lohotron.initLohotron(this.hardwareMap);
         pixel.initBack();
@@ -80,12 +105,14 @@ public class AutoBlueTest extends LinearOpMode {
 
         waitForStart();
 
+
         if (opModeIsActive()) {
-            int i = 1; //0 - right 1 - center 2 - left ------------->>>>//МЕНЯТЬ ЭТО ЗНАЧЕНИЕ!!!        <<<---------------------------------
-
+            //int i = 1; //0 - right 1 - center 2 - left ------------->>>>//МЕНЯТЬ ЭТО ЗНАЧЕНИЕ!!!        <<<---------------------------------
+            valLeft = Methods_for_OpenCV.getValLeft();
+            valRight = Methods_for_OpenCV.getValRight();
             drive.followTrajectorySequence(traj1);  //проезд к трем линиям
-
-            if (i == 0) {
+            phoneCam.stopStreaming();
+            if (valRight == 255) {
                 //сюда добавить небольшой проезд, потому что держатель пикселя находится слева у робота. из-за этого нам надо доезжать
                 idt.initIDT();
                 idt.turnToHeading(0.7, -90);        //поворот к линии
@@ -99,9 +126,9 @@ public class AutoBlueTest extends LinearOpMode {
                 idt.turnToHeading(0.7, 90);         //поворот в изначальное положение
                 idt.switchToRRDirections();
                 drive.followTrajectorySequence(drive.trajectorySequenceBuilder(new Pose2d()).forward(40).build());
-            } else if (i == 1) {
+            } else if (valLeft == 255) {
                 pixel.grab();
-            } else if (i == 2) {
+            } else{
                 idt.initIDT();
                 idt.turnToHeading(0.7, 90);        //поворот к линии
                 idt.switchToRRDirections();

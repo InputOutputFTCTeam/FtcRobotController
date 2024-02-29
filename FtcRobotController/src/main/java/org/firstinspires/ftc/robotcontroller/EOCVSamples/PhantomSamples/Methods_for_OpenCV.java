@@ -28,8 +28,8 @@ public class Methods_for_OpenCV extends  LinearOpMode{
 
     // rects and circles up or down, range: (-4, 4) not inclusive
 
-    private static float[] leftPos = {3f / 11f + offsetX, 4f / 8f + offsetY};
-    private static float[] rightPos = {6f / 8f + offsetX, 5 / 8.7f + offsetY};
+    private static float[] leftPos = {5f / 10f + offsetX, 4f / 8f + offsetY}; // центр
+    private static float[] rightPos = {7.7f / 8f + offsetX, 4.8f / 8.7f + offsetY}; // право
 
     final int rows = 640;
     final int cols = 480;
@@ -145,10 +145,10 @@ public class Methods_for_OpenCV extends  LinearOpMode{
             //Core.addWeighted(redMask, 1.0, blueMask, 1.0, 0.0, yellowMask);
             // Core.bitwise_or(redMask, blueMask, yellowMask);
 
-            // Применение маски к изображению
+            /* // Применение маски к изображению
             Mat hsvImageBlue = new Mat();
             Mat hsvImageRed = new Mat();
-
+            */
             Mat yellowResult = new Mat();
             Core.add(hsvImage, new Scalar(60, 100, 100), rgbImage, blueMask);
             Core.add(hsvImage, new Scalar(60, 100, 100), rgbImage, redMask);
@@ -166,9 +166,7 @@ public class Methods_for_OpenCV extends  LinearOpMode{
 
             Imgproc.cvtColor(yellowResultRGB, yCbCrChan2Mat, Imgproc.COLOR_RGB2YCrCb);//converts rgb to ycrcb
 
-
             Core.extractChannel(yCbCrChan2Mat, yCbCrChan2Mat, 2);//takes cb difference and stores
-
 
             //b&w
             Imgproc.threshold(yCbCrChan2Mat, thresholdMat, 120, 255, Imgproc.THRESH_BINARY_INV);
@@ -177,11 +175,7 @@ public class Methods_for_OpenCV extends  LinearOpMode{
             Imgproc.findContours(thresholdMat, contoursList, new Mat(), Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE);
             yCbCrChan2Mat.copyTo(all);//copies mat object
             // Imgproc.drawContours(all, contoursList, -1, new Scalar(255, 0, 0), 3, 8);//draws blue contours
-
-
             //get values from frame
-
-
             double[] pixLeft = thresholdMat.get((int) (input.rows() * leftPos[1]), (int) (input.cols() * leftPos[0]));//gets value at circle
             valLeft = (int) pixLeft[0];
 

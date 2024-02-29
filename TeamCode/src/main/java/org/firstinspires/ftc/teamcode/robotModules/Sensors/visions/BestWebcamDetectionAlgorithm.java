@@ -26,7 +26,7 @@ public class BestWebcamDetectionAlgorithm extends LinearOpMode {
 
         alkorithm = new DETERMINATOR();
         //--------> webcam.setPipeline(alkorithm);
-        /*--------> webcam.openCameraDevice();                  //попробуем проверить, как работает это. Кажется, что камера должна пересылать изображение, как обычная FPV
+        webcam.openCameraDevice();                  //попробуем проверить, как работает это. Кажется, что камера должна пересылать изображение, как обычная FPV
 
 
         /* webcam.startStreaming(640, 480, OpenCvCameraRotation.UPRIGHT);
