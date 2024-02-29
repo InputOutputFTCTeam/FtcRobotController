@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.autos;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -49,7 +50,7 @@ public class AutoBlueTest extends LinearOpMode {
         phoneCam.setPipeline(new org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV.StageSwitchingPipeline());
         phoneCam.startStreaming(rows, cols, OpenCvCameraRotation.UPRIGHT);
         Thread thread = new Thread(() -> {
-            while (!opModeIsActive()){
+            while (opModeInInit()){
                 telemetry.addData("Values", valLeft + "  " + valRight);
                 telemetry.update();
                 // visionPortall.telemetryAprilTag();
@@ -57,6 +58,8 @@ public class AutoBlueTest extends LinearOpMode {
                 valRight = Methods_for_OpenCV.getValRight();
             }
         });
+        FtcDashboard.getInstance().startCameraStream(phoneCam, 210);
+        FtcDashboard.getInstance().getTelemetry();
         thread.start();
         idt.initIDT();
         lohotron.initLohotron(this.hardwareMap);

@@ -29,7 +29,7 @@ public class Methods_for_OpenCV extends  LinearOpMode{
     // rects and circles up or down, range: (-4, 4) not inclusive
 
     private static float[] leftPos = {5f / 10f + offsetX, 4f / 8f + offsetY}; // центр
-    private static float[] rightPos = {7.7f / 8f + offsetX, 4.8f / 8.7f + offsetY}; // право
+    private static float[] rightPos = {7.7f / 8f + offsetX, 4.9f / 8.7f + offsetY}; // право
 
     final int rows = 640;
     final int cols = 480;
@@ -128,11 +128,11 @@ public class Methods_for_OpenCV extends  LinearOpMode{
 
             // Определение диапазона красного цвета в HSV
             Scalar lowerRed = new Scalar(0,20,20);
-            Scalar upperRed = new Scalar(160,255,255);
+            Scalar upperRed = new Scalar(45,255,255);
 
             // Определение диапазона синего цвета в HSV
-            Scalar lowerBlue = new Scalar(160, 40, 40);
-            Scalar upperBlue = new Scalar(255, 255, 255);
+            Scalar lowerBlue = new Scalar(125, 40, 40);
+            Scalar upperBlue = new Scalar(212, 255, 255);
 
             // Создание масок для красного и синего цветов
             Mat redMask = new Mat();
