@@ -8,12 +8,12 @@ import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 
 @Autonomous(name = "g_blue2")
 public class G_Blue2 extends LinearOpMode {
-    GigaChadDriveTrain robot = null;
+    GigaChadDriveTrain robot = new GigaChadDriveTrain(this);
 
     @Override
     public void runOpMode(){
-        robot = new GigaChadDriveTrain(this);
-        robot.initGigaChad();
+        //robot = new GigaChadDriveTrain(this);
+        robot.initGigaChad(this);
 
         waitForStart();
         if (opModeIsActive()) {

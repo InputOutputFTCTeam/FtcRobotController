@@ -22,14 +22,16 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
     IMUAsSensor imu = null;
 
     public GigaChadDriveTrain(LinearOpMode opMode) {
-        new BasicDriveTrain(opMode);
         gigaOpMode = opMode;
+        new BasicDriveTrain(gigaOpMode);
         dist = new DistanceSensorModule(gigaOpMode);
         clr = new ColorSensorModule(gigaOpMode);
         imu = new IMUAsSensor(gigaOpMode);
     }
 
-    public void initGigaChad() {
+    public void initGigaChad(LinearOpMode opMode) {
+        gigaOpMode = opMode;
+        setOpMode(gigaOpMode);
         initMotors();
         setModes(DcMotor.RunMode.RUN_USING_ENCODER);
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

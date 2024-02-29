@@ -32,9 +32,13 @@ public class SimplifiedChadDriveTrain {
     private IMUAsSensor imu = null;
 
     double maximumSpeed = 1;
+    boolean inited = false;
 
     public SimplifiedChadDriveTrain(LinearOpMode opMode) {
         simpleOpMode = opMode;
+        dist = new DistanceSensorModule(simpleOpMode);
+        clr = new ColorSensorModule(simpleOpMode);
+        imu = new IMUAsSensor(simpleOpMode);
     }
 
     private void initMotors() {
@@ -42,6 +46,7 @@ public class SimplifiedChadDriveTrain {
         TR = simpleOpMode.hardwareMap.dcMotor.get("rightFront");
         BL = simpleOpMode.hardwareMap.dcMotor.get("leftRear");
         BR = simpleOpMode.hardwareMap.dcMotor.get("rightRear");
+        inited = true;
     }
 
     private void setModes(DcMotor.RunMode mode) {
@@ -66,10 +71,16 @@ public class SimplifiedChadDriveTrain {
     }
 
     public void move(double x, double y, double r) {
-        TL.setPower(Range.clip((x + y + r), -maximumSpeed, maximumSpeed));
-        TR.setPower(Range.clip((x - y + r), -maximumSpeed, maximumSpeed));
-        BL.setPower(Range.clip((-x + y + r), -maximumSpeed, maximumSpeed));
-        BR.setPower(Range.clip((-x - y + r), -maximumSpeed, maximumSpeed));
+        if (inited) {
+            TL.setPower(Range.clip((x + y + r), -maximumSpeed, maximumSpeed));
+            TR.setPower(Range.clip((x - y + r), -maximumSpeed, maximumSpeed));
+            BL.setPower(Range.clip((-x + y + r), -maximumSpeed, maximumSpeed));
+            BR.setPower(Range.clip((-x - y + r), -maximumSpeed, maximumSpeed));
+        } else {
+            simpleOpMode.telemetry.addLine("NOT INITED WHEELBASE");
+            simpleOpMode.telemetry.addLine("must repair code");
+            simpleOpMode.telemetry.update();
+        }
     }
 
     public void setMaximumSpeed(double maximumSpeed) {
@@ -79,7 +90,7 @@ public class SimplifiedChadDriveTrain {
     public void initSimple() {
         initMotors();
         setModes(DcMotor.RunMode.RUN_USING_ENCODER);
-        setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
