@@ -2,17 +2,9 @@ package org.firstinspires.ftc.teamcode.autos;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
-
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import com.qualcomm.robotcore.hardware.Servo;
-
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -20,7 +12,7 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
 
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BackupCatch;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
 import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
 import org.openftc.easyopencv.OpenCvCameraFactory;
@@ -35,7 +27,7 @@ public class AutoBlueTest extends LinearOpMode {
     private static int valLeft = -1;
     private static int valRight = -1;
     public OpenCvWebcam phoneCam;
-    BackupCatch pixel = new BackupCatch(this);
+    Catch pixel = new Catch(this);
     IMUDriveTrain idt = new IMUDriveTrain(this);
     Lohotron lohotron = new Lohotron(this);
 
@@ -63,7 +55,7 @@ public class AutoBlueTest extends LinearOpMode {
         thread.start();
         idt.initIDT();
         lohotron.initLohotron(this.hardwareMap);
-        pixel.initBack();
+        pixel.initCatch();
         idt.switchToRRDirections();
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);

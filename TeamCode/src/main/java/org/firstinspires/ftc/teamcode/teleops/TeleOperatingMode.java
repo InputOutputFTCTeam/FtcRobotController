@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BackupCatch;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Box;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Hook;
@@ -19,11 +19,11 @@ import org.firstinspires.ftc.teamcode.robotModules.Basic.Plane;
 public class TeleOperatingMode extends LinearOpMode {
     Thread movement, raiseaArm, midlower, closeClaw, openClaw, intakethread, closehook, midhook, openhook, liftThread, grab, ungrab, pushUp, agelUp;
     BasicDriveTrain wheelbase = new BasicDriveTrain(this);
-    Intaker intake = new Intaker(this);
+    //Intaker intake = new Intaker(this);
     Lohotron lohotron = new Lohotron(this);
-    Box box = new Box(this);
+    //Box box = new Box(this);
     Lift lift = new Lift(this);
-    BackupCatch backupCatch = new BackupCatch(this);
+    Catch aCatch = new Catch(this);
     Hook hook = new Hook(this);
     Plane plane = new Plane(this);
 
@@ -38,17 +38,17 @@ public class TeleOperatingMode extends LinearOpMode {
         wheelbase.setOneDirection(DcMotorSimple.Direction.FORWARD);
         wheelbase.setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        intake.initIntake(hardwareMap);
+        //intake.initIntake(hardwareMap);
 
         lohotron.initLohotron(hardwareMap);
 
-        box.initBox();
+        //box.initBox();
 
         lift.initLift();
         lift.liftDirection(DcMotorSimple.Direction.FORWARD);
         lift.liftMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        backupCatch.initBack();
+        aCatch.initCatch();
 
         plane.initPlane();
 
@@ -59,10 +59,10 @@ public class TeleOperatingMode extends LinearOpMode {
         while(!isStarted()){
             wheelbase.wheelbaseTelemetry();
             lohotron.lohotronTelemetry();
-            intake.telemetryIntaker();
-            box.telemetryBox();
+            //intake.telemetryIntaker();
+            //box.telemetryBox();
             lift.telemetryLift();
-            backupCatch.telemetryBack();
+            aCatch.telemetryBack();
             hook.telemetryHooks();
             plane.telemetryPlane();
 
@@ -90,28 +90,32 @@ public class TeleOperatingMode extends LinearOpMode {
                 if(gamepad2.b) lohotron.openClaw();
             }); openClaw.start();
 
-            intakethread = new Thread(() -> {
+            if (gamepad2.dpad_up) aCatch.openGrab();
+            if (gamepad2.dpad_down) aCatch.closeGrab();
+
+
+            /*intakethread = new Thread(() -> {
                 intake.runIntake((gamepad2.right_trigger - gamepad2.left_trigger) * INTAKE_SPEED);
             }); intakethread.start();
-
+            */
             closehook = new Thread(() -> {
-                if(gamepad2.dpad_down) hook.closeHook();
+                if(gamepad1.dpad_down) hook.closeHook();
             }); closehook.start();
             midhook = new Thread(() -> {
-                if(gamepad2.dpad_right) hook.midHook();
+                //if(gamepad2.dpad_right) hook.midHook();
             }); midhook.start();
             openhook = new Thread(() -> {
-                if(gamepad2.dpad_up) hook.openHook();
+                //if(gamepad1.dpad_up) hook.openHook();
             }); openhook.start();
             liftThread = new Thread(() -> {
                 lift.run(gamepad2.right_stick_y);
             }); liftThread.start();
 
             grab = new Thread(() -> {
-                if(gamepad2.right_bumper) backupCatch.grab();    //или gamepad2.right_stick_button
+                if(gamepad2.right_bumper) aCatch.grab();    //или gamepad2.right_stick_button
             }); grab.start();
             ungrab = new Thread(() -> {
-                if(gamepad2.left_bumper) backupCatch.ungrab();       //    gamepad2.left_stick_button
+                if(gamepad2.left_bumper) aCatch.ungrab();       //    gamepad2.left_stick_button
             }); ungrab.start();
 
             ////if(gamepad1.a) hook.switchHook();
@@ -123,16 +127,19 @@ public class TeleOperatingMode extends LinearOpMode {
                 if (gamepad1.b) plane.angleUp();
             }); agelUp.start();
             composeTelemery();
+
+
+
         }
     }
 
     public void composeTelemery(){
         wheelbase.wheelbaseTelemetry();
         lohotron.lohotronTelemetry();
-        intake.telemetryIntaker();
-        box.telemetryBox();
+        //intake.telemetryIntaker();
+        //box.telemetryBox();
         lift.telemetryLift();
-        backupCatch.telemetryBack();
+        aCatch.telemetryBack();
         hook.telemetryHooks();
         plane.telemetryPlane();
 
