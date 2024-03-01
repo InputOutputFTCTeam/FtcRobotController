@@ -17,7 +17,7 @@ public class G_Blue2 extends LinearOpMode {
 
         waitForStart();
         if (opModeIsActive()) {
-            telemetry.addLine("spj 108");
+            /*telemetry.addLine("spj 108");
             telemetry.update();
 
             robot.move(0, 1, 0);
@@ -30,9 +30,9 @@ public class G_Blue2 extends LinearOpMode {
 
             telemetry.addLine("stormed");
             telemetry.update();
-            sleep(1000);
+            sleep(1000);*/
 
-            robot.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE);
+            robot.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.BLUE);
 
             telemetry.addLine("to the RIGHT");
             telemetry.update();
@@ -56,15 +56,19 @@ public class G_Blue2 extends LinearOpMode {
             telemetry.addLine("1FREEE BIIIIRDDD YEAH");
             telemetry.update();
             robot.imuTurn(0.5, 90);
+            sleep(100);
             telemetry.addLine("2FREEE BIIIIRDDD YEAH");
             telemetry.update();
             robot.imuTurn(0.5, 90);
+            sleep(100);
             telemetry.addLine("3FREEE BIIIIRDDD YEAH");
             telemetry.update();
             robot.imuTurn(0.5, 90);
+            sleep(100);
             telemetry.addLine("4FREEE BIIIIRDDD YEAH");
             telemetry.update();
             robot.imuTurn(0.5, 90);
+            sleep(100);
             */
         }
     }

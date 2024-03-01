@@ -68,12 +68,19 @@ public class ColorSensorModule {
         BLUE,
         idkWtfIsThisColor
     }
+
     public enum colorsPixels {
         WHITE,
         YELLOW,
         PURPLE,
         GREEN,
         idkWtfIsThisColor
+    }
+
+    public void updateColor() {
+        colorHSV();
+        colorRGB();
+        colorSensorOpMode.sleep(5);
     }
 
     public colorsField getColorOfField() {
@@ -104,11 +111,11 @@ public class ColorSensorModule {
         return colorsPixels.idkWtfIsThisColor;
     }
 
-    public void telemetryColor(){
+    public void telemetryColor() {
         colorSensorOpMode.telemetry.addLine(
                 "red: " + colorRGB()[0] +
-                "\ngreen: " + colorRGB()[1] +
-                "\nblue: " + colorRGB()[2]
+                        "\ngreen: " + colorRGB()[1] +
+                        "\nblue: " + colorRGB()[2]
         );
         colorSensorOpMode.telemetry.addLine(
                 "\nhue: " + colorHSV()[0] +

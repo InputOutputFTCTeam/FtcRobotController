@@ -30,6 +30,7 @@ public class Plane {
         push = planeOpMode.hardwareMap.servo.get("push");
         inited = true;
         pushDown();
+        angleUp();
         planeOpMode.telemetry.addLine("Plane ready!");
     }
 
