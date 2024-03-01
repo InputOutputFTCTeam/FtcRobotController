@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.autos;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.apache.commons.math3.optimization.DifferentiableMultivariateOptimizer;
 import org.firstinspires.ftc.teamcode.robotModules.Sensored.SimplifiedChadDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 
+@Disabled
 @Autonomous
 public class GS_Blue2 extends LinearOpMode {
     //create Simplified Chad
