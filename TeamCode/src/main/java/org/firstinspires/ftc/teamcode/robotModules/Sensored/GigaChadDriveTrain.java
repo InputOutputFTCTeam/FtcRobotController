@@ -33,14 +33,14 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
         gigaOpMode = opMode;
         setOpMode(gigaOpMode);
         initMotors();
-        setModes(DcMotor.RunMode.RUN_USING_ENCODER);
-        setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
         dist.initDistanceSensor();
         clr.initColorSensor();
         imu.initIMU();
+
         gigaOpMode.telemetry.addLine("all inited");
         gigaOpMode.telemetry.update();
     }
@@ -122,6 +122,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
      * @param distanceMM расстояние на которое надо проехать
      */
     public void encoderRun(double x, double y, double distanceMM) {
+        setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         int[] startPosition = {getTL().getCurrentPosition(), getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition()};
         DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
         //надо ли сделать STOP_AND_RESET_ENCODER?
@@ -135,6 +136,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
         }
 
         move(0, 0, 0);
+        setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 
     /**
@@ -198,6 +200,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
         //возможно, оригинальное moveRobot из IMUDriveTrain позволит сделать такой проезд, но хзхз
         //encoderRun(x,y,turnToHeading, desiredDirection)??? где turnToHeading будет зависеть от desiredDirection
         // Determine new target position, and pass to motor controller
+        setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
         //надо ли сделать STOP_AND_RESET_ENCODER?
         for (DcMotor motor : motors) {
@@ -223,6 +226,6 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
 
         // Stop all motion & Turn off RUN_TO_POSITION
         move(0, 0, 0);
-        setModes(DcMotor.RunMode.RUN_USING_ENCODER);
+        setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
 }

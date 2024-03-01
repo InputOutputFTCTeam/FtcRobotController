@@ -83,6 +83,7 @@ public class TeleOperatingMode extends LinearOpMode {
             midlower = new Thread(() -> {
                 if(gamepad2.y) lohotron.armLogicalMid_Lower();
             }); midlower.start();
+
             closeClaw = new Thread(() -> {
                 if(gamepad2.x) lohotron.closeClaw();
             });closeClaw.start();
