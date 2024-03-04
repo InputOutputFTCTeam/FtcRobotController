@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Lohotron {
     private Servo perevorot, main, claw;
     private LinearOpMode lohotronOpMode = null; //объект описывающий опмод, в котором будет использоваться наш лохотрон
-    private boolean down = false, mid = false, clawClosed = false;
+    private boolean down = false, mid = false;
 
     /**
      * Создаем лохотрон, как класс внутри opMod-а
@@ -117,7 +117,7 @@ public class Lohotron {
     public void closeClaw() {
         claw.setPosition(0.1);
         clawClosed = true;
-        lohotronOpMode.sleep(50);
+        lohotronOpMode.sleep(150);
     }
 
     /**
@@ -126,13 +126,14 @@ public class Lohotron {
     public void openClaw() {
         claw.setPosition(0);
         clawClosed = false;
-        lohotronOpMode.sleep(50);
+        lohotronOpMode.sleep(150);
     }
+
+    boolean clawClosed = false;
 
     public void logicalOpenCloseClaw() {
         if (!clawClosed) closeClaw();
         else openClaw();
-        clawClosed = !clawClosed;
     }
 
     /**
