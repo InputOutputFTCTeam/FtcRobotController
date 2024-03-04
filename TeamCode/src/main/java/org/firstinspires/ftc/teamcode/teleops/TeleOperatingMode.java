@@ -17,7 +17,7 @@ import org.firstinspires.ftc.teamcode.robotModules.Basic.Plane;
 
 @TeleOp(name = "Tele V8", group = "1alfa")
 public class TeleOperatingMode extends LinearOpMode {
-    Thread movement, raiseaArm, midlower, closeClaw, openClaw, intakethread, closehook, midhook, openhook, liftThread, grab, ungrab, pushUp, agelUp;
+    Thread movement, raiseaArm, midlower, closeClaw, openClaw, intakethread, closehook, midhook, openhook, liftThread, grab, ungrab, pushUp, agelUp, agelDown;
     BasicDriveTrain wheelbase = new BasicDriveTrain(this);
     //Intaker intake = new Intaker(this);
     Lohotron lohotron = new Lohotron(this);
@@ -86,13 +86,13 @@ public class TeleOperatingMode extends LinearOpMode {
 
             closeClaw = new Thread(() -> {
                 if(gamepad2.x) lohotron.closeClaw();
-            });closeClaw.start();
+            }); closeClaw.start();
             openClaw = new Thread(() -> {
                 if(gamepad2.b) lohotron.openClaw();
             }); openClaw.start();
 
-            if (gamepad2.dpad_up) aCatch.openGrab();
-            if (gamepad2.dpad_down) aCatch.closeGrab();
+            if (gamepad2.dpad_left) aCatch.openGrab();
+            if (gamepad2.dpad_right) aCatch.closeGrab();
 
 
             /*intakethread = new Thread(() -> {
@@ -122,11 +122,17 @@ public class TeleOperatingMode extends LinearOpMode {
             ////if(gamepad1.a) hook.switchHook();
             //if(gamepad1.dpad_up) hook.openHook();
             pushUp = new Thread(() -> {
-                if(gamepad1.x) plane.pushUp();
+                if(gamepad1.y) plane.pushUp();
             }); pushUp.start();
+
             agelUp = new Thread(() -> {
-                if (gamepad1.b) plane.angleUp();
+                if (gamepad1.x) plane.angleUp();
             }); agelUp.start();
+            composeTelemery();
+
+            agelDown = new Thread(() -> {
+                if (gamepad1.b) plane.angleDown();
+            }); agelDown.start();
             composeTelemery();
 
 

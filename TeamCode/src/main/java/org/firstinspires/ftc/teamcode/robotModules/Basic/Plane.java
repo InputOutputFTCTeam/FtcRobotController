@@ -39,6 +39,9 @@ public class Plane {
     public void angleUp() {
         angle.setPosition(0.92);
     }
+    public void angleDown() {
+        angle.setPosition(0.7);
+    }
 
     /**
      * Включаем удерживающий гак в правильном положении
