@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.IMUAsSensor;
 
-public class GigaChadDriveTrain extends BasicDriveTrain{
+public class GigaChadDriveTrain extends BasicDriveTrain {
     //объявить imu, color sensor, motors in encoder mode, distance
     LinearOpMode gigaOpMode;
     DistanceSensorModule dist = null;
@@ -90,8 +90,9 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
 
     /**
      * Функция для поворота на определенный угол
+     *
      * @param maxTurnSpeed максимальная скорость поворота
-     * @param heading направление, в котором роботу следует развернуться
+     * @param heading      направление, в котором роботу следует развернуться
      */
     public void imuTurn(double maxTurnSpeed, double heading) {
         getSteeringCorrection(heading, P_TURN_GAIN);
@@ -117,8 +118,9 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
 
     /**
      * Проезд на расстояние в мм, используя энкодеры
-     * @param x скорость вдоль оси x (езда вправо-влево)
-     * @param y скорость вдоль оси y (езда вперед-назад)
+     *
+     * @param x          скорость вдоль оси x (езда вправо-влево)
+     * @param y          скорость вдоль оси y (езда вперед-назад)
      * @param distanceMM расстояние на которое надо проехать
      */
     public void encoderRun(double x, double y, double distanceMM) {
@@ -141,13 +143,17 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
 
     /**
      * Проезд на неопределенное расстояние до встречи с линией определенного цвета
-     * @param x скорость вдоль оси x (езда вправо-влево)
-     * @param y скорость вдоль оси y (езда вперед-назад)
-     * @param r скорость поворота вокруг своей оси
+     *
+     * @param x         скорость вдоль оси x (езда вправо-влево)
+     * @param y         скорость вдоль оси y (езда вперед-назад)
+     * @param r         скорость поворота вокруг своей оси
      * @param colorName название цвета линии на поле
      */
     public void colorRun(double x, double y, double r, ColorSensorModule.colorsField colorName) {
         while (gigaOpMode.opModeIsActive() && !clr.getColorOfField().equals(colorName)) {
+            move(0, 0, 0);
+            clr.updateColor();
+            gigaOpMode.sleep(10);
             move(x, y, r);
             gigaOpMode.telemetry.addLine(String.format("%5f %5f", getTL().getPower(), getTR().getPower()));
             gigaOpMode.telemetry.addLine(String.format("%5f %5f", getBL().getPower(), getBR().getPower()));
@@ -162,9 +168,10 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
 
     /**
      * Проезд для приближения на определенную дистанцию к объекту перед датчиком расстояния
-     * @param x скорость вдоль оси x (езда вправо-влево)
-     * @param y скорость вдоль оси y (езда вперед-назад)
-     * @param r скорость поворота вокруг своей оси
+     *
+     * @param x          скорость вдоль оси x (езда вправо-влево)
+     * @param y          скорость вдоль оси y (езда вперед-назад)
+     * @param r          скорость поворота вокруг своей оси
      * @param distanceMM минимальное расстояние между объектом и датчиком расстояния
      */
     public void distanceRunEnclose(double x, double y, double r, int distanceMM) {
@@ -176,9 +183,10 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
 
     /**
      * Проезд для отдаления на определенную дистанцию от объекта перед датчиком расстояния
-     * @param x скорость вдоль оси x (езда вправо-влево)
-     * @param y скорость вдоль оси y (езда вперед-назад)
-     * @param r скорость поворота вокруг своей оси
+     *
+     * @param x          скорость вдоль оси x (езда вправо-влево)
+     * @param y          скорость вдоль оси y (езда вперед-назад)
+     * @param r          скорость поворота вокруг своей оси
      * @param distanceMM максимальное расстояние между объектом и датчиком расстояния
      */
     public void distanceRunRetreat(double x, double y, double r, int distanceMM) {
@@ -190,13 +198,14 @@ public class GigaChadDriveTrain extends BasicDriveTrain{
 
     /**
      * Проезд на расстояние с контролем направления этого движения. Можно повернуться просто, а можно проехать поворачиваясь.
-     * @param x скорость вдоль оси x (езда вправо-влево)
-     * @param y скорость вдоль оси y (езда вперед-назад)
-     * @param r скорость поворота вокруг своей оси
+     *
+     * @param x                скорость вдоль оси x (езда вправо-влево)
+     * @param y                скорость вдоль оси y (езда вперед-назад)
+     * @param r                скорость поворота вокруг своей оси
      * @param desiredDirection напраление в котором должен смотреть робот
-     * @param distanceMM максимальное расстояние между объектом и датчиком расстояния
+     * @param distanceMM       максимальное расстояние между объектом и датчиком расстояния
      */
-    public void imuSteerEncoder(double x, double y ,double r, double desiredDirection, double distanceMM){
+    public void imuSteerEncoder(double x, double y, double r, double desiredDirection, double distanceMM) {
         //возможно, оригинальное moveRobot из IMUDriveTrain позволит сделать такой проезд, но хзхз
         //encoderRun(x,y,turnToHeading, desiredDirection)??? где turnToHeading будет зависеть от desiredDirection
         // Determine new target position, and pass to motor controller
