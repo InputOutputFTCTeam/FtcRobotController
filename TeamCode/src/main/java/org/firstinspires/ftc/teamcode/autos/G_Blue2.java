@@ -32,14 +32,15 @@ public class G_Blue2 extends LinearOpMode {
             telemetry.update();
             sleep(1000);*/
 
-            robot.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.BLUE);
+            //robot.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.BLUE);
 
             telemetry.addLine("to the RIGHT");
             telemetry.update();
             sleep(500);
-            /*robot.encoderRun(0.5, 0, 1000);sleep(1000);
+            robot.encoderRun(0.5, 0, 1000);
+            sleep(1000);
 
-            telemetry.addLine("to the FORWARD");
+            /*telemetry.addLine("to the FORWARD");
             telemetry.update();
             robot.encoderRun(0, 0.5, 1000);
             sleep(1000);

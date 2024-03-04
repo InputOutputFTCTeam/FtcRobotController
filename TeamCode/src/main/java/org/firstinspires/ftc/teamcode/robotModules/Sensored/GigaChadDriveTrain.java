@@ -35,6 +35,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         initMotors();
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
+
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
         dist.initDistanceSensor();
@@ -125,20 +126,37 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      */
     public void encoderRun(double x, double y, double distanceMM) {
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        getTR().setDirection(DcMotorSimple.Direction.REVERSE);
+        getBR().setDirection(DcMotorSimple.Direction.REVERSE);
+
+
         int[] startPosition = {getTL().getCurrentPosition(), getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition()};
         DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
         //надо ли сделать STOP_AND_RESET_ENCODER?
+        gigaOpMode.telemetry.addData("distanceMM2Ticks: ", distanceMM2Ticks(distanceMM));
         for (DcMotor motor : motors) {
             motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            gigaOpMode.telemetry.addData("target: ", motor.getTargetPosition());
         }
+        gigaOpMode.telemetry.update();
+        gigaOpMode.sleep(3000);
 
         while (gigaOpMode.opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
             move(x, y, 0);
+            for (DcMotor motor : motors) {
+                gigaOpMode.telemetry.addData("business: ", motor.isBusy());
+                gigaOpMode.telemetry.addData("Current Position: ", motor.getCurrentPosition());
+            }
+            gigaOpMode.telemetry.update();
         }
 
         move(0, 0, 0);
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        getTR().setDirection(DcMotorSimple.Direction.FORWARD);
+        getBR().setDirection(DcMotorSimple.Direction.FORWARD);
+
     }
 
     /**
