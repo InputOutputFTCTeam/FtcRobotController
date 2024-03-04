@@ -14,6 +14,7 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.Traje
 
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.GigaChadDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -30,9 +31,12 @@ public class AutoBlueTest extends LinearOpMode {
     Catch pixel = new Catch(this);
     IMUDriveTrain idt = new IMUDriveTrain(this);
     Lohotron lohotron = new Lohotron(this);
+    GigaChadDriveTrain robot = new GigaChadDriveTrain(this);
 
     @Override
     public void runOpMode() {
+        robot.initGigaChad(this);
+
         Methods_for_OpenCV methodsForOpenCV  = new Methods_for_OpenCV();
         int rows = methodsForOpenCV.getRows();
         int cols = methodsForOpenCV.getCols();

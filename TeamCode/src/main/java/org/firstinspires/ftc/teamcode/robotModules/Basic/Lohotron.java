@@ -17,20 +17,22 @@ public class Lohotron {
 
     /**
      * Создаем лохотрон, как класс внутри opMod-а
+     *
      * @param opMode - обычно "this", задает в каком потоке оперирует наш лохотрон
      */
-    public Lohotron(LinearOpMode opMode){
+    public Lohotron(LinearOpMode opMode) {
         lohotronOpMode = opMode;
     }
 
     /**
      * Инициализация лохотрона для opMode. Добавление в конфигурацию
+     *
      * @param hwMap - hardwareMap того OpMode в котором запускается робот
      */
-    public void initLohotron(HardwareMap hwMap){
+    public void initLohotron(HardwareMap hwMap) {
         perevorot = hwMap.servo.get("lohotron");
-        main =      hwMap.servo.get("lohotronMain");
-        claw =      hwMap.servo.get("zahvat");
+        main = hwMap.servo.get("lohotronMain");
+        claw = hwMap.servo.get("zahvat");
 
         closeClaw();
         //openClaw();
@@ -42,7 +44,7 @@ public class Lohotron {
     /**
      * Добавляем в телементрию информацию о положении ключевых механизмов
      */
-    public void lohotronTelemetry(){
+    public void lohotronTelemetry() {
         //lohotronOpMode.telemetry.addData("lohotron ", down ? "opushen" : "podniat");
         lohotronOpMode.telemetry.addData("lohorton ", down ? "opushen" : mid ? "mid" : "podniat");
         lohotronOpMode.telemetry.addData("lohotron position: ", perevorot.getPosition());
@@ -54,8 +56,8 @@ public class Lohotron {
     /**
      * Поднимает лохотрон
      */
-    public void armRaiser(){
-        main.setPosition(0.66);     //поменять на 0.5 чтобы было параллельно заднику         //0.64 - касается распорки-ограничителя
+    public void armRaiser() {
+        main.setPosition(0.66);     //надо будет выставить 0.53
         lohotronOpMode.sleep(150);
         perevorot.setPosition(0);       //а вот тут конструкцию надо менять... или серву на 270 поставить!
 
@@ -67,7 +69,7 @@ public class Lohotron {
     /**
      * Опускает лохотрон
      */
-    public void armLowerer(){
+    public void armLowerer() {
         perevorot.setPosition(0.88);            ////Тестить это
         lohotronOpMode.sleep(150);
         main.setPosition(0.03);
@@ -80,7 +82,7 @@ public class Lohotron {
     /**
      * Ставим лохотрон в серединное положение
      */
-    public void armMid(){
+    public void armMid() {
         main.setPosition(0.1);
         perevorot.setPosition(0.95);
 
@@ -95,14 +97,16 @@ public class Lohotron {
     /**
      * Поднимаем и опускаем лохотрон с помощью одной кнопки
      */
-    public void armLogicalRaise_Lower(){
-        if(!armRaised) armRaiser(); else armLowerer();
+    public void armLogicalRaise_Lower() {
+        if (!armRaised) armRaiser();
+        else armLowerer();
         armRaised = !armRaised;
         armMid = false;                                     //вот это попросила Юля. оно делает мид, когда нажимаешь на "y"
     }
 
-    public void armLogicalMid_Lower(){
-        if(!armMid) armMid(); else armLowerer();
+    public void armLogicalMid_Lower() {
+        if (!armMid) armMid();
+        else armLowerer();
         armMid = !armMid;
         armRaised = false;                                  //вот это попросила Юля. оно делает вверх, когда нажимаешь на "a"
     }
@@ -110,24 +114,33 @@ public class Lohotron {
     /**
      * Держать пиксель
      */
-    public void closeClaw(){
+    public void closeClaw() {
         claw.setPosition(0.1);
         clawClosed = true;
+        lohotronOpMode.sleep(50);
     }
 
     /**
      * Отпустить пиксель
      */
-    public void openClaw(){
+    public void openClaw() {
         claw.setPosition(0);
         clawClosed = false;
+        lohotronOpMode.sleep(50);
+    }
+
+    public void logicalOpenCloseClaw() {
+        if (!clawClosed) closeClaw();
+        else openClaw();
+        clawClosed = !clawClosed;
     }
 
     /**
      * Логическая функция, которая возвращает информацию о нынешнем положении захвата
+     *
      * @return
      */
-    public boolean isClawClosed(){
+    public boolean isClawClosed() {
         return clawClosed;
     }
 }

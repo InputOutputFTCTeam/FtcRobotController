@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 @TeleOp(name = "lohoSet", group = "testing")
 public class LohotronSetter extends LinearOpMode {
-    Servo servobox, lohotronMain, lohotron, claw;   //объявили сервы нашего лохотрона
+    Servo lohotronMain, lohotron, claw;   //объявили сервы нашего лохотрона
     Servo leftHook1, leftHook2, rightHook1, rightHook2;
 
     //gamepad 1 - settings; gamepad2 - test
@@ -20,7 +20,7 @@ public class LohotronSetter extends LinearOpMode {
     @Override
     public void runOpMode(){
         //задали имена сервам в конфигурации
-        servobox = hardwareMap.servo.get("servobox");
+        //servobox = hardwareMap.servo.get("servobox");
         lohotron = hardwareMap.servo.get("lohotron");
         lohotronMain = hardwareMap.servo.get("lohotronMain");
         claw = hardwareMap.servo.get("zahvat");
@@ -83,9 +83,9 @@ public class LohotronSetter extends LinearOpMode {
 
             // передаем значение в соответствующую серву. записываем на бумажке значение,
             // которое мы только что передали.     (Это конечно не control award... но попробуйте сами написать настройку четырех серв с возможностью сохранения данных! Это займет больше времени, чем у нас есть)
-            if(gamepad2.a){
-                servobox.setPosition(pos);
-            }
+            //if(gamepad2.a){
+                //servobox.setPosition(pos);
+            //}
             if(gamepad2.y){
                 lohotronMain.setPosition(pos);
             }

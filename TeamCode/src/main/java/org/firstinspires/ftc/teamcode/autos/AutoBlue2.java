@@ -33,7 +33,6 @@ public class AutoBlue2 extends LinearOpMode {
     Box box = new Box(this);
     Intaker intake = new Intaker(this);
 
-    //TODO: настроить дистанцию проезда
     @Override
     public void runOpMode() {
         imuDriveTrain.initIDT();
