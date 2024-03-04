@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.teleops;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,6 +11,8 @@ import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 
 //телеоп, в котором замедление, если есть какой-то цвет под датчиком
 
+
+@Disabled
 @TeleOp(name = "line driver", group = "alfa")
 public class DriveWithColorSensor extends LinearOpMode {
     BasicDriveTrain dt = new BasicDriveTrain(this);

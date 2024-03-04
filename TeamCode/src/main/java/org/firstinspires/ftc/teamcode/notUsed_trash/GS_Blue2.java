@@ -1,11 +1,9 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.notUsed_trash;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.apache.commons.math3.optimization.DifferentiableMultivariateOptimizer;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.SimplifiedChadDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 
 @Disabled
