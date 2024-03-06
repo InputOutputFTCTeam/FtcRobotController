@@ -88,7 +88,7 @@ public class TeleOperatingMode extends LinearOpMode {
             if (gamepad2.y) lohotron.armLogicalMid_Lower();
 
             if (gamepad2.x) lohotron.logicalOpenCloseClaw();
-            //if (gamepad2.b) lohotron.openClaw();
+            if (gamepad2.b) lohotron.openClaw();
 
 
             if (gamepad2.dpad_left) aCatch.openGrab();
