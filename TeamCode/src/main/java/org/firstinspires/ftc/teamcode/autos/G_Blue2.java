@@ -37,7 +37,7 @@ public class G_Blue2 extends LinearOpMode {
             telemetry.addLine("to the RIGHT");
             telemetry.update();
             sleep(500);
-            robot.encoderRun(0.5, 0, 1000);
+            robot.encoderRun(1, 0, 1000);
             sleep(1000);
 
             /*telemetry.addLine("to the FORWARD");
