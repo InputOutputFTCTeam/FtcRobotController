@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.robotModules.Sensored;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
-import static java.lang.reflect.Array.get;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;

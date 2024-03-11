@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.robotModules.Basic;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 /**
@@ -125,10 +124,10 @@ public class BasicDriveTrain {
      */
     public void move(double x, double y, double r){
         if(inited){
-            TL.setPower(Range.clip((x+y+r), -maximumSpeed, maximumSpeed));
-            TR.setPower(Range.clip((x-y+r), -maximumSpeed, maximumSpeed));
-            BL.setPower(Range.clip((-x+y+r), -maximumSpeed, maximumSpeed));
-            BR.setPower(Range.clip((-x-y+r), -maximumSpeed, maximumSpeed));
+            TL.setPower(Range.clip((x-y+r), -maximumSpeed, maximumSpeed));
+            TR.setPower(Range.clip((x+y+r), -maximumSpeed, maximumSpeed));
+            BL.setPower(Range.clip((-x-y+r), -maximumSpeed, maximumSpeed));
+            BR.setPower(Range.clip((-x+y+r), -maximumSpeed, maximumSpeed));
         }
         else {
             driveTrainOpMode.telemetry.addLine("NOT INITED WHEELBASE");

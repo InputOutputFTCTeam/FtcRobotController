@@ -6,12 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.robotModules.Basic.BackBoard;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Box;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Hook;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.HookMotor;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Intaker;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Lift;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Plane;
@@ -27,7 +26,9 @@ public class TeleOperatingMode extends LinearOpMode {
     Catch aCatch = new Catch(this);
     Hook hook = new Hook(this);
     Plane plane = new Plane(this);
+    BackBoard backBoard = new BackBoard(this);
     HookMotor hookMotor = new HookMotor(this);
+
 
     double INTAKE_SPEED = -0.4;
 
@@ -52,6 +53,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
         hookMotor.initHookMotor();
 
+        backBoard.initBackBoard();
 
         aCatch.initCatch();
 
@@ -64,8 +66,6 @@ public class TeleOperatingMode extends LinearOpMode {
         while (!isStarted()) {
             wheelbase.wheelbaseTelemetry();
             lohotron.lohotronTelemetry();
-            //intake.telemetryIntaker();
-            //box.telemetryBox();
             lift.telemetryLift();
             aCatch.telemetryBack();
             hook.telemetryHooks();
@@ -74,9 +74,26 @@ public class TeleOperatingMode extends LinearOpMode {
             telemetry.update();
             idle();
         }
+        boolean driveMode = true;
 
         while (opModeIsActive()) {
+            /*if (gamepad1.y) {
+                driveMode = !driveMode;
+                sleep(150);
+            }
+
+            if (driveMode == true) {
+                wheelbase.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+            }
+            if (driveMode == false) {
+                backBoard.backboard_slowly(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+            */
+
+
             wheelbase.move(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+            if (gamepad1.y)
+                backBoard.backboard_slowly(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+
             if (gamepad1.left_bumper) wheelbase.setMaximumSpeed(0.5);
             if (gamepad1.right_bumper) wheelbase.setMaximumSpeed(1);
 
@@ -104,7 +121,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
             //if(gamepad2.dpad_right) hook.midHook();
 
-            //if(gamepad1.dpad_up) hook.openHook();
+            if (gamepad1.dpad_up) hook.openHook();
 
             lift.run(gamepad2.right_stick_y);
 
@@ -113,8 +130,8 @@ public class TeleOperatingMode extends LinearOpMode {
 
             if (gamepad2.left_bumper) aCatch.ungrab();       //    gamepad2.left_stick_button
 
-            ////if(gamepad1.a) hook.switchHook();
-            //if(gamepad1.dpad_up) hook.openHook();
+            //if(gamepad1.a) hook.switchHook();
+            if (gamepad1.dpad_up) hook.openHook();
 
             if (gamepad1.x) plane.pushUp();
 
@@ -125,9 +142,11 @@ public class TeleOperatingMode extends LinearOpMode {
 
             if (gamepad1.b) plane.angleDown();
 
-
         }
+
+
     }
+
 
     public void composeTelemery() {
         wheelbase.wheelbaseTelemetry();
@@ -141,4 +160,5 @@ public class TeleOperatingMode extends LinearOpMode {
 
         telemetry.update();
     }
+
 }
