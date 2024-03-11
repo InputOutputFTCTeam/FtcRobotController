@@ -77,7 +77,7 @@ public class TeleOperatingMode extends LinearOpMode {
         boolean driveMode = true;
 
         while (opModeIsActive()) {
-            /*if (gamepad1.y) {
+            if (gamepad1.y) {
                 driveMode = !driveMode;
                 sleep(150);
             }
@@ -87,13 +87,13 @@ public class TeleOperatingMode extends LinearOpMode {
             }
             if (driveMode == false) {
                 backBoard.backboard_slowly(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
-            */
+            }
 
 
-            wheelbase.move(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+            /*wheelbase.move(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
             if (gamepad1.y)
                 backBoard.backboard_slowly(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
-
+*/
             if (gamepad1.left_bumper) wheelbase.setMaximumSpeed(0.5);
             if (gamepad1.right_bumper) wheelbase.setMaximumSpeed(1);
 
