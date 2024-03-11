@@ -57,9 +57,9 @@ public class Lohotron {
      * Поднимает лохотрон
      */
     public void armRaiser() {
-        main.setPosition(0.66);     //надо будет выставить 0.53
+        main.setPosition(0.558);     //надо будет выставить 0.53
         lohotronOpMode.sleep(150);
-        perevorot.setPosition(0);       //а вот тут конструкцию надо менять... или серву на 270 поставить!
+        perevorot.setPosition(0.2);       //а вот тут конструкцию надо менять... или серву на 270 поставить!
 
         lohotronOpMode.sleep(75);
         down = false;

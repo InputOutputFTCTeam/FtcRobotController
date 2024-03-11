@@ -50,25 +50,25 @@ public class Hook {
 
         hookOpMode.sleep(100);
 
-        //leftHook2.setPosition(0);
-        //rightHook2.setPosition(1);
+        leftHook2.setPosition(0);
+        rightHook2.setPosition(1);
 
-        //hookOpMode.sleep(50);
+        hookOpMode.sleep(50);
     }
 
     /**
      * Складываем крюки
      */
     public void closeHook(){
-        //leftHook2.setPosition(0.7);
-        //rightHook2.setPosition(0.3);
+        leftHook2.setPosition(0.7);
+        rightHook2.setPosition(0.3);
 
         hookOpMode.sleep(100);
 
         leftHook1.setPosition(0.7);
         rightHook1.setPosition(0.3);
 
-        //hookOpMode.sleep(50);
+        hookOpMode.sleep(50);
     }
 
     public void midHook(){
