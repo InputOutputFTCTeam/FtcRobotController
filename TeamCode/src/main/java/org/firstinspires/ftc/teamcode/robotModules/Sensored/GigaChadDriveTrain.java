@@ -225,33 +225,48 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
     public void imuSteerEncoder(double x, double y, double r, double desiredDirection, double distanceMM) {
         //возможно, оригинальное moveRobot из IMUDriveTrain позволит сделать такой проезд, но хзхз
         //encoderRun(x,y,turnToHeading, desiredDirection)??? где turnToHeading будет зависеть от desiredDirection
-        // Determine new target position, and pass to motor controller
+        //Determine new target position, and pass to motor controller
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        getTR().setDirection(DcMotorSimple.Direction.REVERSE);
+        getBR().setDirection(DcMotorSimple.Direction.REVERSE);
+
         DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
-        //надо ли сделать STOP_AND_RESET_ENCODER?
+        gigaOpMode.telemetry.addData("distanceMM2Ticks: ", distanceMM2Ticks(distanceMM));
         for (DcMotor motor : motors) {
             motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            gigaOpMode.telemetry.addData("target: ", motor.getTargetPosition());
         }
         move(x, y, 0);
 
         getSteeringCorrection(desiredDirection, P_TURN_GAIN);
         // keep looping while we are still active, and BOTH motors are running.
         while (gigaOpMode.opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
-
             // Determine required steering to keep on heading
             turnSpeed = getSteeringCorrection(desiredDirection, P_TURN_GAIN);
-
             // if driving in reverse, the motor correction also needs to be reversed
             if (distanceMM < 0)
                 turnSpeed *= -1.0;
-
             // Apply the turning correction to the current driving speed.
             move(x, y, turnSpeed);
+
+            for (DcMotor motor : motors) {
+                gigaOpMode.telemetry.addData("business: ", motor.isBusy());
+                gigaOpMode.telemetry.addData("Current Position: ", motor.getCurrentPosition());
+            }
+            gigaOpMode.telemetry.addData("direction: ", imu.getHeading());
+            gigaOpMode.telemetry.addData("turn speed: ", turnSpeed);
+            gigaOpMode.telemetry.addData("x: ", x);
+            gigaOpMode.telemetry.addData("y: ", y);
+
+            gigaOpMode.telemetry.update();
         }
 
         // Stop all motion & Turn off RUN_TO_POSITION
         move(0, 0, 0);
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        getTR().setDirection(DcMotorSimple.Direction.FORWARD);
+        getBR().setDirection(DcMotorSimple.Direction.FORWARD);
     }
 }
