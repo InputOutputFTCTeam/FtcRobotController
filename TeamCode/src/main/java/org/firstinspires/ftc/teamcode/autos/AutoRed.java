@@ -51,7 +51,7 @@ public class AutoRed extends LinearOpMode {
         rightHook1 = hardwareMap.servo.get("rightHook1");
         leftHook1 = hardwareMap.servo.get("leftHook1");
 
-        pixel.initLohotron(hardwareMap);
+        pixel.initLohotron();
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.REVERSE);

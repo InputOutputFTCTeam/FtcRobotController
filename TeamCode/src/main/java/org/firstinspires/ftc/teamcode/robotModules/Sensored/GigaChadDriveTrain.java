@@ -28,8 +28,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         imu = new IMUAsSensor(gigaOpMode);
     }
 
-    public void initGigaChad(LinearOpMode opMode) {
-        gigaOpMode = opMode;
+    public void initGigaChad() {
         setOpMode(gigaOpMode);
         initMotors();
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

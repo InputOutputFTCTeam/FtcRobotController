@@ -27,12 +27,11 @@ public class Lohotron {
     /**
      * Инициализация лохотрона для opMode. Добавление в конфигурацию
      *
-     * @param hwMap - hardwareMap того OpMode в котором запускается робот
      */
-    public void initLohotron(HardwareMap hwMap) {
-        perevorot = hwMap.servo.get("lohotron");
-        main = hwMap.servo.get("lohotronMain");
-        claw = hwMap.servo.get("zahvat");
+    public void initLohotron() {
+        perevorot = lohotronOpMode.hardwareMap.servo.get("lohotron");
+        main = lohotronOpMode.hardwareMap.servo.get("lohotronMain");
+        claw = lohotronOpMode.hardwareMap.servo.get("zahvat");
 
         closeClaw();
         //openClaw();

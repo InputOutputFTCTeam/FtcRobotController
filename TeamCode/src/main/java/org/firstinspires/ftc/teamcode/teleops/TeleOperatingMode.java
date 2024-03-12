@@ -43,7 +43,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
         //intake.initIntake(hardwareMap);
 
-        lohotron.initLohotron(hardwareMap);
+        lohotron.initLohotron();
 
         //box.initBox();
 

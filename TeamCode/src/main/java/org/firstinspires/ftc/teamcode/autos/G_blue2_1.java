@@ -13,7 +13,7 @@ public class G_blue2_1 extends LinearOpMode {
     @Override
     public void runOpMode() {
         //robot = new GigaChadDriveTrain(this);
-        robot.initGigaChad(this);
+        robot.initGigaChad();
 
         waitForStart();
         if (opModeIsActive()) {
