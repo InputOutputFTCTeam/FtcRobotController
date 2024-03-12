@@ -91,7 +91,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      * Функция для поворота на определенный угол
      *
      * @param maxTurnSpeed максимальная скорость поворота
-     * @param heading      направление, в котором роботу следует развернуться
+     * @param heading      направление, в котором роботу следует развернуться (>0 - против часовой, <0 - по часовой)
      */
     public void imuTurn(double maxTurnSpeed, double heading) {
         getSteeringCorrection(heading, P_TURN_GAIN);
