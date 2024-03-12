@@ -167,9 +167,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      */
     public void colorRun(double x, double y, double r, ColorSensorModule.colorsField colorName) {
         while (gigaOpMode.opModeIsActive() && !clr.getColorOfField().equals(colorName)) {
-            move(0, 0, 0);
             clr.updateColor();
-            gigaOpMode.sleep(10);
             move(x, y, r);
             gigaOpMode.telemetry.addLine(String.format("%5f %5f", getTL().getPower(), getTR().getPower()));
             gigaOpMode.telemetry.addLine(String.format("%5f %5f", getBL().getPower(), getBR().getPower()));
@@ -179,7 +177,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             gigaOpMode.telemetry.update();
         }
         move(0, 0, 0);
-        gigaOpMode.sleep(1000);
+        gigaOpMode.sleep(100);
     }
 
     /**
