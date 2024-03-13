@@ -124,8 +124,16 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
      */
     public void encoderRun(double x, double y, double distanceMM) {
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        getTR().setDirection(DcMotorSimple.Direction.REVERSE);
-        getBR().setDirection(DcMotorSimple.Direction.REVERSE);
+
+        if (x != 0 && y == 0) {
+            setOneDirection(DcMotorSimple.Direction.FORWARD);
+            getTL().setDirection(DcMotorSimple.Direction.REVERSE);
+            getTR().setDirection(DcMotorSimple.Direction.REVERSE);
+        } else if (x == 0 && y != 0) {
+            setOneDirection(DcMotorSimple.Direction.FORWARD);
+            getTR().setDirection(DcMotorSimple.Direction.REVERSE);
+            getBR().setDirection(DcMotorSimple.Direction.REVERSE);
+        }
 
 
         int[] startPosition = {getTL().getCurrentPosition(), getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition()};
@@ -138,7 +146,6 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             gigaOpMode.telemetry.addData("target: ", motor.getTargetPosition());
         }
         gigaOpMode.telemetry.update();
-        gigaOpMode.sleep(3000);
 
         while (gigaOpMode.opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
             move(x, y, 0);
@@ -224,8 +231,17 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         //encoderRun(x,y,turnToHeading, desiredDirection)??? где turnToHeading будет зависеть от desiredDirection
         //Determine new target position, and pass to motor controller
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        getTR().setDirection(DcMotorSimple.Direction.REVERSE);
-        getBR().setDirection(DcMotorSimple.Direction.REVERSE);
+
+        if (x != 0 && y == 0) {
+            setOneDirection(DcMotorSimple.Direction.FORWARD);
+            getTL().setDirection(DcMotorSimple.Direction.REVERSE);
+            getTR().setDirection(DcMotorSimple.Direction.REVERSE);
+        } else if (x == 0 && y != 0) {
+            setOneDirection(DcMotorSimple.Direction.FORWARD);
+            getTR().setDirection(DcMotorSimple.Direction.REVERSE);
+            getBR().setDirection(DcMotorSimple.Direction.REVERSE);
+        }
+
 
         DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
         gigaOpMode.telemetry.addData("distanceMM2Ticks: ", distanceMM2Ticks(distanceMM));
@@ -234,7 +250,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             gigaOpMode.telemetry.addData("target: ", motor.getTargetPosition());
         }
-        move(x, y, 0);
+        //move(x, y, 0);
 
         getSteeringCorrection(desiredDirection, P_TURN_GAIN);
         // keep looping while we are still active, and BOTH motors are running.
@@ -242,10 +258,11 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             // Determine required steering to keep on heading
             turnSpeed = getSteeringCorrection(desiredDirection, P_TURN_GAIN);
             // if driving in reverse, the motor correction also needs to be reversed
-            if (distanceMM < 0)
+            /*if (distanceMM < 0)
                 turnSpeed *= -1.0;
+            */
             // Apply the turning correction to the current driving speed.
-            move(x, y, turnSpeed);
+            move(x, y, -turnSpeed);
 
             for (DcMotor motor : motors) {
                 gigaOpMode.telemetry.addData("business: ", motor.isBusy());
@@ -262,8 +279,5 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         // Stop all motion & Turn off RUN_TO_POSITION
         move(0, 0, 0);
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        getTR().setDirection(DcMotorSimple.Direction.FORWARD);
-        getBR().setDirection(DcMotorSimple.Direction.FORWARD);
     }
 }
