@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.onTest.at;
 
 import com.acmerobotics.dashboard.FtcDashboard;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -14,7 +15,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-@TeleOp
+@Autonomous
 public class AB1 extends LinearOpMode {
     GigaChadDriveTrain base = new GigaChadDriveTrain(this);
     Catch pix = new Catch(this);
