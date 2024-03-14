@@ -69,7 +69,7 @@ public class Lohotron {
      * Опускает лохотрон
      */
     public void armLowerer() {
-        perevorot.setPosition(0.865);            ////Тестить это
+        perevorot.setPosition(0.892);            ////Тестить это
         lohotronOpMode.sleep(150);
         main.setPosition(0.03);
 
