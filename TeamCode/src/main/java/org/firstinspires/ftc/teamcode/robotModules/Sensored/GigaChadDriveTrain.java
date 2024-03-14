@@ -54,13 +54,13 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
 
     // ------------------>>>    imu
     private double headingError = 0;
-    private final double P_TURN_GAIN = -0.02;
+    private double P_TURN_GAIN = -0.02;
     private double targetHeading = 0;
     private double turnSpeed = 0;
     private double leftSpeed = 0;
     private double rightSpeed = 0;
     private final double HEADING_THRESHOLD = 1.0;
-    private final double MIN_TURN_SPEED = 0.08;
+    private final double MIN_TURN_SPEED = 0.095;
 
     private double getSteeringCorrection(double desiredHeading, double proportionalGain) {
         targetHeading = desiredHeading;
@@ -98,7 +98,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
         while (gigaOpMode.opModeIsActive() && abs(headingError) > HEADING_THRESHOLD) {
             turnSpeed = getSteeringCorrection(heading, P_TURN_GAIN);
             turnSpeed = Range.clip(turnSpeed, -maxTurnSpeed, maxTurnSpeed);
-            moveRobot(0, turnSpeed);
+            move(0, 0, turnSpeed);
             if (abs(turnSpeed) < MIN_TURN_SPEED) break;
         }
         move(0, 0, 0);
@@ -250,17 +250,18 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             gigaOpMode.telemetry.addData("target: ", motor.getTargetPosition());
         }
-        //move(x, y, 0);
+        move(abs(x), abs(y), 0);
 
+        P_TURN_GAIN = -0.3;
         getSteeringCorrection(desiredDirection, P_TURN_GAIN);
         // keep looping while we are still active, and BOTH motors are running.
         while (gigaOpMode.opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
             // Determine required steering to keep on heading
             turnSpeed = getSteeringCorrection(desiredDirection, P_TURN_GAIN);
             // if driving in reverse, the motor correction also needs to be reversed
-            /*if (distanceMM < 0)
+            if (distanceMM < 0)
                 turnSpeed *= -1.0;
-            */
+
             // Apply the turning correction to the current driving speed.
             move(x, y, -turnSpeed);
 
@@ -278,6 +279,6 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
 
         // Stop all motion & Turn off RUN_TO_POSITION
         move(0, 0, 0);
-        setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        setModes(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 }

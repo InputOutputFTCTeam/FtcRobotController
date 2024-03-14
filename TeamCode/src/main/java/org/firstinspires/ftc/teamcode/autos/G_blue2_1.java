@@ -17,7 +17,8 @@ public class G_blue2_1 extends LinearOpMode {
 
         waitForStart();
         if (opModeIsActive()) {
-            robot.imuSteerEncoder(1, 0, 0, 0, 1000);
+            robot.setMaximumSpeed(0.5);
+            robot.imuSteerEncoder(0.5, 0, 0, 0, 2500);
 
             //encoder run - проезд вперёд, imuTurn- оаорот, объявить сервы что использовать как в голуюой тест
 

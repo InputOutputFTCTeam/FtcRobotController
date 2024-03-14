@@ -55,6 +55,7 @@ public class AR1 extends LinearOpMode {
 
         waitForStart();
         if (opModeIsActive()) {
+            base.setMaximumSpeed(0.5);                                  //MAX SPEED для того, чтобы энкодер и цвет считывались +- нормально (хз, сработает ли)
             valLeft = Methods_for_OpenCV.getValLeft();
             valRight = Methods_for_OpenCV.getValRight();
             phoneCam.stopStreaming();
