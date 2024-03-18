@@ -34,7 +34,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        //инициаолизация модулей робота
+        //инициализация модулей робота
 
         wheelbase.initMotors();
         wheelbase.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
