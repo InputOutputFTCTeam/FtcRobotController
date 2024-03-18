@@ -24,13 +24,12 @@ public class G_blue2_1 extends LinearOpMode {
     private static int valRight = -1;
     public OpenCvWebcam phoneCam;
     Catch pixel = new Catch(this);
-    IMUDriveTrain idt = new IMUDriveTrain(this);
     Lohotron lohotron = new Lohotron(this);
 
     @Override
     public void runOpMode() {
         //robot = new GigaChadDriveTrain(this);
-        robot.initGigaChad(this);
+        robot.initGigaChad();
 
         Methods_for_OpenCV methodsForOpenCV  = new Methods_for_OpenCV();
         int rows = methodsForOpenCV.getRows();
@@ -52,25 +51,29 @@ public class G_blue2_1 extends LinearOpMode {
         FtcDashboard.getInstance().startCameraStream(phoneCam, 210);
         FtcDashboard.getInstance().getTelemetry();
         thread.start();
-        idt.initIDT();
-        lohotron.initLohotron(this.hardwareMap);
-        pixel.initCatch();
-        idt.switchToRRDirections();
 
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        lohotron.initLohotron();
+        pixel.initCatch();
+
+        //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         pixel.ungrab();
         lohotron.armMid();
 
         waitForStart();
         if (opModeIsActive()) {
-            robot.colorRun(0, -0.6, 0, ColorSensorModule.colorsField.BLUE);
-            robot.encoderRun(0, 0.6, 100);
-            pixel.grab();
-            pixel.ungrab();
-            robot.encoderRun(0, 0.6, 125);
-            robot.imuTurn(0.6, 90);
-            robot.encoderRun(0, -0.6, -882);
+
+            valLeft = Methods_for_OpenCV.getValLeft();
+            valRight = Methods_for_OpenCV.getValRight();
+
+            if (valRight == 255) {
+                robot.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.BLUE); //blue
+                robot.encoderRun(0, 0.6, 100);
+                pixel.grab();
+                robot.encoderRun(0, 0.6, 125);
+                robot.imuTurn(0.6, 90);
+                robot.encoderRun(0, -0.6, -882);
+            }
 
 
             /*valLeft = Methods_for_OpenCV.getValLeft();

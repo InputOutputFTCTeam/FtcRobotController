@@ -42,7 +42,7 @@ public class TeleOperatingMode extends LinearOpMode {
         wheelbase.setOneDirection(DcMotorSimple.Direction.FORWARD);
         wheelbase.setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        lohotron.initLohotron(hardwareMap);
+        lohotron.initLohotron();
 
         lift.initLift();
         lift.liftDirection(DcMotorSimple.Direction.FORWARD);
