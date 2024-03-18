@@ -74,7 +74,6 @@ public class TeleOperatingMode extends LinearOpMode {
         }
         boolean driveMode = true;
 
-
         while (opModeIsActive()) {
             /* y - режим проезда к заднику с использованием датчика расстояния
              * left stick x/y - передвижение по оси Х/Y

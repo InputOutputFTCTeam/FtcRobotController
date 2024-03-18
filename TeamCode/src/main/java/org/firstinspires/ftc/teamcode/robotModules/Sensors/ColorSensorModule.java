@@ -78,9 +78,9 @@ public class ColorSensorModule {
     }
 
     public void updateColor() {
+        colorSensorOpMode.sleep(2);
         colorHSV();
         colorRGB();
-        colorSensorOpMode.sleep(5);
     }
 
     public colorsField getColorOfField() {

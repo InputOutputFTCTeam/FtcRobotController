@@ -35,7 +35,7 @@ public class AutoBlueTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot.initGigaChad(this);
+        robot.initGigaChad();
 
         Methods_for_OpenCV methodsForOpenCV  = new Methods_for_OpenCV();
         int rows = methodsForOpenCV.getRows();
@@ -58,7 +58,7 @@ public class AutoBlueTest extends LinearOpMode {
         FtcDashboard.getInstance().getTelemetry();
         thread.start();
         idt.initIDT();
-        lohotron.initLohotron(this.hardwareMap);
+        lohotron.initLohotron();
         pixel.initCatch();
         idt.switchToRRDirections();
 

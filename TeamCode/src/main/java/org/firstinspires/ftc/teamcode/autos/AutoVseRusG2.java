@@ -54,7 +54,7 @@ public class AutoVseRusG2 extends LinearOpMode {
         FtcDashboard.getInstance().getTelemetry();
         thread.start();
         idt.initIDT();
-        lohotron.initLohotron(this.hardwareMap);
+        lohotron.initLohotron();
         pixel.initCatch();
         idt.switchToRRDirections();
 
