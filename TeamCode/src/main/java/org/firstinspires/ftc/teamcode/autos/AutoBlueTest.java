@@ -106,7 +106,7 @@ public class AutoBlueTest extends LinearOpMode {
 
 
         if (opModeIsActive()) {
-            //int i = 1; //0 - right 1 - center 2 - left ------------->>>>//МЕНЯТЬ ЭТО ЗНАЧЕНИЕ!!!        <<<---------------------------------
+
             valLeft = Methods_for_OpenCV.getValLeft();
             valRight = Methods_for_OpenCV.getValRight();
             drive.followTrajectorySequence(traj1);  //проезд к трем линиям
