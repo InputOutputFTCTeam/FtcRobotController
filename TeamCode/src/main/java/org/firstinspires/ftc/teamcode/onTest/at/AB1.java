@@ -72,7 +72,6 @@ public class AB1 extends LinearOpMode {
                 base.encoderRun(0, 0.5, 100);
                 pix.grab();
                 base.encoderRun(0, 0.5, -100);
-
                 base.imuTurn(0.7, 90);
             } else {                        //лево
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)

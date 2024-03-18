@@ -39,6 +39,7 @@ public class AR2 extends LinearOpMode {
         phoneCam.openCameraDevice();
         phoneCam.setPipeline(new org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV.StageSwitchingPipeline());
         phoneCam.startStreaming(rows, cols, OpenCvCameraRotation.UPRIGHT);
+        pix.ungrab();
 
         Thread thread = new Thread(() -> {
             while (opModeInInit()) {
@@ -60,37 +61,44 @@ public class AR2 extends LinearOpMode {
             phoneCam.stopStreaming();
 
             //подкатываем к точке сброса фиолетового
-            base.colorRun(0, -1, 0, ColorSensorModule.colorsField.RED);
+            base.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.idkWtfIsThisColor); // red
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-                pix.ungrab();
+                base.encoderRun(0, 0.5, 100);
+                pix.grab();
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.imuTurn(0.7, -90);
-                pix.ungrab();
+                base.encoderRun(0, 0.5, 100);
+                pix.grab();
+                base.encoderRun(0, 0.5, -100);
                 base.imuTurn(0.7, 90);
             } else {                        //лево
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-                base.imuTurn(0.7, 90);
-                pix.ungrab();
                 base.imuTurn(0.7, -90);
+                base.encoderRun(0, 0.5, 100);
+                pix.grab();
+                base.encoderRun(0, 0.5, -100);
+                base.imuTurn(0.7, 90);
             }
 
             //подкатываем к доске
-            base.encoderRun(0, -1, 1319); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+            base.encoderRun(0, 1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
             base.imuTurn(0.7, -90);
-            base.encoderRun(0, 1, 2134); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+            base.encoderRun(0, -1, -2134); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
 
             //подкатываем к правильной колонке
+            /*
             if (valLeft == 255) {           //центр
+
                 base.encoderRun(0.7, 0, -915);   //полторы клетки влево
             } else if (valRight == 255) {   //право
                 base.encoderRun(0.7, 0, -1006);  //чуть больше, чем полторы клетки влево
             } else {                        //лево
                 base.encoderRun(0.7, 0, -823);   //чуть меньше, чем полторы клетки влево
             }
-
+            */
             //роняем запад
             lohotron.armRaiser();
             lohotron.closeClaw();
@@ -101,15 +109,15 @@ public class AR2 extends LinearOpMode {
 
             //паркуемся
             if (valLeft == 255) {           //центр
-                base.encoderRun(0.7, 0, 1015);   //полторы клетки вправо
+                base.imuSteerEncoder(0.5, 0, 0, 90, 1015);   //полторы клетки вправо
             } else if (valRight == 255) {   //право
                 base.encoderRun(0.7, 0, 1106);  //чуть больше, чем полторы клетки вправо
             } else {                        //лево
                 base.encoderRun(0.7, 0, 923);   //чуть меньше, чем полторы клетки вправо
             }
 
-            base.encoderRun(0, 0.7, 500);
-            base.imuTurn(1, 0);     //hold position
+            base.encoderRun(0, -0.7, -250);
+            //base.imuTurn(1, 0);     //hold position
         }
     }
 }

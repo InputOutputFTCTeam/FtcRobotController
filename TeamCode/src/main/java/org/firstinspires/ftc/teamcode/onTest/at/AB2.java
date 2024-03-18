@@ -60,31 +60,37 @@ public class AB2 extends LinearOpMode {
             phoneCam.stopStreaming();
 
             //подкатываем к точке сброса фиолетового
-            base.colorRun(0, -1, 0, ColorSensorModule.colorsField.BLUE);
+            base.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.idkWtfIsThisColor);
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-                pix.ungrab();
+                base.encoderRun(0, 0.5, 100);
+                pix.grab();
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.imuTurn(0.7, -90);
-                pix.ungrab();
+                base.encoderRun(0, 0.5, 100);
+                pix.grab();
+                base.encoderRun(0, 0.5, -100);
                 base.imuTurn(0.7, 90);
             } else {                        //лево
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.imuTurn(0.7, 90);
-                pix.ungrab();
+                base.encoderRun(0, 0.5, 100);
+                pix.grab();
+                base.encoderRun(0, 0.5, -100);
                 base.imuTurn(0.7, -90);
             }
 
+
             //подкатываем к доске
-            base.encoderRun(0, -1, 1319); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+            //base.encoderRun(0, -1, 1319); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
             base.imuTurn(0.7, 90);
-            base.encoderRun(0, 1, 2134); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+            base.encoderRun(0, -1, -1000); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
 
             //подкатываем к правильной колонке
             if (valLeft == 255) {           //центр
-                base.encoderRun(0.7, 0, 915);   //полторы клетки вправо
+                base.imuSteerEncoder(0.5, 0, 0, 90, 915);   //полторы клетки вправо
             } else if (valRight == 255) {   //право
                 base.encoderRun(0.7, 0, 1006);  //чуть больше, чем полторы клетки вправо
             } else {                        //лево
@@ -102,7 +108,7 @@ public class AB2 extends LinearOpMode {
             //TODO: тут, наверное надо сделать imuSteerEncoder-ом, но он пока не работает...
             //паркуемся
             if (valLeft == 255) {           //центр
-                base.encoderRun(0.7, 0, -1015);   //полторы клетки влево
+                base.imuSteerEncoder(0.5, 0, 0,  90, -1015);   //полторы клетки влево
             } else if (valRight == 255) {   //право
                 base.encoderRun(0.7, 0, -1106);  //чуть больше, чем полторы клетки влево
             } else {                        //лево

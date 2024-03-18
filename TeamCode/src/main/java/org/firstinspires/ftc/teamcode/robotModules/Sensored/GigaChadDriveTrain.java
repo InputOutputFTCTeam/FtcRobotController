@@ -60,7 +60,7 @@ public class GigaChadDriveTrain extends BasicDriveTrain {
     private double leftSpeed = 0;
     private double rightSpeed = 0;
     private final double HEADING_THRESHOLD = 1.0;
-    private final double MIN_TURN_SPEED = 0.095;
+    private final double MIN_TURN_SPEED = 0.125;
 
     private double getSteeringCorrection(double desiredHeading, double proportionalGain) {
         targetHeading = desiredHeading;

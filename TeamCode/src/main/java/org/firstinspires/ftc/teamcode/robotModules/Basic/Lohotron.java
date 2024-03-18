@@ -69,7 +69,7 @@ public class Lohotron {
      * Опускает лохотрон
      */
     public void armLowerer() {
-        perevorot.setPosition(0.892);            ////Тестить это
+        perevorot.setPosition(0.88);            ////Тестить это
         lohotronOpMode.sleep(150);
         main.setPosition(0.03);
 
@@ -114,7 +114,7 @@ public class Lohotron {
      * Держать пиксель
      */
     public void closeClaw() {
-        claw.setPosition(0.1);
+        claw.setPosition(0.05);
         clawClosed = true;
         lohotronOpMode.sleep(150);
     }
@@ -123,7 +123,7 @@ public class Lohotron {
      * Отпустить пиксель
      */
     public void openClaw() {
-        claw.setPosition(0);
+        claw.setPosition(0.145);
         clawClosed = false;
         lohotronOpMode.sleep(150);
     }
