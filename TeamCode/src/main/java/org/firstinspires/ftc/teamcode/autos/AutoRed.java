@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
 
 @Disabled
 @Autonomous(name = "AutoRed", group = "Actual")
@@ -30,7 +30,7 @@ public class AutoRed extends LinearOpMode {
         lohotron.setPosition(0);
     }
 
-    Lohotron pixel = new Lohotron(this);
+    Capture pixel = new Capture(this);
 
     @Override
     public void runOpMode() {

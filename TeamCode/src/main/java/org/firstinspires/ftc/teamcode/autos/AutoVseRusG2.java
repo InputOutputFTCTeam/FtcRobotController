@@ -15,7 +15,7 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
 
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
 import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -29,7 +29,7 @@ public class AutoVseRusG2 extends LinearOpMode {
     public OpenCvWebcam phoneCam;
     Catch pixel = new Catch(this);
     IMUDriveTrain idt = new IMUDriveTrain(this);
-    Lohotron lohotron = new Lohotron(this);
+    Capture lohotron = new Capture(this);
 
     @Override
     public void runOpMode() {

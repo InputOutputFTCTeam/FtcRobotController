@@ -3,14 +3,13 @@ package org.firstinspires.ftc.teamcode.robotModules.Basic;
 import static java.lang.Thread.sleep;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Этот класс описывает работу лохотрона на нашем роботе
  */
 
-public class Lohotron {
+public class Capture {
     private Servo perevorot, main, claw;
     private LinearOpMode lohotronOpMode = null; //объект описывающий опмод, в котором будет использоваться наш лохотрон
     private boolean down = false, mid = false;
@@ -20,7 +19,7 @@ public class Lohotron {
      *
      * @param opMode - обычно "this", задает в каком потоке оперирует наш лохотрон
      */
-    public Lohotron(LinearOpMode opMode) {
+    public Capture(LinearOpMode opMode) {
         lohotronOpMode = opMode;
     }
 

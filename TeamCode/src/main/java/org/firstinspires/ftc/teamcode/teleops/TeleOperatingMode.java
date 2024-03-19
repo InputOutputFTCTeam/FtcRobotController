@@ -6,13 +6,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BackBoard;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.BackBoard;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Hook;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.HookMotor;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Lift;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Elevator;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Plane;
 
 /**
@@ -24,8 +24,8 @@ public class TeleOperatingMode extends LinearOpMode {
     //Thread movement, raiseaArm, midlower, closeClaw, openClaw, intakethread, closehook, midhook, openhook, liftThread, grab, ungrab, pushUp, agelUp;
 
     BasicDriveTrain wheelbase = new BasicDriveTrain(this);
-    Lohotron lohotron = new Lohotron(this);
-    Lift lift = new Lift(this);
+    Capture lohotron = new Capture(this);
+    Elevator lift = new Elevator(this);
     Catch aCatch = new Catch(this);
     Hook hook = new Hook(this);
     Plane plane = new Plane(this);

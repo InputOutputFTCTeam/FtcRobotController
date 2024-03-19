@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules.Basic;
+package org.firstinspires.ftc.teamcode.robotModules.Sensored;
 
 import static java.lang.Math.abs;
 
@@ -8,6 +8,11 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
+
+/**
+ * В этом классе описываются методы работы для датчика расстояния в режиме TeleOp
+ */
 
 public class BackBoard {
     private BasicDriveTrain wheelbase;
@@ -18,7 +23,7 @@ public class BackBoard {
         dsOpMode = opMode;
     }
 
-    public void initBackBoard() {
+    public void initBackBoard() {   //Инициализируем метод
         wheelbase = new BasicDriveTrain(dsOpMode);
         sensorDistance = dsOpMode.hardwareMap.get(DistanceSensor.class, "sensor_distance");
         wheelbase.initMotors();
@@ -28,19 +33,19 @@ public class BackBoard {
         wheelbase.setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public double distanceMM() {
+    public double distanceMM() {    //Задаём дистанцию в миллиметрах
         return sensorDistance.getDistance(DistanceUnit.MM);
     }
 
     public void backboard_slowly(double x, double y, double r) {
-        if (distanceMM() <= 50) {
+        if (distanceMM() <= 50) {   //Движение у задника на расстоянии меньше 50 миллиметров
             wheelbase.setMaximumSpeed(0.3);
             wheelbase.move(x, -abs(y), 0);
 
-        } else if (distanceMM() <= 500 && distanceMM() > 50) {
+        } else if (distanceMM() <= 500 && distanceMM() > 50) {  //Движение на расстоянии от задника больше 50 и меньше 500 миллиметров
             wheelbase.setMaximumSpeed(0.5);
             wheelbase.move(x, y, r);
-        } else if (distanceMM() > 500) {
+        } else if (distanceMM() > 500) {    //Движение на расстоянии от задника больше 500 миллиметров
             wheelbase.setMaximumSpeed(1);
             wheelbase.move(x, y, r);
         }

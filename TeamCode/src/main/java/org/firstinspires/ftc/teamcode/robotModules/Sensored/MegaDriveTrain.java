@@ -13,14 +13,14 @@ import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.IMUAsSensor;
 
-public class GigaChadDriveTrain extends BasicDriveTrain {
+public class MegaDriveTrain extends BasicDriveTrain {
     //объявить imu, color sensor, motors in encoder mode, distance
     LinearOpMode gigaOpMode;
     DistanceSensorModule dist = null;
     ColorSensorModule clr = null;
     IMUAsSensor imu = null;
 
-    public GigaChadDriveTrain(LinearOpMode opMode) {
+    public MegaDriveTrain(LinearOpMode opMode) {
         gigaOpMode = opMode;
         new BasicDriveTrain(gigaOpMode);
         dist = new DistanceSensorModule(gigaOpMode);

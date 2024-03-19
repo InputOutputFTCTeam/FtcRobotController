@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
- * В этом классе описывается самолетопускатель
+ * В этом классе описывается пускатель самолёта
  */
 
 public class Plane {

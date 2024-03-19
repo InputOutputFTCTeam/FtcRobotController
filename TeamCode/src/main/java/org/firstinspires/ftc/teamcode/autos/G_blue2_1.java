@@ -1,17 +1,14 @@
 package org.firstinspires.ftc.teamcode.autos;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.GigaChadDriveTrain;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.MegaDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -19,16 +16,15 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous (name = "G_blue2.1")
 public class G_blue2_1 extends LinearOpMode {
-    GigaChadDriveTrain robot = new GigaChadDriveTrain(this);
+    MegaDriveTrain robot = new MegaDriveTrain(this);
     private static int valLeft = -1;
     private static int valRight = -1;
     public OpenCvWebcam phoneCam;
     Catch pixel = new Catch(this);
-    Lohotron lohotron = new Lohotron(this);
+    Capture lohotron = new Capture(this);
 
     @Override
     public void runOpMode() {
-        //robot = new GigaChadDriveTrain(this);
         robot.initGigaChad();
 
         Methods_for_OpenCV methodsForOpenCV  = new Methods_for_OpenCV();
@@ -55,7 +51,6 @@ public class G_blue2_1 extends LinearOpMode {
         lohotron.initLohotron();
         pixel.initCatch();
 
-        //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
         pixel.ungrab();
         lohotron.armMid();
@@ -65,14 +60,41 @@ public class G_blue2_1 extends LinearOpMode {
 
             valLeft = Methods_for_OpenCV.getValLeft();
             valRight = Methods_for_OpenCV.getValRight();
+            phoneCam.stopStreaming();
 
-            if (valRight == 255) {
-                robot.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.BLUE); //blue
+            robot.colorRun(0, 0.6, 0, ColorSensorModule.colorsField.BLUE);
+
+            if (valLeft == 255) {
                 robot.encoderRun(0, 0.6, 100);
                 pixel.grab();
-                robot.encoderRun(0, 0.6, 125);
+                robot.encoderRun(0, 0.6, 50);
                 robot.imuTurn(0.6, 90);
-                robot.encoderRun(0, -0.6, -882);
+                //robot.encoderRun(0, -0.6, -882);
+            }
+            else if(valRight == 255) {
+                robot.imuTurn(0.6, 90);
+                pixel.grab();
+                robot.encoderRun(0, 0.6, 50);
+                robot.imuTurn(0.6, 180);
+
+            }
+            else{
+                robot.imuTurn(0.7, 90);
+                robot.encoderRun(0, 0.5, 100);
+                pixel.grab();
+                robot.encoderRun(0, 0.5, -100);
+                robot.imuTurn(0.7, -90);
+            }
+
+            robot.encoderRun(0, -1, -1219);
+
+            lohotron.armRaiser();
+            lohotron.closeClaw();
+            sleep(1000);        //ждем, пока упадет желтый пиксель
+            robot.encoderRun(0, 0.4, 50);
+            sleep(250);
+            lohotron.armMid();
+
             }
 
 
@@ -119,4 +141,4 @@ public class G_blue2_1 extends LinearOpMode {
             *///robot.colorRun(0.5, 0, 0, ColorSensorModule.colorsField.BLUE);
         }
     }
-}
+

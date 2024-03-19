@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * В этом классе описывается подъемник пикселей
  */
 
-public class Lift {
+public class Elevator {
     private LinearOpMode liftOpMode;
     private DcMotor lift;
 
@@ -16,7 +16,7 @@ public class Lift {
      * Создаем лифт, как класс внутри opMod-а
      * @param opMode - обычно "this", задает в каком потоке оперирует наш лифт
      */
-    public Lift(LinearOpMode opMode){
+    public Elevator(LinearOpMode opMode){
         liftOpMode = opMode;
     }
 

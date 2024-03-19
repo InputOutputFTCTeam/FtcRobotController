@@ -3,13 +3,12 @@ package org.firstinspires.ftc.teamcode.onTest.at;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.GigaChadDriveTrain;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.MegaDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -17,9 +16,9 @@ import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
 public class AB2 extends LinearOpMode {
-    GigaChadDriveTrain base = new GigaChadDriveTrain(this);
+    MegaDriveTrain base = new MegaDriveTrain(this);
     Catch pix = new Catch(this);
-    Lohotron lohotron = new Lohotron(this);
+    Capture lohotron = new Capture(this);
 
     private static int valLeft = -1;
     private static int valRight = -1;

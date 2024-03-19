@@ -13,8 +13,8 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
 
 import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Lohotron;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.GigaChadDriveTrain;
+import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
+import org.firstinspires.ftc.teamcode.robotModules.Sensored.MegaDriveTrain;
 import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -30,8 +30,8 @@ public class AutoBlueTest extends LinearOpMode {
     public OpenCvWebcam phoneCam;
     Catch pixel = new Catch(this);
     IMUDriveTrain idt = new IMUDriveTrain(this);
-    Lohotron lohotron = new Lohotron(this);
-    GigaChadDriveTrain robot = new GigaChadDriveTrain(this);
+    Capture lohotron = new Capture(this);
+    MegaDriveTrain robot = new MegaDriveTrain(this);
 
     @Override
     public void runOpMode() {
