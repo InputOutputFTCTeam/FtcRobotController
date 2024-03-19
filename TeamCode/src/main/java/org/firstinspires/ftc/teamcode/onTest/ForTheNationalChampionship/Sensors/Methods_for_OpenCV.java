@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest;
+package org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfPoint;
@@ -18,8 +18,6 @@ import java.util.List;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
-//Todo: create there all necessary for OpenCV instead of creating new instance in every Autonomous Method
 
 @Autonomous (name = "OpenCV")
 public class Methods_for_OpenCV extends  LinearOpMode{

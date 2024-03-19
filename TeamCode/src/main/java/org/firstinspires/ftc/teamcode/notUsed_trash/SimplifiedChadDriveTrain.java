@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
-import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.ColorSensorModule;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.DistanceSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.IMUAsSensor;
 
 public class SimplifiedChadDriveTrain {

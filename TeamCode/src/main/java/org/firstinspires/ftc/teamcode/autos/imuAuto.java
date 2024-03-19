@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.autos;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.IMUDriveTrain;
 
 
 @Autonomous(name = "imuAuto")

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules.Sensored;
+package org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored;
 
 import com.qualcomm.hardware.bosch.BNO055IMUNew;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
 
 /**
  * В этом классе описываются основные методы для гироскопа на основе BNO055IMU.

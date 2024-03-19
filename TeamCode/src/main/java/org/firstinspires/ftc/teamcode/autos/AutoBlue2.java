@@ -7,11 +7,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
 import org.firstinspires.ftc.teamcode.notUsed_trash.Box;
 import org.firstinspires.ftc.teamcode.notUsed_trash.Intaker;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.IMUDriveTrain;
 
 @Disabled
 @Autonomous(name = "AutoBlue2")

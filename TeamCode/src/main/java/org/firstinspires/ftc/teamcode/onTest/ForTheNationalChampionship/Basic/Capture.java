@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules.Basic;
+package org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic;
 
 import static java.lang.Thread.sleep;
 
@@ -32,8 +32,8 @@ public class Capture {
         main = lohotronOpMode.hardwareMap.servo.get("lohotronMain");
         claw = lohotronOpMode.hardwareMap.servo.get("zahvat");
 
-        closeClaw();
-        //openClaw();
+        //closeClaw();
+        openClaw();
         armMid();
 
         lohotronOpMode.telemetry.addLine("Lohotron ready!");

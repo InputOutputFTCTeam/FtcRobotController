@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
-import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.DistanceSensorModule;
 
 //TODO: добавить в Robot/modules
 

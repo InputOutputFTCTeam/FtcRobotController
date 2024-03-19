@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.MegaDriveTrain;
-import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.MegaDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.ColorSensorModule;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -62,12 +62,14 @@ public class G_blue2_1 extends LinearOpMode {
             valRight = Methods_for_OpenCV.getValRight();
             phoneCam.stopStreaming();
 
-            robot.colorRun(0, 0.6, 0, ColorSensorModule.colorsField.BLUE);
+            robot.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.BLUE);
 
             if (valLeft == 255) {
-                robot.encoderRun(0, 0.6, 100);
+                robot.encoderRun(0, 0.6, 75);
                 pixel.grab();
-                robot.encoderRun(0, 0.6, 50);
+                robot.encoderRun(0, 0.6, 100);
+                sleep(500);
+                //robot.encoderRun(0, 0.6, 50);
                 robot.imuTurn(0.6, 90);
                 //robot.encoderRun(0, -0.6, -882);
             }

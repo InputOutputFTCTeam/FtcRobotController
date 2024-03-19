@@ -6,14 +6,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.BackBoard;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Hook;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.HookMotor;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Elevator;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Plane;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.BackBoard;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Hook;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.HookMotor;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Elevator;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Plane;
 
 /**
  * В данном классе описывается основной телеоп

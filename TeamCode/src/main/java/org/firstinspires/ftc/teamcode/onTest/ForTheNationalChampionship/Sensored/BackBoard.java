@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules.Sensored;
+package org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored;
 
 import static java.lang.Math.abs;
 
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
 
 /**
  * В этом классе описываются методы работы для датчика расстояния в режиме TeleOp

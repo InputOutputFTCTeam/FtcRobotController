@@ -12,10 +12,10 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
 
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Catch;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.MegaDriveTrain;
-import org.firstinspires.ftc.teamcode.robotModules.Sensored.IMUDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.MegaDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.IMUDriveTrain;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;

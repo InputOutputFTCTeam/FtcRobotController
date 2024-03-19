@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules.Sensored;
+package org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.abs;
@@ -6,11 +6,12 @@ import static java.lang.Math.abs;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
-import org.firstinspires.ftc.teamcode.robotModules.Sensors.ColorSensorModule;
-import org.firstinspires.ftc.teamcode.robotModules.Sensors.DistanceSensorModule;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.ColorSensorModule;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.DistanceSensorModule;
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.IMUAsSensor;
 
 public class MegaDriveTrain extends BasicDriveTrain {
@@ -60,7 +61,7 @@ public class MegaDriveTrain extends BasicDriveTrain {
     private double leftSpeed = 0;
     private double rightSpeed = 0;
     private final double HEADING_THRESHOLD = 1.0;
-    private final double MIN_TURN_SPEED = 0.125;
+    private final double MIN_TURN_SPEED = 0.13;
 
     private double getSteeringCorrection(double desiredHeading, double proportionalGain) {
         targetHeading = desiredHeading;
@@ -173,6 +174,7 @@ public class MegaDriveTrain extends BasicDriveTrain {
      * @param colorName название цвета линии на поле
      */
     public void colorRun(double x, double y, double r, ColorSensorModule.colorsField colorName) {
+        ElapsedTime timer = new ElapsedTime();
         while (gigaOpMode.opModeIsActive() && !clr.getColorOfField().equals(colorName)) {
             clr.updateColor();
             move(x, y, r);
@@ -182,6 +184,10 @@ public class MegaDriveTrain extends BasicDriveTrain {
             gigaOpMode.telemetry.addData("i see ", clr.getColorOfField());
             clr.telemetryColor();
             gigaOpMode.telemetry.update();
+            timer.reset();
+            if (timer.milliseconds() > 2500) {
+                break;
+            }
         }
         move(0, 0, 0);
         gigaOpMode.sleep(100);

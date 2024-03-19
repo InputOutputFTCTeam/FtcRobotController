@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.robotModules.Sensors;
+package org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.TouchSensor;

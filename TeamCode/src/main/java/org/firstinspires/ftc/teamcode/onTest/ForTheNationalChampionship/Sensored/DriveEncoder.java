@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.robotModules.Sensored;
+package org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.robotModules.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
 
 //TODO: доделать это гоооспаде;
 public class DriveEncoder extends BasicDriveTrain {

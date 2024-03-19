@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive;
 import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.robotModules.Basic.Capture;
+import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
 
 @Disabled
 @Autonomous(name = "AutoRed", group = "Actual")
