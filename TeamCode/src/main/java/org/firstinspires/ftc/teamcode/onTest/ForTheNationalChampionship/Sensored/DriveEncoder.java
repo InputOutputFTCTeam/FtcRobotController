@@ -6,7 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
 
-//TODO: доделать это гоооспаде;
 public class DriveEncoder extends BasicDriveTrain {
     LinearOpMode encoderLinearOpMode;
     //BasicDriveTrain train;

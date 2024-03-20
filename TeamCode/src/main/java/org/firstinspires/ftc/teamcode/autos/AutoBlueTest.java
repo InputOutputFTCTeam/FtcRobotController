@@ -20,7 +20,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-//TODO: AutoBlue2
+//автоном с родраннером. дальний синий
 
 @Autonomous(name = "AutoBlueTest", group = "Actul")
 public class AutoBlueTest extends LinearOpMode {
@@ -35,7 +35,7 @@ public class AutoBlueTest extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot.initGigaChad();
+        robot.initMega();
 
         Methods_for_OpenCV methodsForOpenCV  = new Methods_for_OpenCV();
         int rows = methodsForOpenCV.getRows();

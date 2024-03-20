@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.autos.old;
 
 import static org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition.RingPosition.FOUR;
 import static org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition.RingPosition.ONE;
@@ -20,21 +20,29 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
+
 @Disabled
-@Autonomous(name = "AutoBlue", group = "Actual")
-public class AutoBlue extends LinearOpMode {
+@Autonomous(name = "Autotest123", group = "Actual")
+public class AutoTest123 extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
     Servo servobox, lohotronMain, lohotron, zahvat;
     protected Recognition recognition;
     OpenCvCamera webcam;
     double INTAKE_SPEED = 0.7;
     public void armRaise(){
-        lohotronMain.setPosition(0.267);
+        lohotronMain.setPosition(0.9);
+        sleep(100);
         lohotron.setPosition(1);
     }
     public void armLower(){
-        lohotronMain.setPosition(0);
         lohotron.setPosition(0);
+        sleep(50);
+        lohotronMain.setPosition(0);
+    }
+    public void armMiddle(){
+        lohotron.setPosition(0.05);
+        sleep(50);
+        lohotronMain.setPosition(0.5);
     }
 
     @Override
@@ -43,8 +51,8 @@ public class AutoBlue extends LinearOpMode {
         recognition.getAnalysis();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.setPipeline(recognition);
         webcam.openCameraDevice();
+        webcam.setPipeline(recognition);
         webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
         {
             @Override
@@ -94,6 +102,8 @@ public class AutoBlue extends LinearOpMode {
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
                 .turn(90)
+                .waitSeconds(3)
+                .waitSeconds(5)
                 .addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 .turn(0)
                 .back(2)
@@ -110,7 +120,7 @@ public class AutoBlue extends LinearOpMode {
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
                 .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр
-                .back(2) //           //turn - поворот (в градусах)
+                .back(2) //           //turn - поворот (в градусах по часовой)
                 .turn(0)
                 .strafeLeft(18)// для дополнительных действий
                 .turn(90)
@@ -162,5 +172,4 @@ public class AutoBlue extends LinearOpMode {
             telemetry.addData("black avg is", recognition.getAvgs()[2]);
         }
     }
-
 }

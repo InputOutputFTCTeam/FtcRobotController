@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.autos.old;
 
 import static org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition.RingPosition.FOUR;
 import static org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition.RingPosition.ONE;
@@ -18,57 +18,32 @@ import org.firstinspires.ftc.teamcode.RoadRunnerMethods.trajectorysequence.Traje
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
-import org.openftc.easyopencv.OpenCvCameraRotation;
-
 
 @Disabled
-@Autonomous(name = "Autotest123", group = "Actual")
-public class AutoTest123 extends LinearOpMode {
+@Autonomous(name = "AutoRed2")
+public class AutoRed2 extends LinearOpMode {
     DcMotor TR, TL, BR, BL, Intake, Lift;
     Servo servobox, lohotronMain, lohotron, zahvat;
     protected Recognition recognition;
     OpenCvCamera webcam;
     double INTAKE_SPEED = 0.7;
     public void armRaise(){
-        lohotronMain.setPosition(0.9);
-        sleep(100);
+        lohotronMain.setPosition(0.267);
         lohotron.setPosition(1);
     }
     public void armLower(){
-        lohotron.setPosition(0);
-        sleep(50);
         lohotronMain.setPosition(0);
-    }
-    public void armMiddle(){
-        lohotron.setPosition(0.05);
-        sleep(50);
-        lohotronMain.setPosition(0.5);
+        lohotron.setPosition(0);
     }
 
     @Override
     public void runOpMode() {
         recognition = new Recognition();
         recognition.getAnalysis();
+        webcam.openCameraDevice();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
-        webcam.openCameraDevice();
         webcam.setPipeline(recognition);
-        webcam.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
-        {
-            @Override
-            public void onOpened()
-            {
-                webcam.startStreaming(1920,1080, OpenCvCameraRotation.UPRIGHT); //поменять ориентацию камеры  SIDEWAYS_LEFT
-            }
-
-            @Override
-            public void onError(int errorCode)
-            {
-                /*
-                 * This will be called if the camera could not be opened
-                 */
-            }
-        });
 
         TL = hardwareMap.dcMotor.get("leftFront");
         TR = hardwareMap.dcMotor.get("rightFront");
@@ -95,57 +70,29 @@ public class AutoTest123 extends LinearOpMode {
         BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //тута штуки всяике тестятся
-        ///!протестить и исправить если надо!!
-
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         TrajectorySequence traj1 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
                 .turn(90)
-                .waitSeconds(3)
-                .waitSeconds(5)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .turn(0)
                 .back(2)
-                .turn(0)
-                .strafeLeft(18)// для дополнительных действий
-                .turn(90)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .turn(90)
+                .turn(180)
                 .forward(18)
+                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
                 .build();
 
         TrajectorySequence traj2 = drive.trajectorySequenceBuilder(new Pose2d())
-                .forward(18) //к линии        //проезды задаются тиками энкодера forward - вперед, back - назад, strafeRight/Left - стрейфить
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);}) // сброс пикселфя на центр
-                .back(2) //           //turn - поворот (в градусах по часовой)
-                .turn(0)
-                .strafeLeft(18)// для дополнительных действий
-                .turn(90)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .turn(90)
                 .forward(18)
-                .build();//
+                .back(2)
+                .turn(270)
+                .forward(18)
+                .build();
 
         TrajectorySequence traj3 = drive.trajectorySequenceBuilder(new Pose2d())
                 .forward(18)
                 .turn(270)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .back(1)
-                .turn(180)
-                .strafeLeft(18)// для дополнительных действий
-                .turn(0)
-                .forward(54)
-                .addTemporalMarker(5, () -> {servobox.setPosition(0);})
-                .strafeRight(18)
-                .turn(90)
                 .forward(18)
+                .addTemporalMarker(5,() -> {servobox.setPosition(0);})
                 .build();
-
 
         waitForStart();
 

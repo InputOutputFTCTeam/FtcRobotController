@@ -21,34 +21,55 @@ public class ColorSensorModule {
     private LinearOpMode colorSensorOpMode = null;
     private NormalizedRGBA colors;
 
+    /**
+     * Конструктор класса датчика цвета
+     * @param opMode передает конструктору информацию, в каком OpMode будет использоваться сенсор
+     */
     public ColorSensorModule(LinearOpMode opMode) {
         colorSensorOpMode = opMode;
     }
 
+    /**
+     * Инициализация датчика цвета
+     */
     public void initColorSensor() {
-        colorSensor = colorSensorOpMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
+        colorSensor = colorSensorOpMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");   //название в конфигурации
         //((SwitchableLight) colorSensor).enableLight(true);
-        setCSGain();
-        colors = colorSensor.getNormalizedColors();
-        Color.colorToHSV(colors.toColor(), hsvValues);
-        colorRGB();
+        setCSGain();    //установка значения чувствительности датчика
+        colors = colorSensor.getNormalizedColors();     //сканирование цвета
+        Color.colorToHSV(colors.toColor(), hsvValues);  //перевод сканированного цвета в HSV
+        colorRGB();                                     //перевод сканированного цвета в RGB
     }
 
+    /**
+     * Метод устанавливающий чувствительность датчика цвета. Без параметра задается 30
+     */
     public void setCSGain() {  //задаём баланс белого (gain - баланс белого)
         float gain = 30;
         colorSensor.setGain(gain);
     }
 
+    /**
+     * Метод устанавливающий чувствительность датчика цвета
+     *
+     * @param gain собственное значение для чувствительности. Всегда должно быть больше 1
+     */
     public void setCSGain(float gain) {
         colorSensor.setGain(gain);
     }
 
+    /**
+     * Сканирование цвета объекта перед датчиком, передает значения в HSV формате
+     */
     public float[] colorHSV() {
         colors = colorSensor.getNormalizedColors();
         Color.colorToHSV(colors.toColor(), hsvValues);
         return hsvValues;
     }
 
+    /**
+     * Сканирование цвета объекта перед датчиком, передает значения в RGB формате
+     */
     public float[] colorRGB() {
         colors = colorSensor.getNormalizedColors();
         rgbValues[0] = colors.red;
@@ -57,10 +78,17 @@ public class ColorSensorModule {
         return rgbValues;
     }
 
+    /**
+     * Использует датчик цвета, как сущность датчика расстояния
+     * @return значение расстояния в мм
+     */
     public double colorDistanceMM() {
         return ((DistanceSensor) colorSensor).getDistance(DistanceUnit.MM);
     }
 
+    /**
+     * Список цветов разметки на поле
+     */
     public enum colorsField {
         WHITE,
         BLACK,
@@ -69,6 +97,9 @@ public class ColorSensorModule {
         idkWtfIsThisColor
     }
 
+    /**
+     * Список цветов пикселя
+     */
     public enum colorsPixels {
         WHITE,
         YELLOW,
@@ -77,12 +108,19 @@ public class ColorSensorModule {
         idkWtfIsThisColor
     }
 
+    /**
+     * Обновляет значения с датчика цвета
+     */
     public void updateColor() {
-        colorSensorOpMode.sleep(2);
+        //colorSensorOpMode.sleep(2);
         colorHSV();
         colorRGB();
     }
 
+    /**
+     * Метод сравнивающий последнее полученное HSV значение датчика цвета с заданными значениями цветов поля и передает это значение, как название цвета.
+     * @return объект списка цветов разметки поля
+     */
     public colorsField getColorOfField() {
         //TODO: написать условия, при которых будут соответствующие цвета
         // (можно через ИЛИ || добавить условия в RGB. или сделать отдельным методом,
@@ -99,7 +137,11 @@ public class ColorSensorModule {
         return colorsField.idkWtfIsThisColor;
     }
 
-    public colorsPixels getColorOfPixel(float[] color) {
+    /**
+     * Метод сравнивающий последнее полученное HSV значение датчика цвета с заданными значениями цветов пикселей и передает это значение, как название цвета.
+     * @return объект списка цветов пикселей
+     */
+    public colorsPixels getColorOfPixel() {
         if (colorRGB()[0] > 0.9 && colorRGB()[1] > 0.9 && colorRGB()[2] > 0.9)
             return colorsPixels.WHITE;
         if (colorHSV()[0] > 35 && colorHSV()[0] < 60 && colorHSV()[1] > 0.75 && colorHSV()[2] > 0.75)
@@ -111,6 +153,9 @@ public class ColorSensorModule {
         return colorsPixels.idkWtfIsThisColor;
     }
 
+    /**
+     * Конструирует телеметрию датчика цвета - значения RGB, HSV и название цвета.
+     */
     public void telemetryColor() {
         colorSensorOpMode.telemetry.addLine(
                 "red: " + colorRGB()[0] +

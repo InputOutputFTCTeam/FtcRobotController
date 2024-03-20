@@ -10,7 +10,6 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.MegaDriveTrain;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.ColorSensorModule;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -28,7 +27,7 @@ public class AR1 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        base.initGigaChad();
+        base.initMega();
         pix.initCatch();
         lohotron.initLohotron();
 

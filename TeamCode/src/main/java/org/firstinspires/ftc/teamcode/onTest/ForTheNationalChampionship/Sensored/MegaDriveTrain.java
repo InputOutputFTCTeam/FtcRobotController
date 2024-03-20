@@ -15,22 +15,28 @@ import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.
 import org.firstinspires.ftc.teamcode.robotModules.Sensors.IMUAsSensor;
 
 public class MegaDriveTrain extends BasicDriveTrain {
-    //объявить imu, color sensor, motors in encoder mode, distance
     LinearOpMode gigaOpMode;
     DistanceSensorModule dist = null;
     ColorSensorModule clr = null;
     IMUAsSensor imu = null;
 
+    /**
+     * Конструирует класс колесной базы
+     * @param opMode передается конструктору, в каком OpMode работает колесная база
+     */
     public MegaDriveTrain(LinearOpMode opMode) {
         gigaOpMode = opMode;
-        new BasicDriveTrain(gigaOpMode);
+        new BasicDriveTrain(gigaOpMode);        //конструирует базовую к.б.
         dist = new DistanceSensorModule(gigaOpMode);
         clr = new ColorSensorModule(gigaOpMode);
         imu = new IMUAsSensor(gigaOpMode);
     }
 
-    public void initGigaChad() {
-        setOpMode(gigaOpMode);
+    /**
+     * Инициализация колесной базы
+     */
+    public void initMega() {
+        //setOpMode(gigaOpMode);
         initMotors();
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
@@ -46,10 +52,10 @@ public class MegaDriveTrain extends BasicDriveTrain {
     }
 
     /*
-    imuTurn -- тупа поворот по гироскопу
-    encoderRun -- тупа проезд прямо или вбок по энкодерам
-    colorRun -- тупа едем, пока не упремся в линию
-    distanceRun -- тупа едем, пока не достигнем какого-то расстояния
+    imuTurn -- поворот по гироскопу
+    encoderRun -- проезд прямо или в бок по энкодерам
+    colorRun -- едем, пока не упремся в линию
+    distanceRun -- едем, пока не достигнем какого-то расстояния
     imuSteerEncoder -- интеллектуально едем на определенное расстояние и корректируем направление езды с помощью поворота encoderRun(x,y,turnToHeading)
      */
 
@@ -63,6 +69,12 @@ public class MegaDriveTrain extends BasicDriveTrain {
     private final double HEADING_THRESHOLD = 1.0;
     private final double MIN_TURN_SPEED = 0.13;
 
+    /**
+     * Рассчитывает угол, на который надо скорректировать направление робота.
+     * @param desiredHeading желаемое направление, в котором должен смотреть робот
+     * @param proportionalGain пропорциональный коэффициент, по которому робот замедляется
+     * @return Пропорционально скорректированную мощность для моторов.
+     */
     private double getSteeringCorrection(double desiredHeading, double proportionalGain) {
         targetHeading = desiredHeading;
         headingError = targetHeading - imu.getHeading();
@@ -73,6 +85,11 @@ public class MegaDriveTrain extends BasicDriveTrain {
         return Range.clip(headingError * proportionalGain, -1, 1);
     }
 
+    /**
+     * Метод для управления роботом, в котором мощности колес с разных сторон скорректированы пропорционально друг другу.
+     * @param drive скорость прямолинейного движения
+     * @param turn скорость разворота
+     */
     private void moveRobot(double drive, double turn) {
         turnSpeed = turn;
 
@@ -92,7 +109,7 @@ public class MegaDriveTrain extends BasicDriveTrain {
      * Функция для поворота на определенный угол
      *
      * @param maxTurnSpeed максимальная скорость поворота
-     * @param heading      направление, в котором роботу следует развернуться (>0 - против часовой, <0 - по часовой)
+     * @param heading направление, в котором роботу следует развернуться (>0 - против часовой, <0 - по часовой)
      */
     public void imuTurn(double maxTurnSpeed, double heading) {
         getSteeringCorrection(heading, P_TURN_GAIN);
@@ -105,6 +122,11 @@ public class MegaDriveTrain extends BasicDriveTrain {
         move(0, 0, 0);
     }
 
+    /**
+     * Перевод из расстояния в мм в тики энкодера, встроенного в мотор Neverest GearMotor 60:1
+     * @param distanceMM дистанция в мм
+     * @return количество импульсов энкодера (integer значение)
+     */
     private int distanceMM2Ticks(double distanceMM) {
         final double WHEEL_DIAMETER = 4 * 25.4;
         final double WHEEL_PERIMETER = WHEEL_DIAMETER * PI;
@@ -126,28 +148,30 @@ public class MegaDriveTrain extends BasicDriveTrain {
     public void encoderRun(double x, double y, double distanceMM) {
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        if (x != 0 && y == 0) {
+        // задаем направления, в которых должны вращаться моторы при движении в соответствующие стороны
+        if (x != 0 && y == 0) {         //езда в бок
             setOneDirection(DcMotorSimple.Direction.FORWARD);
             getTL().setDirection(DcMotorSimple.Direction.REVERSE);
             getTR().setDirection(DcMotorSimple.Direction.REVERSE);
-        } else if (x == 0 && y != 0) {
+        } else if (x == 0 && y != 0) {  //езда прямо
             setOneDirection(DcMotorSimple.Direction.FORWARD);
             getTR().setDirection(DcMotorSimple.Direction.REVERSE);
             getBR().setDirection(DcMotorSimple.Direction.REVERSE);
         }
 
-
-        int[] startPosition = {getTL().getCurrentPosition(), getTR().getCurrentPosition(), getBL().getCurrentPosition(), getBR().getCurrentPosition()};
         DcMotor[] motors = {getTL(), getTR(), getBL(), getBR()};
-        //надо ли сделать STOP_AND_RESET_ENCODER?
+
         gigaOpMode.telemetry.addData("distanceMM2Ticks: ", distanceMM2Ticks(distanceMM));
+
+        //задаем целевое положение для мотора. Сколько оборотов он должен сделать
         for (DcMotor motor : motors) {
-            motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));    //надо ли это отлаживать? протестить и посмотрим...
+            motor.setTargetPosition(motor.getCurrentPosition() + distanceMM2Ticks(distanceMM));
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             gigaOpMode.telemetry.addData("target: ", motor.getTargetPosition());
         }
         gigaOpMode.telemetry.update();
 
+        //подаем моторам мощность, пока они не достигнут целевого положения
         while (gigaOpMode.opModeIsActive() && getTL().isBusy() && getTR().isBusy() && getBL().isBusy() && getBR().isBusy()) {
             move(x, y, 0);
             for (DcMotor motor : motors) {
@@ -159,10 +183,7 @@ public class MegaDriveTrain extends BasicDriveTrain {
 
         move(0, 0, 0);
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        getTR().setDirection(DcMotorSimple.Direction.FORWARD);
-        getBR().setDirection(DcMotorSimple.Direction.FORWARD);
-
+        setOneDirection(DcMotorSimple.Direction.FORWARD);
     }
 
     /**
@@ -175,6 +196,7 @@ public class MegaDriveTrain extends BasicDriveTrain {
      */
     public void colorRun(double x, double y, double r, ColorSensorModule.colorsField colorName) {
         ElapsedTime timer = new ElapsedTime();
+        timer.reset();  //создаем и запускаем таймер, который по истечении времени остановит работу процедуры.
         while (gigaOpMode.opModeIsActive() && !clr.getColorOfField().equals(colorName)) {
             clr.updateColor();
             move(x, y, r);
@@ -184,7 +206,8 @@ public class MegaDriveTrain extends BasicDriveTrain {
             gigaOpMode.telemetry.addData("i see ", clr.getColorOfField());
             clr.telemetryColor();
             gigaOpMode.telemetry.update();
-            timer.reset();
+
+            //проверяем, не вышло ли время на выполнение задачи
             if (timer.milliseconds() > 2500) {
                 break;
             }

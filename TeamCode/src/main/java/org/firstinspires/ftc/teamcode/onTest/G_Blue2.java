@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.onTest;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -12,7 +12,7 @@ public class G_Blue2 extends LinearOpMode {
     @Override
     public void runOpMode(){
         //robot = new GigaChadDriveTrain(this);
-        robot.initGigaChad();
+        robot.initMega();
 
         waitForStart();
         if (opModeIsActive()) {
@@ -52,23 +52,6 @@ public class G_Blue2 extends LinearOpMode {
             telemetry.addLine("to the BACKWARD");
             telemetry.update();
             robot.encoderRun(0, 0.5, -1000);
-
-            telemetry.addLine("1FREEE BIIIIRDDD YEAH");
-            telemetry.update();
-            robot.imuTurn(0.5, 90);
-            sleep(100);
-            telemetry.addLine("2FREEE BIIIIRDDD YEAH");
-            telemetry.update();
-            robot.imuTurn(0.5, 90);
-            sleep(100);
-            telemetry.addLine("3FREEE BIIIIRDDD YEAH");
-            telemetry.update();
-            robot.imuTurn(0.5, 90);
-            sleep(100);
-            telemetry.addLine("4FREEE BIIIIRDDD YEAH");
-            telemetry.update();
-            robot.imuTurn(0.5, 90);
-            sleep(100);
             */
         }
     }

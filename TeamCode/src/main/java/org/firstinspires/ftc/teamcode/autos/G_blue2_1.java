@@ -25,7 +25,7 @@ public class G_blue2_1 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        robot.initGigaChad();
+        robot.initMega();
 
         Methods_for_OpenCV methodsForOpenCV  = new Methods_for_OpenCV();
         int rows = methodsForOpenCV.getRows();

@@ -26,7 +26,7 @@ public class AB2 extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        base.initGigaChad();
+        base.initMega();
         pix.initCatch();
         lohotron.initLohotron();
 

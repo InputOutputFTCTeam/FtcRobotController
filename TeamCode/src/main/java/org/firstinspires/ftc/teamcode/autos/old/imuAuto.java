@@ -1,11 +1,12 @@
-package org.firstinspires.ftc.teamcode.autos;
+package org.firstinspires.ftc.teamcode.autos.old;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.IMUDriveTrain;
 
-
+@Disabled
 @Autonomous(name = "imuAuto")
 public class imuAuto extends LinearOpMode {
     IMUDriveTrain imuDriveTrain = new IMUDriveTrain(this);
