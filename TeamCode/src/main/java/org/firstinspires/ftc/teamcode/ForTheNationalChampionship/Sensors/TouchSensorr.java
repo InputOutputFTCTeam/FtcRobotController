@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Sensors;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 /**
  * В этом классе описывается работа концувика. Он нужен в нашем роботе для стабильной работы лифта.
@@ -9,7 +8,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class TouchSensorr {
     LinearOpMode touchSensorOpMode;
-    TouchSensor ts;
+    com.qualcomm.robotcore.hardware.TouchSensor ts;
     public TouchSensorr(LinearOpMode opMode) {
         touchSensorOpMode = opMode;
     }
@@ -18,7 +17,7 @@ public class TouchSensorr {
      * Инициализация концевика (кнопки). Записывает его имя в конфигурации.
      */
     public void initTouch() {   //
-        ts = touchSensorOpMode.hardwareMap.get(TouchSensor.class, "sensor_touch");
+        ts = touchSensorOpMode.hardwareMap.get(com.qualcomm.robotcore.hardware.TouchSensor.class, "sensor_touch");
     }
 
     /**

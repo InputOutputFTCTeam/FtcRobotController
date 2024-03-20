@@ -135,6 +135,7 @@ public class TeleOperatingMode extends LinearOpMode {
      * Собираем всю телеметрию с модулей робота, чтобы отправить ее в основной поток телеметрии
      */
     public void composeTelemery() {
+        wheelBaseBackBoarded.telemetryBackBoard();
         lohotron.lohotronTelemetry();
         lift.telemetryLift();
         aCatch.telemetryBack();

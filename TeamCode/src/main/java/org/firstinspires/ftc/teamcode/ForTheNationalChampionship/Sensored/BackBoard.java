@@ -25,6 +25,7 @@ public class BackBoard extends BasicDriveTrain {
     }
 
     public void initBackBoard() {   //Инициализируем метод
+        setOpMode(dsOpMode);
         sensorDistance = dsOpMode.hardwareMap.get(DistanceSensor.class, "sensor_distance");
         initMotors();
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -54,12 +55,20 @@ public class BackBoard extends BasicDriveTrain {
 
     boolean driveMode = false; //false - no distance control; true - distance control;
     public void smartMove(double x, double y, double r) {
-        if (dsOpMode.gamepad1.y) driveMode = !driveMode;
+        if (dsOpMode.gamepad1.y) {
+            driveMode = !driveMode;
+            dsOpMode.sleep(200);
+        }
         if (driveMode)
             backboard_slowly(x, y, r);
         else {
             setMaximumSpeed(1);
             move(x, y, r);
         }
+    }
+
+    public void telemetryBackBoard() {
+        wheelbaseTelemetry();
+        dsOpMode.telemetry.addLine(driveMode ? "DISTANCE FAST" : "DISTANCE SLOW");
     }
 }
