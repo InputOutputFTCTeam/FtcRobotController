@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest.at;
+package org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -6,16 +6,16 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.MegaDriveTrain;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.ColorSensorModule;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Catch;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Capture;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Sensored.MegaDriveTrain;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Sensors.ColorSensorModule;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
 @Autonomous
-public class AB2 extends LinearOpMode {
+public class AR2 extends LinearOpMode {
     MegaDriveTrain base = new MegaDriveTrain(this);
     Catch pix = new Catch(this);
     Capture lohotron = new Capture(this);
@@ -38,6 +38,7 @@ public class AB2 extends LinearOpMode {
         phoneCam.openCameraDevice();
         phoneCam.setPipeline(new org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV.StageSwitchingPipeline());
         phoneCam.startStreaming(rows, cols, OpenCvCameraRotation.UPRIGHT);
+        pix.ungrab();
 
         Thread thread = new Thread(() -> {
             while (opModeInInit()) {
@@ -59,7 +60,7 @@ public class AB2 extends LinearOpMode {
             phoneCam.stopStreaming();
 
             //подкатываем к точке сброса фиолетового
-            base.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.idkWtfIsThisColor);
+            base.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.idkWtfIsThisColor); // red
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
@@ -74,28 +75,29 @@ public class AB2 extends LinearOpMode {
                 base.imuTurn(0.7, 90);
             } else {                        //лево
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-                base.imuTurn(0.7, 90);
+                base.imuTurn(0.7, -90);
                 base.encoderRun(0, 0.5, 100);
                 pix.grab();
                 base.encoderRun(0, 0.5, -100);
-                base.imuTurn(0.7, -90);
+                base.imuTurn(0.7, 90);
             }
-
 
             //подкатываем к доске
-            //base.encoderRun(0, -1, 1319); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
-            base.imuTurn(0.7, 90);
-            base.encoderRun(0, -1, -1000); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+            base.encoderRun(0, 1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+            base.imuTurn(0.7, -90);
+            base.encoderRun(0, -1, -2134); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
 
             //подкатываем к правильной колонке
+            /*
             if (valLeft == 255) {           //центр
-                base.imuSteerEncoder(0.5, 0, 0, 90, 915);   //полторы клетки вправо
-            } else if (valRight == 255) {   //право
-                base.encoderRun(0.7, 0, 1006);  //чуть больше, чем полторы клетки вправо
-            } else {                        //лево
-                base.encoderRun(0.7, 0, 823);   //чуть меньше, чем полторы клетки вправо
-            }
 
+                base.encoderRun(0.7, 0, -915);   //полторы клетки влево
+            } else if (valRight == 255) {   //право
+                base.encoderRun(0.7, 0, -1006);  //чуть больше, чем полторы клетки влево
+            } else {                        //лево
+                base.encoderRun(0.7, 0, -823);   //чуть меньше, чем полторы клетки влево
+            }
+            */
             //роняем запад
             lohotron.armRaiser();
             lohotron.closeClaw();
@@ -104,18 +106,17 @@ public class AB2 extends LinearOpMode {
             sleep(250);
             lohotron.armMid();
 
-            //TODO: тут, наверное надо сделать imuSteerEncoder-ом, но он пока не работает...
             //паркуемся
             if (valLeft == 255) {           //центр
-                base.imuSteerEncoder(0.5, 0, 0,  90, -1015);   //полторы клетки влево
+                base.imuSteerEncoder(0.5, 0, 0, 90, 1015);   //полторы клетки вправо
             } else if (valRight == 255) {   //право
-                base.encoderRun(0.7, 0, -1106);  //чуть больше, чем полторы клетки влево
+                base.encoderRun(0.7, 0, 1106);  //чуть больше, чем полторы клетки вправо
             } else {                        //лево
-                base.encoderRun(0.7, 0, -923);   //чуть меньше, чем полторы клетки влево
+                base.encoderRun(0.7, 0, 923);   //чуть меньше, чем полторы клетки вправо
             }
 
-            base.encoderRun(0, 0.7, 500);
-            base.imuTurn(1, 0);     //hold position
+            base.encoderRun(0, -0.7, -250);
+            //base.imuTurn(1, 0);     //hold position
         }
     }
 }

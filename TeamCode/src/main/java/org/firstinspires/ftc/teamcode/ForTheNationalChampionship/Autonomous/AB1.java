@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest.at;
+package org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -6,16 +6,18 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.MegaDriveTrain;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensors.ColorSensorModule;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Catch;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Capture;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Sensored.MegaDriveTrain;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Sensors.ColorSensorModule;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
+//TODO: Подбирать значения для проездов и правильной колонке
+
 @Autonomous
-public class AR2 extends LinearOpMode {
+public class AB1 extends LinearOpMode {
     MegaDriveTrain base = new MegaDriveTrain(this);
     Catch pix = new Catch(this);
     Capture lohotron = new Capture(this);
@@ -38,7 +40,6 @@ public class AR2 extends LinearOpMode {
         phoneCam.openCameraDevice();
         phoneCam.setPipeline(new org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV.StageSwitchingPipeline());
         phoneCam.startStreaming(rows, cols, OpenCvCameraRotation.UPRIGHT);
-        pix.ungrab();
 
         Thread thread = new Thread(() -> {
             while (opModeInInit()) {
@@ -60,63 +61,74 @@ public class AR2 extends LinearOpMode {
             phoneCam.stopStreaming();
 
             //подкатываем к точке сброса фиолетового
-            base.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.idkWtfIsThisColor); // red
+            base.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.BLUE);
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0, 0.5, 100);
                 pix.grab();
-            } else if (valRight == 255) {   //право
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-                base.imuTurn(0.7, -90);
-                base.encoderRun(0, 0.5, 100);
-                pix.grab();
-                base.encoderRun(0, 0.5, -100);
+                base.encoderRun(0, 0.5, 200);
+                pix.ungrab();
                 base.imuTurn(0.7, 90);
-            } else {                        //лево
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
+                base.encoderRun(0, -1, -882);
+            } else if (valRight == 255) {   //право
+                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)1500
                 base.imuTurn(0.7, -90);
                 base.encoderRun(0, 0.5, 100);
                 pix.grab();
-                base.encoderRun(0, 0.5, -100);
+                base.imuTurn(0.7, 90);
+                pix.ungrab();
+                base.encoderRun(0, -1, -882);
+            } else {                        //лево
+                base.imuTurn(0.7, 90);
+                base.encoderRun(0, 0.5, 100);
+                pix.grab();
+                base.encoderRun(0, 0.7, 150);
+                pix.ungrab();
+                base.imuTurn(0.7, 0);
+                base.encoderRun(0, 0.7, 930);
+                base.imuTurn(0.7, 90);
+                base.encoderRun(0, -0.7, -1400);
+                base.imuTurn(0.7, 0);
+                base.encoderRun(0, -0.7, -550);
                 base.imuTurn(0.7, 90);
             }
 
             //подкатываем к доске
-            base.encoderRun(0, 1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
-            base.imuTurn(0.7, -90);
-            base.encoderRun(0, -1, -2134); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
 
-            //подкатываем к правильной колонке
-            /*
-            if (valLeft == 255) {           //центр
+            //base.encoderRun(0, -1, -882); //едем до разметочной линии перед доской //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE);
 
-                base.encoderRun(0.7, 0, -915);   //полторы клетки влево
+            //подкатываем к правильной колонке ДОПИСАТЬ ВО ВРЕМЯ ТЕСТОВ
+            /*if (valLeft == 255) {           //центр
+                base.encoderRun(0.7, 0, 915);   //полторы клетки вправо
             } else if (valRight == 255) {   //право
-                base.encoderRun(0.7, 0, -1006);  //чуть больше, чем полторы клетки влево
+                base.encoderRun(0.7, 0, 1006);  //чуть больше, чем полторы клетки вправо
             } else {                        //лево
-                base.encoderRun(0.7, 0, -823);   //чуть меньше, чем полторы клетки влево
-            }
-            */
+                base.encoderRun(0.7, 0, 823);   //чуть меньше, чем полторы клетки вправо
+            }*/
+
             //роняем запад
             lohotron.armRaiser();
-            lohotron.closeClaw();
+            lohotron.openClaw();
             sleep(1000);        //ждем, пока упадет желтый пиксель
             base.encoderRun(0, 0.4, 50);
             sleep(250);
             lohotron.armMid();
 
+            //TODO: Проверить это и  написать точные значения
             //паркуемся
             if (valLeft == 255) {           //центр
-                base.imuSteerEncoder(0.5, 0, 0, 90, 1015);   //полторы клетки вправо
+                base.imuSteerEncoder(0.5, 0, 0, 90,-1015);   //полторы клетки влево
             } else if (valRight == 255) {   //право
-                base.encoderRun(0.7, 0, 1106);  //чуть больше, чем полторы клетки вправо
+                base.encoderRun(0.7, 0, -1106);  //чуть больше, чем полторы клетки влево
             } else {                        //лево
-                base.encoderRun(0.7, 0, 923);   //чуть меньше, чем полторы клетки вправо
+                base.encoderRun(0.7, 0, -923);   //чуть меньше, чем полторы клетки влево
             }
 
             base.encoderRun(0, -0.7, -250);
             //base.imuTurn(1, 0);     //hold position
+
+
         }
     }
 }

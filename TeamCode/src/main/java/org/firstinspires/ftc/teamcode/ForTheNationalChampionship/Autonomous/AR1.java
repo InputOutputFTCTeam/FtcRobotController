@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.onTest.at;
+package org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Autonomous;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Capture;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.MegaDriveTrain;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Catch;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Capture;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Sensored.MegaDriveTrain;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
@@ -74,7 +74,7 @@ public class AR1 extends LinearOpMode {
                 base.imuTurn(0.7, -90);
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)base.encoderRun(0, 0.7, 100);
-                /*base.imuTurn(0.7, -90);
+                base.imuTurn(0.7, -90);
                 sleep(1000);
                 base.encoderRun(0, -0.5, -115);
                 sleep(1000);
@@ -88,7 +88,7 @@ public class AR1 extends LinearOpMode {
                 base.encoderRun(0, 0.5, 400);//проезд, чтобы объехать пиксель
                 sleep(1000);
                 base.imuTurn(0.7, -90);//поворачиваемся на доску
-                */sleep(1000);
+                sleep(1000);
 
 
             } else {                        //лево
