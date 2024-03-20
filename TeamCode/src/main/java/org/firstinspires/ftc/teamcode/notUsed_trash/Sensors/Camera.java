@@ -1,5 +1,11 @@
 package org.firstinspires.ftc.teamcode.notUsed_trash.Sensors;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+
 /**
  * В этом классе описывается метод работы с камерой для распознования командного реквизита.
  * По правилам сезона Centerstage реквизит распологается на одной из трех позиций относительно робота.
@@ -14,6 +20,14 @@ public class Camera {
             описать области сканирования
             описать метод получения данных с камеры
     */
+    private OpenCvCamera cam;
+    private LinearOpMode camOpMode;
+    final int rows = 480;
+    final int cols = 640;
+
+    int cameraMonitorViewId = camOpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", camOpMode.hardwareMap.appContext.getPackageName());
+    cam = OpenCvCameraFactory.getInstance().createWebcam(camOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+
     /*
     на практике должно выглядеть, как:
     Camera cam = new Camera();
