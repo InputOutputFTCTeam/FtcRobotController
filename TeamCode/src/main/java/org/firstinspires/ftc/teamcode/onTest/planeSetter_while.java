@@ -18,7 +18,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 //  todo: переместить в Мусор после Национального
 
-@Disabled
 @TeleOp(name = "plane setter while", group = "alfa")
 public class planeSetter_while extends LinearOpMode {
     Servo angle, shooter;

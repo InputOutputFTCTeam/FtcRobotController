@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode.notUsed_trash;
 
 
-import static org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition.RingPosition.ZERO;
+import static org.firstinspires.ftc.teamcode.notUsed_trash.Sensors.visions.Recognition.RingPosition.ZERO;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.RoadRunnerMethods.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.robotModules.Sensors.visions.Recognition;
+import org.firstinspires.ftc.teamcode.notUsed_trash.RoadRunnerMethods.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.notUsed_trash.Sensors.visions.Recognition;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
