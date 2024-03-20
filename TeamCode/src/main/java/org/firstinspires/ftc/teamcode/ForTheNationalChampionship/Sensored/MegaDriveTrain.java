@@ -36,7 +36,7 @@ public class MegaDriveTrain extends BasicDriveTrain {
      * Инициализация колесной базы
      */
     public void initMega() {
-        //setOpMode(gigaOpMode);
+        setOpMode(gigaOpMode);
         initMotors();
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         setOneDirection(DcMotorSimple.Direction.FORWARD);
