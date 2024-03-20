@@ -54,8 +54,8 @@ public class ColorSensorModule {
      *
      * @param gain собственное значение для чувствительности. Всегда должно быть больше 1
      */
-    public void setCSGain(float gain) {
-        colorSensor.setGain(gain);
+    public void setCSGain(double gain) {
+        colorSensor.setGain((float)gain);
     }
 
     /**

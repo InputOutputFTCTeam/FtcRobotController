@@ -12,7 +12,7 @@ public class Plane {
 
     private Servo angle, push;
     private LinearOpMode planeOpMode;
-    private boolean inited = false;
+    private boolean inited = false, raised = false;
 
     /**
      * Создаем самолет, как класс внутри opMod-а
@@ -30,7 +30,7 @@ public class Plane {
         push = planeOpMode.hardwareMap.servo.get("push");
         inited = true;
         pushDown();
-        angleUp();
+        angleDown();
         planeOpMode.telemetry.addLine("Plane ready!");
     }
 
@@ -39,9 +39,15 @@ public class Plane {
      */
     public void angleUp() {
         angle.setPosition(0.92);
+        planeOpMode.sleep(200);
     }
+
+    /**
+     * Опускает пускатель самолета
+     */
     public void angleDown() {
-        angle.setPosition(0.7);
+        angle.setPosition(0.69);
+        planeOpMode.sleep(200);
     }
 
     /**
@@ -56,6 +62,15 @@ public class Plane {
      */
     public void pushUp() {
         push.setPosition(0.65);
+    }
+
+    /**
+     * Поднимаем и опускаем самолетик по одной кнопке
+     */
+    public void logicalAngle() {
+        if (!raised) angleUp();
+        else angleDown();
+        raised = !raised;
     }
 
     /**

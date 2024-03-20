@@ -8,7 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Sensored.BackBoard;
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Catch;
-import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.BasicDriveTrain;
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Hook;
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.HookMotor;
 import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Elevator;
@@ -23,24 +22,18 @@ import org.firstinspires.ftc.teamcode.onTest.ForTheNationalChampionship.Basic.Pl
 public class TeleOperatingMode extends LinearOpMode {
     //Thread movement, raiseaArm, midlower, closeClaw, openClaw, intakethread, closehook, midhook, openhook, liftThread, grab, ungrab, pushUp, agelUp;
 
-    BasicDriveTrain wheelbase = new BasicDriveTrain(this);
+    //BasicDriveTrain wheelbase = new BasicDriveTrain(this);
     Capture lohotron = new Capture(this);
     Elevator lift = new Elevator(this);
     Catch aCatch = new Catch(this);
     Hook hook = new Hook(this);
     Plane plane = new Plane(this);
-    BackBoard backBoard = new BackBoard(this);
+    BackBoard wheelBaseBackBoarded = new BackBoard(this);
     HookMotor hookMotor = new HookMotor(this);
 
     @Override
     public void runOpMode() {
         //инициализация модулей робота
-
-        wheelbase.initMotors();
-        wheelbase.setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        wheelbase.setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        wheelbase.setOneDirection(DcMotorSimple.Direction.FORWARD);
-        wheelbase.setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
 
         lohotron.initLohotron();
 
@@ -50,7 +43,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
         hookMotor.initHookMotor();
 
-        backBoard.initBackBoard();
+        wheelBaseBackBoarded.initBackBoard();
 
         aCatch.initCatch();
 
@@ -62,7 +55,6 @@ public class TeleOperatingMode extends LinearOpMode {
 
         //вывод данных о состоянии модулей робота на момент перед стартом
         while (!isStarted()) {
-            wheelbase.wheelbaseTelemetry();
             lohotron.lohotronTelemetry();
             lift.telemetryLift();
             aCatch.telemetryBack();
@@ -80,22 +72,25 @@ public class TeleOperatingMode extends LinearOpMode {
              * right trigger - поворот вправо
              * left trigger - поворот влево
              */
-            if (gamepad1.y) {
+            /*if (gamepad1.y) {
                 driveMode = !driveMode;
                 sleep(150);
             }
 
             if (driveMode == true) {
-                wheelbase.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+                wheelBaseBackBoarded.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
             }
             if (driveMode == false) {
-                backBoard.backboard_slowly(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
+                wheelBaseBackBoarded.backboard_slowly(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
             }
+            */
+
+            wheelBaseBackBoarded.smartMove(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.right_trigger);
 
             if (gamepad1.left_bumper)
-                wheelbase.setMaximumSpeed(0.5);   // left bumper - медленная езда
+                wheelBaseBackBoarded.setMaximumSpeed(0.5);   // left bumper - медленная езда
             if (gamepad1.right_bumper)
-                wheelbase.setMaximumSpeed(1);    // right bumper - быстрая езда
+                wheelBaseBackBoarded.setMaximumSpeed(1);    // right bumper - быстрая езда
 
             hookMotor.run(gamepad1.right_stick_y);  // right stick y - запуск домкрата
 
@@ -126,7 +121,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
 
             if (gamepad1.x) plane.pushUp();     // х - запуск самолётика
-            if (gamepad1.b) plane.angleUp();    // b - изменение угла запуска самолётика
+            if (gamepad1.b) plane.logicalAngle();    // b - изменение угла запуска самолётика
             //if (gamepad1.b) plane.angleDown();
 
             composeTelemery();
@@ -138,7 +133,6 @@ public class TeleOperatingMode extends LinearOpMode {
      * Собираем всю телеметрию с модулей робота, чтобы отправить ее в основной поток телеметрии
      */
     public void composeTelemery() {
-        wheelbase.wheelbaseTelemetry();
         lohotron.lohotronTelemetry();
         lift.telemetryLift();
         aCatch.telemetryBack();
