@@ -59,20 +59,22 @@ public class AB2 extends LinearOpMode {
             phoneCam.stopStreaming();
 
             //подкатываем к точке сброса фиолетового
-            base.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.BLUE);
+            base.colorRun(0, 0.35, 0, ColorSensorModule.colorsField.BLUE);// 1 плитка-2 фута
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0, 0.5, 100);
                 pix.grab();
-                base.encoderRun(0, 0.5, 200);
+                base.encoderRun(0, 0.5, 100);
+                base.imuTurn(0.7, 90);
+                base.encoderRun(0, -0.5, -2438);
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-                base.imuTurn(0.7, 90);
+                base.imuTurn(-0.7, -90);
                 base.encoderRun(0, 0.5, 100);
                 pix.grab();
                 base.encoderRun(0, 0.5, 100);
-                base.imuTurn(0.7, 90);
+                base.imuTurn(0.7, 0);
             } else {                        //лево
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.imuTurn(0.7, 90);
@@ -86,8 +88,8 @@ public class AB2 extends LinearOpMode {
 
             //подкатываем к доске
             //base.encoderRun(0, -1, 1319); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
-           // base.imuTurn(-0.7, -90);
-            base.encoderRun(0, -1, -1000); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+            //base.imuTurn(-0.7, -90);
+            //base.encoderRun(0, -1, -1000); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
 
             //подкатываем к правильной колонке
             if (valLeft == 255) {           //центр
