@@ -26,7 +26,7 @@ public class Camera {
     final int cols = 640;
 
     int cameraMonitorViewId = camOpMode.hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", camOpMode.hardwareMap.appContext.getPackageName());
-    cam = OpenCvCameraFactory.getInstance().createWebcam(camOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+    //cam = OpenCvCameraFactory.getInstance().createWebcam(camOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
 
     /*
     на практике должно выглядеть, как:

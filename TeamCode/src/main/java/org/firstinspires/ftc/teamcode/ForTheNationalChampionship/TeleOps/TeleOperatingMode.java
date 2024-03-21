@@ -87,7 +87,7 @@ public class TeleOperatingMode extends LinearOpMode {
             }
             */
 
-            wheelBaseBackBoarded.smartMove(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.right_trigger);
+            wheelBaseBackBoarded.smartMove(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
 
             if (gamepad1.left_bumper)
                 wheelBaseBackBoarded.setMaximumSpeed(0.5);   // left bumper - медленная езда
