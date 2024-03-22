@@ -14,7 +14,6 @@ public class DriveEncoder extends BasicDriveTrain {
         new BasicDriveTrain(opMode);
         setOpMode(opMode);
         encoderLinearOpMode = opMode;
-        //train = new BasicDriveTrain(encoderLinearOpMode);
     }
 
     public void initDE(){
@@ -59,8 +58,7 @@ public class DriveEncoder extends BasicDriveTrain {
         int startPositionBL = getPosition(getBL());
         int startPositionBR = getPosition(getBR());
 
-        //какую дистанцию проехать надо? (в тиках энкодера)
-        //тут можно написать формулу для пересчета тиков энкодера в дистанцию
+
         //1440 тиков на оборот //4 дюйма диаметр колеса // 3:2 (мотор:колесо) передача
         //double revolutions = distanceCM / 3 * 2 / (Math.PI * 4 * 2.54);
         //double ticks = revolutions * 1440;
