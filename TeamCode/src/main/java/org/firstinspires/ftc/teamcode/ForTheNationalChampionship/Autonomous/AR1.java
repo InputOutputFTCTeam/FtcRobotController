@@ -63,31 +63,32 @@ public class AR1 extends LinearOpMode {
             //timer.reset();
             //подкатываем к точке сброса фиолетового
 
-            base.encoderRun(0, -0.35, -950);
+            base.encoderRun(0, -1, -950);
 
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0, 0.5, 100);
-                pix.grab();
-                base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+                //pix.grab();
+                base.encoderRun(0, -1, 250);//(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+                //pix.ungrab();
                 base.imuTurn(0.7, -90);
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)base.encoderRun(0, 0.7, 100);
-                base.imuTurn(0.7, -90);
+                base.imuTurn(1, -90);
                 sleep(1000);
-                base.encoderRun(0, -0.5, -115);
+                base.encoderRun(0, -1, -115);
                 sleep(1000);
-                pix.grab();
+                //pix.grab();
                 sleep(1000);
-
-                base.encoderRun(0, 0.5, 200);//уходим от пикселя
+                //pix.ungrab();
+                base.encoderRun(0, 1, 200);//уходим от пикселя
                 sleep(1000);
-                base.imuTurn(0.7, 0);
+                base.imuTurn(1, 0);
+                sleep(2000);
+                base.encoderRun(0, 1, 600);//проезд, чтобы объехать пиксель
                 sleep(1000);
-                base.encoderRun(0, 0.5, 400);//проезд, чтобы объехать пиксель
-                sleep(1000);
-                base.imuTurn(0.7, -90);//поворачиваемся на доску
+                base.imuTurn(-1, -90);//поворачиваемся на доску
                 sleep(1000);
 
 
@@ -96,8 +97,9 @@ public class AR1 extends LinearOpMode {
                 base.encoderRun(0,0.7, 200);
                 base.imuTurn(0.7, 90);
                 base.encoderRun(0, -0.5, -150);
-                pix.grab();
+                //pix.grab();
                 base.encoderRun(0, 0.5, 100);
+                //pix.ungrab();
                 base.imuTurn(0.7, 0);
                 base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 base.imuTurn(0.7, -90);
@@ -112,22 +114,22 @@ public class AR1 extends LinearOpMode {
             if (valLeft == 255) {           //центр
                 //base.imuSteerEncoder(0.7, 0, -915);   //полторы клетки влево
             } else if (valRight == 255) {   //право
-                base.imuSteerEncoder(0.5, 0, 0, -90, -500);  //чуть больше, чем полторы клетки влево
+                //base.imuSteerEncoder(0.5, 0, 0, -90, -500);  //чуть больше, чем полторы клетки влево
             } else {                        //лево
-                base.imuSteerEncoder(0.5, 0, 0, -90, -200);   //чуть меньше, чем полторы клетки влево
+                //base.imuSteerEncoder(0.5, 0, 0, -90, -200);   //чуть меньше, чем полторы клетки влево
             }
 
             //роняем запад
             lohotron.armRaiser();
-            sleep(500);
+            sleep(1000);
             lohotron.closeClaw();
             sleep(1000);        //ждем, пока упадет желтый пиксель
-            base.encoderRun(0, 0.4, 50);
+            base.encoderRun(0, 0.4, 170);
             sleep(250);
             lohotron.armMid();
 
             //паркуемся
-            if (valLeft == 255) {           //центр
+            /*if (valLeft == 255) {           //центр
                 base.imuSteerEncoder(0.5, 0, 0, -90, 1015);   //полторы клетки вправо
             } else if (valRight == 255) {   //право
                 base.imuSteerEncoder(0.5, 0, 0, -90, 600);  //чуть больше, чем полторы клетки вправо
@@ -136,7 +138,7 @@ public class AR1 extends LinearOpMode {
             }
 
             base.encoderRun(0, -0.7, -250);
-            //base.imuTurn(1, 90);     //hold position
+            *///base.imuTurn(1, 90);     //hold position
         }
     }
 }
