@@ -44,7 +44,7 @@ public class Catch {
      * Отпустить захват
      */
     public void ungrab(){
-        leftBack.setPosition(0);  //TODO: подобрать значение
+        leftBack.setPosition(0.5);  //TODO: подобрать значение
 
         grabbed = false;
     }

@@ -66,7 +66,7 @@ public class TeleOperatingMode extends LinearOpMode {
         }
         boolean driveMode = true;
 
-
+        plane.angleDown();
 
         while (opModeIsActive()) {
             /* y - режим проезда к заднику с использованием датчика расстояния
@@ -123,7 +123,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
 
             if (gamepad1.x) plane.pushUp();     // х - запуск самолётика
-            if (gamepad1.b) plane.logicalAngle();    // b - изменение угла запуска самолётика
+            //if (gamepad1.b) plane.logicalAngle();    // b - изменение угла запуска самолётика
             //if (gamepad1.b) plane.angleDown();
 
             composeTelemery();

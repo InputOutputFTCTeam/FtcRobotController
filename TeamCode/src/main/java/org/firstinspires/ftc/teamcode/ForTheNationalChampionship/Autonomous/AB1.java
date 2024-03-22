@@ -65,31 +65,44 @@ public class AB1 extends LinearOpMode {
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-                base.encoderRun(0, 0.5, 100);
+                base.encoderRun(0, 0.5, 175);
                 pix.grab();
+                sleep(1000);
                 base.encoderRun(0, 0.5, 200);
                 pix.ungrab();
+                sleep(1000);
                 base.imuTurn(0.7, 90);
                 base.encoderRun(0, -1, -882);
+                sleep(1000);
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)1500
                 base.imuTurn(0.7, -90);
+                sleep(1000);
                 base.encoderRun(0, 0.5, 100);
                 pix.grab();
+                sleep(1000);
                 base.imuTurn(0.7, 90);
+                base.encoderRun(0, 0.7, 1);
                 pix.ungrab();
+                sleep(1000);
                 base.encoderRun(0, -1, -882);
+                sleep(1000);
             } else {                        //лево
                 base.imuTurn(0.7, 90);
                 base.encoderRun(0, 0.5, 100);
+                sleep(1000);
                 pix.grab();
                 base.encoderRun(0, 0.7, 150);
                 pix.ungrab();
+                sleep(1000);
                 base.imuTurn(0.7, 0);
+                sleep(1000);
                 base.encoderRun(0, 0.7, 930);
                 base.imuTurn(0.7, 90);
+                sleep(1000);
                 base.encoderRun(0, -0.7, -1400);
                 base.imuTurn(0.7, 0);
+                sleep(1000);
                 base.encoderRun(0, -0.7, -550);
                 base.imuTurn(0.7, 90);
             }
@@ -117,7 +130,7 @@ public class AB1 extends LinearOpMode {
 
             //TODO: Проверить это и  написать точные значения
             //паркуемся
-            if (valLeft == 255) {           //центр
+            /*if (valLeft == 255) {           //центр
                 base.imuSteerEncoder(0.5, 0, 0, 90,-1015);   //полторы клетки влево
             } else if (valRight == 255) {   //право
                 base.encoderRun(0.7, 0, -1106);  //чуть больше, чем полторы клетки влево
@@ -126,7 +139,7 @@ public class AB1 extends LinearOpMode {
             }
 
             base.encoderRun(0, -0.7, -250);
-            //base.imuTurn(1, 0);     //hold position
+            */base.imuTurn(1, 0);     //hold position
 
 
         }
