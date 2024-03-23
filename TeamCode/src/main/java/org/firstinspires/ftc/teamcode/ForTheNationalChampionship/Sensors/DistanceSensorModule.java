@@ -44,6 +44,13 @@ public class DistanceSensorModule {
      * Конструируем телеметрию датчика расстояния. Выводит расстояние в мм.
      */
     public void telemetryDistance(){
-        dsOpMode.telemetry.addData("measured distance: ", distanceMM());
+        Thread thread = new Thread(() ->{
+            while (true){
+                initDistanceSensor();
+                dsOpMode.telemetry.addData("rangesens", sensorDistance.getDistance(DistanceUnit.MM));
+                dsOpMode.telemetry.update();
+            }
+        });
+        thread.start();
     }
 }

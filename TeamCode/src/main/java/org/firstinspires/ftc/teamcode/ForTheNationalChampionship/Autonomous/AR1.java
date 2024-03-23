@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcontroller.EOCVSamples.PhantomSamples.Methods_for_OpenCV;
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Catch;
 import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Capture;
@@ -49,8 +50,11 @@ public class AR1 extends LinearOpMode {
                 valRight = Methods_for_OpenCV.getValRight();
             }
         });
-        FtcDashboard.getInstance().startCameraStream(phoneCam, 210);
-        FtcDashboard.getInstance().getTelemetry();
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        Telemetry dashtelemetry = dashboard.getTelemetry();
+        dashtelemetry.addData("Values", valLeft + "  " + valRight);
+        dashtelemetry.update();
+        dashboard.startCameraStream(phoneCam, 210);
         thread.start();
 
         waitForStart();
@@ -62,26 +66,29 @@ public class AR1 extends LinearOpMode {
 
             //timer.reset();
             //подкатываем к точке сброса фиолетового
-
+            pix.grab();
             base.encoderRun(0, -1, -950);
 
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
+
                 base.encoderRun(0, 0.5, 100);
-                //pix.grab();
-                base.encoderRun(0, -1, 250);//(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
-                //pix.ungrab();
+                base.encoderRun(0, -1, 100);
+                pix.ungrab();
+                base.encoderRun(0, -1, 150);//(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+                sleep(1000);
                 base.imuTurn(0.7, -90);
+                pix.grab();
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)base.encoderRun(0, 0.7, 100);
                 base.imuTurn(1, -90);
                 sleep(1000);
                 base.encoderRun(0, -1, -115);
                 sleep(1000);
-                //pix.grab();
+                pix.grab();
                 sleep(1000);
-                //pix.ungrab();
+                pix.ungrab();
                 base.encoderRun(0, 1, 200);//уходим от пикселя
                 sleep(1000);
                 base.imuTurn(1, 0);
@@ -97,9 +104,9 @@ public class AR1 extends LinearOpMode {
                 base.encoderRun(0,0.7, 200);
                 base.imuTurn(0.7, 90);
                 base.encoderRun(0, -0.5, -150);
-                //pix.grab();
+                pix.grab();
                 base.encoderRun(0, 0.5, 100);
-                //pix.ungrab();
+                pix.ungrab();
                 base.imuTurn(0.7, 0);
                 base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 base.imuTurn(0.7, -90);
@@ -127,6 +134,7 @@ public class AR1 extends LinearOpMode {
             base.encoderRun(0, 0.4, 170);
             sleep(250);
             lohotron.armMid();
+            lohotron.initLohotron();
 
             //паркуемся
             /*if (valLeft == 255) {           //центр

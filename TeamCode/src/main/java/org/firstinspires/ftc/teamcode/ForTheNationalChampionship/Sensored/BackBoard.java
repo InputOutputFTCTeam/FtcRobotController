@@ -18,15 +18,18 @@ public class BackBoard extends BasicDriveTrain {
     //private BasicDriveTrain wheelbase;
     private DistanceSensor sensorDistance;
     private LinearOpMode dsOpMode;
-
+    double distance;
     public BackBoard(LinearOpMode opMode) {
         dsOpMode = opMode;
         new BasicDriveTrain(dsOpMode);
     }
 
+    public void setSensorDistance(DistanceSensor sensorDistance) {
+        this.sensorDistance = sensorDistance;
+    }
+
     public void initBackBoard() {   //Инициализируем метод
         setOpMode(dsOpMode);
-        sensorDistance = dsOpMode.hardwareMap.get(DistanceSensor.class, "sensor_distance");
         initMotors();
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         setModes(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -34,26 +37,28 @@ public class BackBoard extends BasicDriveTrain {
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
-    public double distanceMM() {    //Задаём дистанцию в миллиметрах
-        return sensorDistance.getDistance(DistanceUnit.MM);
-    }
+
 
     public void backboard_slowly(double x, double y, double r) {
-        if (distanceMM() <= 50) {   //Движение у задника на расстоянии меньше 50 миллиметров
+        if (distance <= 2000){
+            distance = sensorDistance.getDistance(DistanceUnit.MM);
+        }
+
+        if (distance <= 50) {   //Движение у задника на расстоянии меньше 50 миллиметров
             setMaximumSpeed(0.3);
             move(x, -abs(y), 0);
 
-        } else if (distanceMM() <= 500 && distanceMM() > 50) {  //Движение на расстоянии от задника больше 50 и меньше 500 миллиметров
+        } else if (distance <= 500 && distance > 50) {  //Движение на расстоянии от задника больше 50 и меньше 500 миллиметров
             setMaximumSpeed(0.5);
             move(x, y, r);
-        } else if (distanceMM() > 500) {    //Движение на расстоянии от задника больше 500 миллиметров
+        } else if (distance > 500) {    //Движение на расстоянии от задника больше 500 миллиметров
             setMaximumSpeed(1);
             move(x, y, r);
         }
 
     }
 
-    boolean driveMode = false; //false - no distance control; true - distance control;
+    boolean driveMode = true; //false - no distance control; true - distance control;
     public void smartMove(double x, double y, double r) {
         if (dsOpMode.gamepad1.y) {
             driveMode = !driveMode;

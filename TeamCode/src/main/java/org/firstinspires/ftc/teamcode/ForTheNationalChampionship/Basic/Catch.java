@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 /**
@@ -10,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class Catch {
     private LinearOpMode backOpMode;
     private boolean grabbed = false;
-    private Servo leftBack, leftFront, rightFront ;
+    private CRServo leftBack, leftFront, rightFront ;
 
     /**
      * Создаем задний захват, как класс внутри opMod-а
@@ -25,9 +27,9 @@ public class Catch {
      * Инициализация з-захвата для opMode. Добавление в конфигурацию
      */
     public void initCatch(){
-        leftBack = backOpMode.hardwareMap.servo.get("drop");
-        leftFront = backOpMode.hardwareMap.servo.get("leftCatch");
-        rightFront = backOpMode.hardwareMap.servo.get("rightCatch");
+        leftBack = backOpMode.hardwareMap.crservo.get("drop");
+        leftFront = backOpMode.hardwareMap.crservo.get("leftCatch");
+        rightFront = backOpMode.hardwareMap.crservo.get("rightCatch");
 
     }
 
@@ -35,7 +37,7 @@ public class Catch {
      * Захватить захват завхатывать захват вооруженный одной сервой
      */
     public void grab(){
-        leftBack.setPosition(0.6);   //TODO: подобрать значение
+        leftBack.setPower(-0.85);   //TODO: подобрать значение
 
         grabbed = true;
     }
@@ -44,20 +46,20 @@ public class Catch {
      * Отпустить захват
      */
     public void ungrab(){
-        leftBack.setPosition(0.5);  //TODO: подобрать значение
+        leftBack.setPower(0.3);  //TODO: подобрать значение
 
         grabbed = false;
     }
 
     public void closeGrab(){
-        leftFront.setPosition(0.92);
-        rightFront.setPosition(0.12);
+        leftFront.setPower(0.92);
+        rightFront.setPower(0.12);
         grabbed = false;
     }
 
     public void openGrab(){
-        leftFront.setPosition(0.04);
-        rightFront.setPosition(1);
+        leftFront.setPower(0.04);
+        rightFront.setPower(1);
         grabbed = false;
     }
 
@@ -66,5 +68,6 @@ public class Catch {
      */
     public void telemetryBack(){
         backOpMode.telemetry.addData("grabbed: ", grabbed);
+        backOpMode.telemetry.addData("grabbed pos", leftBack.getPower());
     }
 }
