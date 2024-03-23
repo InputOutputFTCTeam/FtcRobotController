@@ -40,7 +40,7 @@ public class TeleOperatingMode extends LinearOpMode {
     public void runOpMode() {
             //инициализация модулей робота
             sensorDistance = hardwareMap.get(DistanceSensor.class, "sensor_distance");
-            wheelBaseBackBoarded.setSensorDistance(sensorDistance);
+
             lohotron.initLohotron();
 
             lift.initLift();
@@ -95,16 +95,14 @@ public class TeleOperatingMode extends LinearOpMode {
                 wheelBaseBackBoarded.backboard_slowly(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
             }
             */
-            Thread movement = new Thread(() -> {
                 wheelBaseBackBoarded.smartMove(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
                 if (gamepad1.left_bumper)
                     wheelBaseBackBoarded.setMaximumSpeed(0.5);   // left bumper - медленная езда
                 if (gamepad1.right_bumper)
                     wheelBaseBackBoarded.setMaximumSpeed(1);    // right bumper - быстрая езда
-            });
-            movement.start();
 
-            Thread activity = new Thread(() -> {
+
+
                 hookMotor.run(gamepad1.right_stick_y);  // right stick y - запуск домкрата
 
                 if (gamepad2.a)
@@ -138,8 +136,6 @@ public class TeleOperatingMode extends LinearOpMode {
                 //if (gamepad1.b) plane.angleDown();
 
                 composeTelemery();
-            });
-            activity.start();
         }
     }
 

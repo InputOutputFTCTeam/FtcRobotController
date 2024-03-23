@@ -43,6 +43,11 @@ public class AR1 extends LinearOpMode {
 
         Thread thread = new Thread(() -> {
             while (opModeInInit()) {
+                FtcDashboard dashboard = FtcDashboard.getInstance();
+                Telemetry dashtelemetry = dashboard.getTelemetry();
+                dashtelemetry.addData("Values", valLeft + "  " + valRight);
+                dashtelemetry.update();
+                dashboard.startCameraStream(phoneCam, 210);
                 telemetry.addData("Values", valLeft + "  " + valRight);
                 telemetry.update();
                 // visionPortall.telemetryAprilTag();
@@ -50,11 +55,7 @@ public class AR1 extends LinearOpMode {
                 valRight = Methods_for_OpenCV.getValRight();
             }
         });
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        Telemetry dashtelemetry = dashboard.getTelemetry();
-        dashtelemetry.addData("Values", valLeft + "  " + valRight);
-        dashtelemetry.update();
-        dashboard.startCameraStream(phoneCam, 210);
+
         thread.start();
 
         waitForStart();
@@ -72,50 +73,48 @@ public class AR1 extends LinearOpMode {
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
-
-                base.encoderRun(0, 0.5, 100);
-                base.encoderRun(0, -1, 100);
+                base.encoderRun(0, 0.5, 150);
                 pix.ungrab();
-                base.encoderRun(0, -1, 150);//(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+                //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 sleep(1000);
+                base.encoderRun(0,1,150);
                 base.imuTurn(0.7, -90);
                 pix.grab();
+                base.encoderRun(0, -1, -1050); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)base.encoderRun(0, 0.7, 100);
                 base.imuTurn(1, -90);
-                sleep(1000);
                 base.encoderRun(0, -1, -115);
+                pix.ungrab();
                 sleep(1000);
                 pix.grab();
-                sleep(1000);
-                pix.ungrab();
                 base.encoderRun(0, 1, 200);//уходим от пикселя
-                sleep(1000);
                 base.imuTurn(1, 0);
-                sleep(2000);
-                base.encoderRun(0, 1, 600);//проезд, чтобы объехать пиксель
-                sleep(1000);
-                base.imuTurn(-1, -90);//поворачиваемся на доску
-                sleep(1000);
-
+                base.encoderRun(0, 1, 570);
+                sleep(1000);//проезд, чтобы объехать пиксель
+                base.imuTurn(0.7, 270);//поворачиваемся на доску
+                base.encoderRun(0, -1, -1050); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
 
             } else {                        //лево
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0,0.7, 200);
                 base.imuTurn(0.7, 90);
-                base.encoderRun(0, -0.5, -150);
-                pix.grab();
+                base.encoderRun(0, -0.5, -170);
                 base.encoderRun(0, 0.5, 100);
                 pix.ungrab();
-                base.imuTurn(0.7, 0);
-                base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
-                base.imuTurn(0.7, -90);
+                sleep(2000);
+                base.encoderRun(0,-1,300);
+                base.imuTurn(0.7,-90);
+                base.encoderRun(0, -1, -750); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+                //base.imuTurn(0.7, 0);
+                //base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+                //base.imuTurn(0.7, -90);
             }
 
             //подкатываем к доске
             //base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
             //base.imuTurn(0.7, -90);
-            base.encoderRun(0, -1, -1050); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+
 
             //подкатываем к правильной колонке
             if (valLeft == 255) {           //центр
@@ -134,6 +133,7 @@ public class AR1 extends LinearOpMode {
             base.encoderRun(0, 0.4, 170);
             sleep(250);
             lohotron.armMid();
+            sleep(1000);
             lohotron.initLohotron();
 
             //паркуемся
