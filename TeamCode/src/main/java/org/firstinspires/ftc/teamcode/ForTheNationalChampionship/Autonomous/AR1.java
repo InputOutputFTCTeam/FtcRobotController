@@ -101,7 +101,7 @@ public class AR1 extends LinearOpMode {
                 base.imuTurn(0.7, 90);
                 base.encoderRun(0, -0.5, -170);
                 base.encoderRun(0, 0.5, 100);
-                pix.ungrab();
+                pix.ungrab(); // TODO: сначала подниматься на 45 градусов, потом на 90
                 sleep(2000);
                 base.encoderRun(0,-1,300);
                 base.imuTurn(0.7,-90);
