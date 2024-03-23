@@ -6,10 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
  * В этом классе описывается работа концувика. Он нужен в нашем роботе для стабильной работы лифта.
  */
 
-public class TouchSensorr {
+public class TouchSensorModule {
     LinearOpMode touchSensorOpMode;
     com.qualcomm.robotcore.hardware.TouchSensor ts;
-    public TouchSensorr(LinearOpMode opMode) {
+    public TouchSensorModule(LinearOpMode opMode) {
         touchSensorOpMode = opMode;
     }
 

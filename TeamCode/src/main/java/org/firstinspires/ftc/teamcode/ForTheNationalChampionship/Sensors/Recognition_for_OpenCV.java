@@ -20,7 +20,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 @Autonomous (name = "OpenCV")
-public class Methods_for_OpenCV extends  LinearOpMode{
+public class Recognition_for_OpenCV extends  LinearOpMode{
     static int valLeft;
     static int valRight;
     public OpenCvWebcam phoneCam;
@@ -58,7 +58,7 @@ public class Methods_for_OpenCV extends  LinearOpMode{
     }
 
     public static void setLeftPos(float[] leftPos) {
-        Methods_for_OpenCV.leftPos = leftPos;
+        Recognition_for_OpenCV.leftPos = leftPos;
     }
 
     public static float[] getRightPos() {
@@ -66,11 +66,11 @@ public class Methods_for_OpenCV extends  LinearOpMode{
     }
 
     public static void setRightPos(float[] rightPos) {
-        Methods_for_OpenCV.rightPos = rightPos;
+        Recognition_for_OpenCV.rightPos = rightPos;
     }
 
     public static void setValLeft(int valLeft) {
-        Methods_for_OpenCV.valLeft = valLeft;
+        Recognition_for_OpenCV.valLeft = valLeft;
     }
 
     public static int getValRight() {
@@ -78,25 +78,25 @@ public class Methods_for_OpenCV extends  LinearOpMode{
     }
 
     public static void setValRight(int valRight) {
-        Methods_for_OpenCV.valRight = valRight;
+        Recognition_for_OpenCV.valRight = valRight;
     }
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        Methods_for_OpenCV methodsForOpenCV = new Methods_for_OpenCV();
+        Recognition_for_OpenCV methodsForOpenCV = new Recognition_for_OpenCV();
         int rows = methodsForOpenCV.getRows();
         int cols = methodsForOpenCV.getCols();
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         phoneCam.openCameraDevice();
-        phoneCam.setPipeline(new Methods_for_OpenCV.StageSwitchingPipeline());
+        phoneCam.setPipeline(new Recognition_for_OpenCV.StageSwitchingPipeline());
         phoneCam.startStreaming(rows, cols, OpenCvCameraRotation.UPRIGHT);
         telemetry.addData("Values", valLeft + "  " + valRight);
         telemetry.update();
         // visionPortall.telemetryAprilTag();
-        valLeft = Methods_for_OpenCV.getValLeft();
-        valRight = Methods_for_OpenCV.getValRight();
+        valLeft = Recognition_for_OpenCV.getValLeft();
+        valRight = Recognition_for_OpenCV.getValRight();
         runtime.reset();
         waitForStart();
 
