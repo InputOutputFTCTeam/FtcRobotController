@@ -150,11 +150,11 @@ public class Recognition_for_OpenCV extends  LinearOpMode{
             Imgproc.cvtColor(rgbImage, hsvImage, Imgproc.COLOR_RGB2HSV);
 
             // Определение диапазона красного цвета в HSV
-            Scalar lowerRed = new Scalar(0,20,20);
+            Scalar lowerRed = new Scalar(0,15,15);
             Scalar upperRed = new Scalar(160,255,255);
 
             // Определение диапазона синего цвета в HSV
-            Scalar lowerBlue = new Scalar(210, 73, 90);
+            Scalar lowerBlue = new Scalar(215, 75, 95);
             Scalar upperBlue = new Scalar(220, 80, 100);
 
             // Создание масок для красного и синего цветов
