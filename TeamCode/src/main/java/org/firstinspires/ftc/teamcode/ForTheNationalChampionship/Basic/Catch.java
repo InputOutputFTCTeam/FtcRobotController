@@ -52,13 +52,13 @@ public class Catch {
     }
 
     public void closeGrab(){
-        leftFront.setPower(0.92);
-        rightFront.setPower(0.12);
+        leftFront.setPower(0.75);
+        rightFront.setPower(-0.75);
         grabbed = false;
     }
 
     public void openGrab(){
-        leftFront.setPower(0.04);
+        leftFront.setPower(-1);
         rightFront.setPower(1);
         grabbed = false;
     }

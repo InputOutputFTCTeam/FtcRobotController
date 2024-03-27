@@ -68,7 +68,7 @@ public class Capture {
      * Опускает лохотрон
      */
     public void armLowerer() {
-        perevorot.setPosition(0.8898);            ////Тестить это
+        perevorot.setPosition(0.87);            ////Тестить это
         lohotronOpMode.sleep(150);
         main.setPosition(0.01);
 
@@ -82,7 +82,7 @@ public class Capture {
      */
     public void armMid() {
         main.setPosition(0.1);
-        perevorot.setPosition(0.95);
+        perevorot.setPosition(0.87);
 
         lohotronOpMode.sleep(225);
         down = false;

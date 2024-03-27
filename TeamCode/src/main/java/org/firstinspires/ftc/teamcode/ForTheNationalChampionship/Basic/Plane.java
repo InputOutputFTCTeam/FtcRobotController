@@ -46,7 +46,7 @@ public class Plane {
      * Поднять вверх
      */
     public void angleDown() {
-        angle.setPosition(0.69); //69   //20.03 - ЭТО ТОЧНО УГОЛ В 59 ГРАДУСОВ. КОЛЯ ПРОВЕРИЛ, КОЛЯ ЗНАЕТ
+        angle.setPosition(0.78); //69   //20.03 - ЭТО ТОЧНО УГОЛ В 59 ГРАДУСОВ. КОЛЯ ПРОВЕРИЛ, КОЛЯ ЗНАЕТ
         planeOpMode.sleep(200);
     }
 
