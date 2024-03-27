@@ -70,47 +70,48 @@ public class AB2 extends LinearOpMode {
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0, -0.5, -50);
-                base.encoderRun(0,0.5,150);
+                base.encoderRun(0,0.5,100);
                 pix.ungrab();
                 sleep(1000);
-                base.encoderRun(0, 1, 130); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
+                base.encoderRun(0, 1, 160); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 pix.grab();
-                base.imuTurn(0.7, 93);
-                base.encoderRun(0, -1, -2134);
+                base.imuTurn(0.5, 93);
+                base.encoderRun(0, -1, -2180);
 
             } else if (valRight == 255) {   //право
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
+                base.encoderRun(0,0.7, 50);
                 base.imuTurn(0.7, -90);
                 base.encoderRun(0,-0.7,-168);
-                base.encoderRun(0,0.7, 20);
+                base.encoderRun(0,0.7, 50);
+                pix.ungrab();
+                sleep(1000);
+                base.encoderRun(0,0.5,145);
+                pix.grab();
+                base.imuTurn(0.7, 5);
+                base.encoderRun(0,0.7, 750);
+                base.imuTurn(0.7, 91);
+                base.encoderRun(0, -1, -1950);
+                base.imuTurn(0.7,0);
+                base.encoderRun(0,-0.7,-650);
+                base.imuTurn(0.7, 90);
+                base.encoderRun(0,-0.7,-150);
+            } else {                        //лево
+                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
+                base.encoderRun(0,0.7, 35);
+                base.imuTurn(0.7, 90);
+                base.encoderRun(0,-0.7,-168);
+                base.encoderRun(0,0.7, 45);
                 pix.ungrab();
                 sleep(1000);
                 base.encoderRun(0,0.5,158);
                 pix.grab();
                 base.imuTurn(0.7, 0);
-                base.encoderRun(0,0.7, 830);
+                base.encoderRun(0,0.7, 715);
                 base.imuTurn(0.7, 91);
                 base.encoderRun(0, -1, -2100);
                 base.imuTurn(0.7,0);
-                base.encoderRun(0,-0.7,-200);
-                base.imuTurn(0.7, -90);
-                base.encoderRun(0,-0.7,-100);
-            } else {                        //лево
-                base.encoderRun(0,0.7, 50);
+                base.encoderRun(0,-0.7,-325);
                 base.imuTurn(0.7, 90);
-                base.encoderRun(0,-0.7,-168);
-                base.encoderRun(0,0.7, 20);
-                pix.ungrab();
-                sleep(1000);
-                base.encoderRun(0,0.5,158);
-                pix.grab();
-                base.imuTurn(0.7, 0);
-                base.encoderRun(0,0.7, 780);
-                base.imuTurn(0.7, 91);
-                base.encoderRun(0, -1, -2000);
-                base.imuTurn(0.7,0);
-                base.encoderRun(0,-0.7,-600);
-                base.imuTurn(0.7, -90);
                 base.encoderRun(0,-0.7,-100);
             }
 
@@ -145,13 +146,13 @@ public class AB2 extends LinearOpMode {
             if (valLeft == 255) {           //центр
                 //  base.imuSteerEncoder(0.5, 0, 0, 90, 1015);  \ //полторы клетки вправо
                 base.imuTurn(0.7, -180);
-                base.encoderRun(0, -0.7, -430);
+                base.encoderRun(0, -0.7, -520);
             } else if (valRight == 255) {   //право
                 base.imuTurn(0.7,0);
-                base.encoderRun(0,0.7,100);//чуть больше, чем полторы клетки вправо
+                base.encoderRun(0,0.7,-300);//чуть больше, чем полторы клетки вправо
             } else {                        //лево
                 base.imuTurn(0.7,0);
-                base.encoderRun(0,0.7,600);
+                base.encoderRun(0,0.7,400);
             }
 
 
