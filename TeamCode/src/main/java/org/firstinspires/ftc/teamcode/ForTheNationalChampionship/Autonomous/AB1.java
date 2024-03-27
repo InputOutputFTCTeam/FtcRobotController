@@ -79,37 +79,38 @@ public class AB1 extends LinearOpMode {
                 //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 sleep(1000);
                 base.encoderRun(0,1,150);
-                base.imuTurn(0.7, -90);
+                base.imuTurn(0.7, 90);
                 pix.grab();
                 base.encoderRun(0, -1, -1050); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
             } else if (valRight == 255) {   //право
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)base.encoderRun(0, 0.7, 100);
-                base.imuTurn(1, -90);
-                base.encoderRun(0, -1, -115);
-                pix.ungrab();
-                sleep(1000);
-                pix.grab();
-                base.encoderRun(0, 1, 200);//уходим от пикселя
-                base.imuTurn(1, 0);
-                base.encoderRun(0, 1, 570);
-                sleep(1000);//проезд, чтобы объехать пиксель
-                base.imuTurn(0.7, 270);//поворачиваемся на доску
-                base.encoderRun(0, -1, -1050); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
-
-            } else {                        //лево
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0,0.7, 200);
-                base.imuTurn(0.7, 90);
+                base.imuTurn(0.7, -90);
                 base.encoderRun(0, -0.5, -170);
                 base.encoderRun(0, 0.5, 100);
                 pix.ungrab(); // TODO: сначала подниматься на 45 градусов, потом на 90
                 sleep(2000);
                 base.encoderRun(0,-1,300);
-                base.imuTurn(0.7,-90);
+                base.imuTurn(0.7,-270);
                 base.encoderRun(0, -1, -750); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
                 //base.imuTurn(0.7, 0);
                 //base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 //base.imuTurn(0.7, -90);
+
+            } else {   //лево
+                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)base.encoderRun(0, 0.7, 100);
+                base.encoderRun(0, 1, 120);
+                base.imuTurn(1, 90);
+                base.encoderRun(0, -1, -100);
+                pix.ungrab();
+                sleep(1000);
+                pix.grab();
+                base.encoderRun(0, 1, 100);//уходим от пикселя
+                base.imuTurn(1, 0);
+                base.encoderRun(0, 1, 400);
+                sleep(1000);//проезд, чтобы объехать пиксель
+                base.imuTurn(0.7, 90);//поворачиваемся на доску
+                base.encoderRun(0, -1, -1050); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
             }
 
             //подкатываем к доске
