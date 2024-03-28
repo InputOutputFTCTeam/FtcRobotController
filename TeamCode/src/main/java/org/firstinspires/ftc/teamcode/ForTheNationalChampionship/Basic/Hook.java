@@ -48,7 +48,7 @@ public class Hook {
         leftHook1.setPosition(0.04);
         rightHook1.setPosition(0.945);
 
-        hookOpMode.sleep(100);
+        hookOpMode.sleep(250);
 
         leftHook2.setPosition(0);
         rightHook2.setPosition(1);
