@@ -75,7 +75,7 @@ public class IMUDriveTrain extends BasicDriveTrain {
     }
 
     /**
-     * Метод для поворота на heading гразусов с n-й скоростью
+     * Метод для поворота на heading градусов с n-й скоростью
      *
      * @param maxTurnSpeed максимальная корость поворота
      * @param heading      новое направление

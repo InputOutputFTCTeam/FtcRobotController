@@ -9,13 +9,18 @@ import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.BasicDriv
 public class DriveEncoder extends BasicDriveTrain {
     LinearOpMode encoderLinearOpMode;
     //BasicDriveTrain train;
-
+    /**
+     * конструктор класса энкодеров
+     * @param opMode - передача в контсруктор того класса, в opMod-e которого энкодеры
+     */
     public DriveEncoder(LinearOpMode opMode){
         new BasicDriveTrain(opMode);
         setOpMode(opMode);
         encoderLinearOpMode = opMode;
     }
-
+    /**
+     * инициализация колёсной базы
+     */
     public void initDE(){
         initMotors();
         setModes(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -23,6 +28,10 @@ public class DriveEncoder extends BasicDriveTrain {
         setOneDirection(DcMotorSimple.Direction.FORWARD);
         setZeroPowerBehaviors(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+    /**
+     *
+     * @param motor - мотор в который воткнут энкодер
+     */
     public void oneSpin(DcMotor motor){
         int stPos = Math.abs(motor.getCurrentPosition());
         while(encoderLinearOpMode.opModeIsActive() && Math.abs(Math.abs(motor.getCurrentPosition()) - stPos) < 1440){

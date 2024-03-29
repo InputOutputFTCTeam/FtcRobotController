@@ -65,7 +65,7 @@ public class HookMotor {
 
     }
     /**
-     * добавления телеметрии о мощности мотора подвеса
+     * добавление телеметрии о мощности мотора подвеса
      */
     public void telemetryLift(){
         hookMotorOpMode.telemetry.addData("current power: ", hookMotor.getPower());
