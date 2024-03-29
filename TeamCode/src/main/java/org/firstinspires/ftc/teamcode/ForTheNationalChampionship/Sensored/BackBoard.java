@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.BasicDriveTrain;
-
+//TODO: дописать документацию для датчика расстояния
 /**
  * В этом классе описываются методы работы для датчика расстояния в режиме TeleOp
  */

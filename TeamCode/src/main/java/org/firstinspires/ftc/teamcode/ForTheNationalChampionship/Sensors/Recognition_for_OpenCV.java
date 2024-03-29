@@ -18,7 +18,7 @@ import java.util.List;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-
+//TODO: написать документацию для этого класса
 @Autonomous (name = "OpenCV")
 public class Recognition_for_OpenCV extends  LinearOpMode{
     static int valLeft;

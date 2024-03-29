@@ -9,7 +9,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 public class IMUAsSensor {
     BNO055IMUNew imu = null;
-
     /**
      * Настроиваем ориентацию Контрол/Экспеншн хаба в пространстве
      */
@@ -18,17 +17,24 @@ public class IMUAsSensor {
     RevHubOrientationOnRobot orientationOnRobot = new RevHubOrientationOnRobot(logoDirection, usbDirection);
 
     LinearOpMode imuOpMode;
-
+    /**
+     * конструируем класс гироскопа внутри opMode
+     * @param opMode - задаёт поток в котором оперирует гироскоп
+     */
     public IMUAsSensor(LinearOpMode opMode) {
         imuOpMode = opMode;
     }
-
+    /**
+     * инициализация гироскопа
+     */
     public void initIMU() {
         imu = imuOpMode.hardwareMap.get(BNO055IMUNew.class, "imu");
         imu.initialize(new com.qualcomm.robotcore.hardware.IMU.Parameters(orientationOnRobot));
         imu.resetYaw();
     }
-
+    /**
+     * поиск направления робота в пространстве
+     */
     public double getHeading() {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         return orientation.getYaw(AngleUnit.DEGREES);

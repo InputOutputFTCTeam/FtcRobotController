@@ -168,7 +168,9 @@ public class IMUDriveTrain extends BasicDriveTrain {
         getOpMode().telemetry.addData("Wheel Speeds L : R", "%5.2f : %5.2f", leftSpeed, rightSpeed);
         getOpMode().telemetry.update();
     }
-
+    /**
+     * поиск направления робота в пространстве
+     */
     public double getHeading() {
         YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
         return orientation.getYaw(AngleUnit.DEGREES);
