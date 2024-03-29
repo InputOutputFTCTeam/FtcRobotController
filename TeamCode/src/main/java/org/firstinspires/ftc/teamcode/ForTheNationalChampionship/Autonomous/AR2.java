@@ -66,7 +66,7 @@ public class AR2 extends LinearOpMode {
 
             //подкатываем к точке сброса фиолетового
             pix.grab();
-            base.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.idkWtfIsThisColor); // red
+            base.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.RED); // red
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)

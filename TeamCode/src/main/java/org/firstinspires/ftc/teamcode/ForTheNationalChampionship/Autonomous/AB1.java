@@ -15,8 +15,6 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvWebcam;
 
-//TODO: Подбирать значения для проездов и правильной колонке
-
 @Autonomous
 public class AB1 extends LinearOpMode {
     MegaDriveTrain base = new MegaDriveTrain(this);
@@ -61,34 +59,30 @@ public class AB1 extends LinearOpMode {
 
         waitForStart();
         if (opModeIsActive()) {
-            base.setMaximumSpeed(0.5);                                  //MAX SPEED для того, чтобы энкодер и цвет считывались +- нормально (хз, сработает ли)
+            base.setMaximumSpeed(0.5);                                  //MAX SPEED для того, чтобы энкодер и цвет считывались стабильно
             valLeft = Methods_for_OpenCV.getValLeft();
             valRight = Methods_for_OpenCV.getValRight();
             phoneCam.stopStreaming();
 
-            //timer.reset();
-            //подкатываем к точке сброса фиолетового
+            //подкатываем к точке сброса фиолетового пикселя
             pix.grab();
             base.encoderRun(0, -1, -950);
 
 
             if (valLeft == 255) {           //центр
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0, 0.5, 150);
                 pix.ungrab();
-                //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 sleep(1000);
                 base.encoderRun(0,1,150);
                 base.imuTurn(0.7, 90);
                 pix.grab();
-                base.encoderRun(0, -1, -1050); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+                base.encoderRun(0, -1, -1050); //едем до разметочной линии перед доской
             } else if (valRight == 255) {   //право
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0,0.7, 200);
                 base.imuTurn(0.7, -90);
                 base.encoderRun(0, -0.5, -170);
                 base.encoderRun(0, 0.5, 100);
-                pix.ungrab(); // TODO: сначала подниматься на 45 градусов, потом на 90
+                pix.ungrab();
                 sleep(2000);
                 base.encoderRun(0,-1,300);
                 base.imuTurn(0.7,-270);
@@ -98,7 +92,6 @@ public class AB1 extends LinearOpMode {
                 //base.imuTurn(0.7, -90);
 
             } else {   //лево
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)base.encoderRun(0, 0.7, 100);
                 base.encoderRun(0, 1, 120);
                 base.imuTurn(1, 90);
                 base.encoderRun(0, -1, -100);
@@ -138,17 +131,6 @@ public class AB1 extends LinearOpMode {
             sleep(1000);
             lohotron.initLohotron();
 
-            //паркуемся
-            /*if (valLeft == 255) {           //центр
-                base.imuSteerEncoder(0.5, 0, 0, -90, 1015);   //полторы клетки вправо
-            } else if (valRight == 255) {   //право
-                base.imuSteerEncoder(0.5, 0, 0, -90, 600);  //чуть больше, чем полторы клетки вправо
-            } else {                        //лево
-                base.imuSteerEncoder(0.5, 0, 0, -90, 600);   //чуть меньше, чем полторы клетки вправо
-            }
-
-            base.encoderRun(0, -0.7, -250);
-            *///base.imuTurn(1, 90);     //hold position
         }
     }
 }

@@ -65,17 +65,15 @@ public class AR1 extends LinearOpMode {
             valRight = Methods_for_OpenCV.getValRight();
             phoneCam.stopStreaming();
 
-            //timer.reset();
+            // 1 плитка = 2 фута
             //подкатываем к точке сброса фиолетового
             pix.grab();
             base.encoderRun(0, -1, -950);
 
 
             if (valLeft == 255) {           //центр
-                //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
                 base.encoderRun(0, 0.5, 150);
                 pix.ungrab();
-                //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 sleep(1000);
                 base.encoderRun(0,1,150);
                 base.imuTurn(0.7, -90);
