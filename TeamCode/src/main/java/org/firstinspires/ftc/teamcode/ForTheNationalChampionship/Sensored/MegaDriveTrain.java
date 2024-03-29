@@ -54,9 +54,9 @@ public class MegaDriveTrain extends BasicDriveTrain {
     /*
     imuTurn -- поворот по гироскопу
     encoderRun -- проезд прямо или в бок по энкодерам
-    colorRun -- едем, пока не упремся в линию
+    colorRun -- едем, пока не зафиксируем нужный цвет
     distanceRun -- едем, пока не достигнем какого-то расстояния
-    imuSteerEncoder -- интеллектуально едем на определенное расстояние и корректируем направление езды с помощью поворота encoderRun(x,y,turnToHeading)
+    imuSteerEncoder -- едем на определенное расстояние и корректируем направление езды с помощью поворота encoderRun(x,y,turnToHeading)
      */
 
     // ------------------>>>    imu

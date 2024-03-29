@@ -122,9 +122,6 @@ public class ColorSensorModule {
      * @return объект списка цветов разметки поля
      */
     public colorsField getColorOfField() {
-        //TODO: написать условия, при которых будут соответствующие цвета
-        // (можно через ИЛИ || добавить условия в RGB. или сделать отдельным методом,
-        // возращающим colorOf значения
 
         if (colorRGB()[0] > 0.9 && colorRGB()[1] > 0.9 && colorRGB()[2] > 0.9)
             return colorsField.WHITE;

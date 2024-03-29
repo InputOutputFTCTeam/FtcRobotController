@@ -83,18 +83,7 @@ public class TeleOperatingMode extends LinearOpMode {
              * right trigger - поворот вправо
              * left trigger - поворот влево
              */
-            /*if (gamepad1.y) {
-                driveMode = !driveMode;
-                sleep(150);
-            }
 
-            if (driveMode == true) {
-                wheelBaseBackBoarded.move(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
-            }
-            if (driveMode == false) {
-                wheelBaseBackBoarded.backboard_slowly(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
-            }
-            */
                 wheelBaseBackBoarded.smartMove(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
                 if (gamepad1.left_bumper)
                     wheelBaseBackBoarded.setMaximumSpeed(0.5);   // left bumper - медленная езда
@@ -116,10 +105,6 @@ public class TeleOperatingMode extends LinearOpMode {
                 if (gamepad2.dpad_left) aCatch.openGrab();   // dpad left - открыть держатель пикселей
                 if (gamepad2.dpad_right) aCatch.closeGrab(); // dpad right - закрыть держатель пикселей
 
-            /*intakethread = new Thread(() -> {
-                intake.runIntake((gamepad2.right_trigger - gamepad2.left_trigger) * INTAKE_SPEED);
-            }); intakethread.start();
-            */
 
                 if (gamepad1.dpad_down) hook.closeHook();   // dpad down - опустить подвес
                 if (gamepad1.dpad_up) hook.openHook();      // dpad up - поднять подвес
@@ -132,8 +117,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
 
                 if (gamepad1.x) plane.pushUp();     // х - запуск самолётика
-                //if (gamepad1.b) plane.logicalAngle();    // b - изменение угла запуска самолётика
-                //if (gamepad1.b) plane.angleDown();
+
 
                 composeTelemery();
         }
