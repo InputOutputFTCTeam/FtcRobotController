@@ -117,7 +117,7 @@ public class TeleOperatingMode extends LinearOpMode {
 
 
                 if (gamepad1.x) plane.pushUp();     // х - запуск самолётика
-
+                if (gamepad1.b) plane.logicalAngle();
 
                 composeTelemery();
         }
