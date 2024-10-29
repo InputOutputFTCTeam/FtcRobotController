@@ -28,8 +28,8 @@ public class Methods_for_OpenCV extends  LinearOpMode{
 
     // rects and circles up or down, range: (-4, 4) not inclusive
 
-    private static float[] leftPos = {5f / 10f + offsetX, 4f / 8f + offsetY}; // центр
-    private static float[] rightPos = {7.7f / 8f + offsetX, 4.9f / 8.7f + offsetY}; // право
+    private static float[] leftPos = {5f / 10f + offsetX, 0.25f / 8f + offsetY}; // центр
+    private static float[] rightPos = {7.7f / 8f + offsetX, 0.35f / 8.7f + offsetY}; // право
 
     final int rows = 640;
     final int cols = 480;

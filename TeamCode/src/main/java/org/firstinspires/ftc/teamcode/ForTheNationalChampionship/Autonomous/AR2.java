@@ -66,7 +66,7 @@ public class AR2 extends LinearOpMode {
 
             //подкатываем к точке сброса фиолетового
             pix.grab();
-            base.colorRun(0, 0.5, 0, ColorSensorModule.colorsField.RED); // red
+            base.encoderRun(0, -1, -890); // red
 
             if (valLeft == 255) {           //центр
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
@@ -77,7 +77,7 @@ public class AR2 extends LinearOpMode {
                 base.encoderRun(0, 1, 130); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 pix.grab();
                 base.imuTurn(0.7, -93);
-                base.encoderRun(0, -1, -2134);
+                base.encoderRun(0, -1, -2270);
 
             } else if (valRight == 255) {   //право
                 //надо ли небольшой отъезд назад? (датчик же не спереди робота идет)
@@ -90,27 +90,27 @@ public class AR2 extends LinearOpMode {
                 pix.grab();
                 base.imuTurn(0.7, 0);
                 base.encoderRun(0,0.7, 830);
-                base.imuTurn(0.7, -91);
+                base.imuTurn(0.7, -92);
                 base.encoderRun(0, -1, -2100);
                 base.imuTurn(0.7,0);
-                base.encoderRun(0,-0.7,-200);
+                base.encoderRun(0,-0.7,-300);
                 base.imuTurn(0.7, -90);
-                base.encoderRun(0,-0.7,-100);
+                base.encoderRun(0,-0.7,-170);
             } else {                        //лево
                 base.encoderRun(0,0.7, 50);
                 base.imuTurn(0.7, 90);
-                base.encoderRun(0,-0.7,-168);
-                base.encoderRun(0,0.7, 20);
+                base.encoderRun(0,-0.7,-148);
+                base.encoderRun(0,0.7, 35);
                 pix.ungrab();
                 sleep(1000);
-                base.encoderRun(0,0.5,158);
+                base.encoderRun(0,0.5,123);
                 pix.grab();
                 base.imuTurn(0.7, 0);
                 base.encoderRun(0,0.7, 780);
-                base.imuTurn(0.7, -91);
-                base.encoderRun(0, -1, -2000);
+                base.imuTurn(0.7, -93);
+                base.encoderRun(0, -1, -2050);
                 base.imuTurn(0.7,0);
-                base.encoderRun(0,-0.7,-600);
+                base.encoderRun(0,-0.7,-585);
                 base.imuTurn(0.7, -90);
                 base.encoderRun(0,-0.7,-100);
             }

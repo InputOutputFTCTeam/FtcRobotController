@@ -80,13 +80,13 @@ public class AB1 extends LinearOpMode {
             } else if (valRight == 255) {   //право
                 base.encoderRun(0,0.7, 200);
                 base.imuTurn(0.7, -90);
-                base.encoderRun(0, -0.5, -170);
+                base.encoderRun(0, -0.5, -220);
                 base.encoderRun(0, 0.5, 100);
                 pix.ungrab();
                 sleep(2000);
                 base.encoderRun(0,-1,300);
-                base.imuTurn(0.7,-270);
-                base.encoderRun(0, -1, -750); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
+                base.imuTurn(0.7,-271);
+                base.encoderRun(0, -1, -850); //base.colorRun(0, 1, 0, ColorSensorModule.colorsField.BLUE); //едем до разметочной линии перед доской
                 //base.imuTurn(0.7, 0);
                 //base.encoderRun(0, -1, 200); //(1219) мы проезжаем две плитки (4 фута == 1219мм) и выравниваемся об стенку
                 //base.imuTurn(0.7, -90);
@@ -130,6 +130,18 @@ public class AB1 extends LinearOpMode {
             lohotron.armMid();
             sleep(1000);
             lohotron.initLohotron();
+
+            if (valLeft == 255) {           //центр
+                //  base.imuSteerEncoder(0.5, 0, 0, 90, 1015);  \ //полторы клетки вправо
+                base.imuTurn(0.7, -180);
+                base.encoderRun(0, -0.7, -520);
+            } else if (valRight == 255) {   //право
+                base.imuTurn(0.7,0);
+                base.encoderRun(0,0.7,-300);//чуть больше, чем полторы клетки вправо
+            } else {                        //лево
+                base.imuTurn(0.7,0);
+                base.encoderRun(0,0.7,400);
+            }
 
         }
     }

@@ -135,16 +135,24 @@ public class AR1 extends LinearOpMode {
             lohotron.initLohotron();
 
             //паркуемся
-            /*if (valLeft == 255) {           //центр
-                base.imuSteerEncoder(0.5, 0, 0, -90, 1015);   //полторы клетки вправо
-            } else if (valRight == 255) {   //право
-                base.imuSteerEncoder(0.5, 0, 0, -90, 600);  //чуть больше, чем полторы клетки вправо
+            if (valLeft == 255) {           //центр
+                //  base.imuSteerEncoder(0.5, 0, 0, 90, 1015);  \ //полторы клетки вправо
+                base.imuTurn(0.7, 0);
+                base.encoderRun(0, -1, -750);
+            } else if (valRight == 255) {//право
+                base.imuTurn(0.7, 0);
+                base.encoderRun(0, -1, -570);
+                //base.imuTurn(0.7,0);
+                //base.encoderRun(0,0.7,-350);//чуть больше, чем полторы клетки вправо
             } else {                        //лево
-                base.imuSteerEncoder(0.5, 0, 0, -90, 600);   //чуть меньше, чем полторы клетки вправо
+                base.imuTurn(0.7, 0);
+                base.encoderRun(0, -1, -570);
+                //base.imuTurn(0.7,0);
+                //base.encoderRun(0,0.7,400);
             }
 
-            base.encoderRun(0, -0.7, -250);
-            *///base.imuTurn(1, 90);     //hold position
+            //base.encoderRun(0, -0.7, -250);
+            ///base.imuTurn(1, 90);     //hold position
         }
     }
 }
