@@ -6,10 +6,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "TelTraining" , group = "a")
+@TeleOp(name = "TeleTraining" , group = "a")
 public class TrainingTeleOp extends LinearOpMode {
 
     DcMotor TR, TL, BR, BL;
+    Servo diver;
 
     double x, y, r;
 
@@ -42,6 +43,10 @@ public class TrainingTeleOp extends LinearOpMode {
             BR.setPower(x-y+r);
             BL.setPower(x+y+r);
             TL.setPower(-x+y+r);
+
+            if (gamepad1.dpad_right) {
+                diver.setPosition(1);    //серва коробки поднимается в горизонтальное положение
+            }
 
             telemetry.update();
         }

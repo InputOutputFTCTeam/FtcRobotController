@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 @TeleOp(name = "servoSet", group = "testing")
 public class ServoSetter extends LinearOpMode {
+    Servo diver, grab, proba;
     Servo lohotronMain, lohotron, claw;   //объявили сервы нашего лохотрона
     Servo leftHook1, leftHook2, rightHook1, rightHook2;
 
