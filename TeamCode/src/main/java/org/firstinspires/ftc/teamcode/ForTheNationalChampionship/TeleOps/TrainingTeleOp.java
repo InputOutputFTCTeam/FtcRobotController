@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.ForTheNationalChampionship.TeleOps;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -10,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class TrainingTeleOp extends LinearOpMode {
 
     DcMotor TR, TL, BR, BL;
-    Servo diver;
+    CRServo diver;
 
     double x, y, r;
 
@@ -21,6 +22,7 @@ public class TrainingTeleOp extends LinearOpMode {
         TR = hardwareMap.dcMotor.get("rightFront");
         BL = hardwareMap.dcMotor.get("leftRear");
         BR = hardwareMap.dcMotor.get("rightRear");
+        diver = hardwareMap.crservo.get("lift");
 
         TL.setDirection(DcMotorSimple.Direction.FORWARD);
         TR.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -44,8 +46,11 @@ public class TrainingTeleOp extends LinearOpMode {
             BL.setPower(x+y+r);
             TL.setPower(-x+y+r);
 
-            if (gamepad1.dpad_right) {
-                diver.setPosition(1);    //серва коробки поднимается в горизонтальное положение
+            if (gamepad2.x) {
+                diver.setPower(1);    //серва коробки поднимается в горизонтальное положение
+            }
+            if (gamepad2.y) {
+                diver.setPower(0);    //серва коробки поднимается в горизонтальное положение
             }
 
             telemetry.update();
