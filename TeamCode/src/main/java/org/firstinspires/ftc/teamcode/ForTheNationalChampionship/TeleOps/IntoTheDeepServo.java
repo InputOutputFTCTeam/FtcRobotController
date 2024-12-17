@@ -3,22 +3,27 @@ package org.firstinspires.ftc.teamcode.ForTheNationalChampionship.TeleOps;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "servoDeep", group = "a")
 public class IntoTheDeepServo extends LinearOpMode {
-    Servo diver, grab, proba;
+    CRServo diver, grab, proba;
 
 
-
+    /**
+     * lift -
+     * proba -  сами клешни -0.56 клешни разжаты   -0.16 - прижаты в плотную
+     * grab - -0.3 для того, чтобы выкидвать в корзину, -0.6 чтобы захватывать с пола
+     */
     double pos = 0.5, pos2 = 0.5;
 
     @Override
     public void runOpMode(){
 
-        diver = hardwareMap.servo.get("diver");
-//        grab = hardwareMap.servo.get("grab");
-//        proba = hardwareMap.servo.get("proba");
+        diver = hardwareMap.crservo.get("lift");
+        grab = hardwareMap.crservo.get("grab");
+        proba = hardwareMap.crservo.get("proba");
 
         waitForStart();
         while(opModeIsActive()){
@@ -70,23 +75,18 @@ public class IntoTheDeepServo extends LinearOpMode {
                 }
             }
 
-            // передаем значение в соответствующую серву. записываем на бумажке значение,
-            // которое мы только что передали.     (Это конечно не control award... но попробуйте сами написать настройку четырех серв с возможностью сохранения данных! Это займет больше времени, чем у нас есть)
-            //if(gamepad2.a){
-            //servobox.setPosition(pos);
-            //}
             if(gamepad2.y){
-                diver.setPosition(pos);
+                diver.setPower(pos);
             }
-//            if(gamepad2.b){
-//                grab.setPosition(pos);
-//            }
-//            if(gamepad2.x){
-//                proba.setPosition(pos);
-//            }
+            if(gamepad2.x){
+                grab.setPower(pos);
+            }
+            if(gamepad2.b){
+                proba.setPower(pos);
+            }
             telemetry.addData("pos: ", pos);
-            telemetry.addLine("diver - y, ");
-//            telemetry.addLine("loh - b, claw - x");
+            telemetry.addLine("lift - y, proba - b ");
+            telemetry.addLine("grab - x");
 
             telemetry.update();
         }
