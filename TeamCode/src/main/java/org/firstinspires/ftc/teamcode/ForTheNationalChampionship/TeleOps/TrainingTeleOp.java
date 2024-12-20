@@ -41,8 +41,8 @@ public class TrainingTeleOp extends LinearOpMode {
             y = -gamepad1.left_stick_y;
             r = (gamepad1.right_trigger - gamepad1.left_trigger);
 
-            TR.setPower(-x-y+r);
-            BR.setPower(x-y+r);
+            TR.setPower(x-y-r);
+            BR.setPower(-x+y-r);
             BL.setPower(x+y+r);
             TL.setPower(-x+y+r);
 
