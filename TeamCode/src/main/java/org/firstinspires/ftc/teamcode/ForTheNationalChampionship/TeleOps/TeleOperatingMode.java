@@ -17,6 +17,7 @@ import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.HookMotor
 import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Elevator;
 import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Capture;
 import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.Plane;
+import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Sensored.PIDControledDriveTrain;
 import org.firstinspires.ftc.teamcode.notUsed_trash.RoadRunnerMethods.util.DashboardUtil;
 
 /**
@@ -35,6 +36,7 @@ public class TeleOperatingMode extends LinearOpMode {
     Plane plane = new Plane(this);
     BackBoard wheelBaseBackBoarded = new BackBoard(this);
     HookMotor hookMotor = new HookMotor(this);
+    PIDControledDriveTrain pid = new PIDControledDriveTrain(this);
 
     @Override
     public void runOpMode() {
@@ -56,6 +58,8 @@ public class TeleOperatingMode extends LinearOpMode {
             plane.initPlane();
 
             hook.initHooks();
+
+            pid.initPIDPT();
 
             telemetry.update();
 
@@ -86,9 +90,10 @@ public class TeleOperatingMode extends LinearOpMode {
 
                 wheelBaseBackBoarded.smartMove(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_trigger - gamepad1.left_trigger);
                 if (gamepad1.left_bumper)
-                    wheelBaseBackBoarded.setMaximumSpeed(0.5);   // left bumper - медленная езда
+                    wheelBaseBackBoarded.setMaximumSpeed(0.5); pid.PIDMove();   // left bumper - медленная езда
+
                 if (gamepad1.right_bumper)
-                    wheelBaseBackBoarded.setMaximumSpeed(1);    // right bumper - быстрая езда
+                    wheelBaseBackBoarded.setMaximumSpeed(1);  pid.PIDMove();  // right bumper - быстрая езда
 
 
 

@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.ForTheNationalChampionship.Basic.BasicDriveTrain;
 
-public class PIDControledDriveTrain extends BasicDriveTrain{
+public class    PIDControledDriveTrain extends BasicDriveTrain{
     private double Kp=0;
     private double Ki=0;
     private double Kd=0;
@@ -60,6 +60,4 @@ public class PIDControledDriveTrain extends BasicDriveTrain{
         getBR().setPower((PIDControl(100, getBR().getCurrentPosition())));
 
     }
-
-    //TODO:настроить и проверить эту хуйню (кароч прожебажить это дело)
 }

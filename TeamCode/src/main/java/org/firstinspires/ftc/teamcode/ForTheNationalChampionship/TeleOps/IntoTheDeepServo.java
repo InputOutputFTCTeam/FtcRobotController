@@ -8,7 +8,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "servoDeep", group = "a")
 public class IntoTheDeepServo extends LinearOpMode {
-    CRServo diver, grab, proba;
+    CRServo grab, proba;
+    Servo diver;
 
 
     /**
@@ -21,7 +22,7 @@ public class IntoTheDeepServo extends LinearOpMode {
     @Override
     public void runOpMode(){
 
-        diver = hardwareMap.crservo.get("lift");
+        diver = hardwareMap.servo.get("lift");
         grab = hardwareMap.crservo.get("grab");
         proba = hardwareMap.crservo.get("proba");
 
@@ -76,7 +77,7 @@ public class IntoTheDeepServo extends LinearOpMode {
             }
 
             if(gamepad2.y){
-                diver.setPower(pos);
+                diver.setPosition(pos);
             }
             if(gamepad2.x){
                 grab.setPower(pos);
