@@ -1,17 +1,18 @@
-package org.firstinspires.ftc.teamcode.ForNewRC;
+package org.firstinspires.ftc.teamcode.legacy;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class DriveEncoder extends BasicDriveTrain{
+public class DriveEncoder extends BasicDriveTrain {
     LinearOpMode encoderLinearOpMode;
+    //BasicDriveTrain train;
     /**
      * конструктор класса энкодеров
      * @param opMode - передача в контсруктор того класса, в opMod-e которого энкодеры
      */
-    public DriveEncoder(LinearOpMode opMode) {
-        new org.firstinspires.ftc.teamcode.legacy.BasicDriveTrain(opMode);
+    public DriveEncoder(LinearOpMode opMode){
+        new BasicDriveTrain(opMode);
         setOpMode(opMode);
         encoderLinearOpMode = opMode;
     }
@@ -72,9 +73,9 @@ public class DriveEncoder extends BasicDriveTrain{
         //записать моторам мощность, пока они не достигнут целевой позиции
         while(encoderLinearOpMode.opModeIsActive() && (
                 Math.abs(Math.abs(getPosition(getTL())) - Math.abs(startPositionTL)) < ticks ||
-                        Math.abs(Math.abs(getPosition(getTR())) - Math.abs(startPositionTR)) < ticks ||
-                        Math.abs(Math.abs(getPosition(getBL())) - Math.abs(startPositionBL)) < ticks ||
-                        Math.abs(Math.abs(getPosition(getBR())) - Math.abs(startPositionBR)) < ticks   )   )
+                Math.abs(Math.abs(getPosition(getTR())) - Math.abs(startPositionTR)) < ticks ||
+                Math.abs(Math.abs(getPosition(getBL())) - Math.abs(startPositionBL)) < ticks ||
+                Math.abs(Math.abs(getPosition(getBR())) - Math.abs(startPositionBR)) < ticks   )   )
         {
             //даем моторам мощность
             move(x, y, r);
@@ -88,5 +89,4 @@ public class DriveEncoder extends BasicDriveTrain{
         }
         move(0,0,0);
     }
-
 }
