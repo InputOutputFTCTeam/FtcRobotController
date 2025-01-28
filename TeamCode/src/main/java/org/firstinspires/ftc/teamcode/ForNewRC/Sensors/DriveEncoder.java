@@ -1,10 +1,12 @@
-package org.firstinspires.ftc.teamcode.ForNewRC;
+package org.firstinspires.ftc.teamcode.ForNewRC.Sensors;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-public class DriveEncoder extends BasicDriveTrain{
+import org.firstinspires.ftc.teamcode.ForNewRC.Basic.BasicDriveTrain;
+
+public class DriveEncoder extends BasicDriveTrain {
     LinearOpMode encoderLinearOpMode;
     /**
      * конструктор класса энкодеров

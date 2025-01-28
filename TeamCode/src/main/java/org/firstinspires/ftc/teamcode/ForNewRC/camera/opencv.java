@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.legacy;
+package org.firstinspires.ftc.teamcode.ForNewRC.camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
@@ -27,10 +27,10 @@ public class opencv {
 
     //инициализируем камеру
     private OpenCvCamera cam;
-    private  static final int CAMERA_WIDTH = 1920;
-    private static final int CAMERA_HEIGHT = 1080;
-    public static final double realObjectUnits = 0; //число-звглушка длины объекта в реальном времени
-    public static final double focalLenght = 0; //тоже число-заглушка фокусного расстояния камеры
+    private  static final int CAMERA_WIDTH = 1280;
+    private static final int CAMERA_HEIGHT = 720;
+    public static final double realObjectUnits = 5; //число-звглушка длины объекта в реальном времени
+    public static final double focalLenght = 379; //тоже число-заглушка фокусного расстояния камеры (в пикселях)
 
     private LinearOpMode opencvOpMode = null;
 
@@ -46,7 +46,7 @@ public class opencv {
     public void initOpenCv(){
         int cameraMotionField = opencvOpMode.hardwareMap.appContext.getResources().getIdentifier(
                 "cameraMotionFieldID", "ID",opencvOpMode.hardwareMap.appContext.getPackageName());
-        cam=OpenCvCameraFactory.getInstance().createWebcam(opencvOpMode.hardwareMap.get(WebcamName.class, "webcam 1"), cameraMotionField);
+        cam=OpenCvCameraFactory.getInstance().createWebcam(opencvOpMode.hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMotionField);
         cam.openCameraDevice();
         cam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT);
 

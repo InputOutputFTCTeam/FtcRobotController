@@ -1,7 +1,8 @@
-package org.firstinspires.ftc.teamcode.ForNewRC;
+package org.firstinspires.ftc.teamcode.ForNewRC.OnTest;
 
 import android.util.Size;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -13,6 +14,7 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 
 import java.util.List;
 
+@Disabled
 @TeleOp
 public class AprilTagTest extends LinearOpMode {
 
@@ -58,7 +60,7 @@ public class AprilTagTest extends LinearOpMode {
 
         builder.addProcessor(aprilTag);
         builder.setCamera(hardwareMap.get(WebcamName.class, "Webcam 1"));
-        builder.setCameraResolution(new Size(1920, 1080));
+        builder.setCameraResolution(new Size(1280, 720));
         visionPortal = builder.build();
     }
 

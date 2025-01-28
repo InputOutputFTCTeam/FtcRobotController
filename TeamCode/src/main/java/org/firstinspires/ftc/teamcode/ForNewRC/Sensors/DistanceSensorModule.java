@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ForNewRC;
+package org.firstinspires.ftc.teamcode.ForNewRC.Sensors;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;

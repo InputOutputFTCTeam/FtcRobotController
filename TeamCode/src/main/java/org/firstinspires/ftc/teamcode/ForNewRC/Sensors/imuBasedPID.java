@@ -1,16 +1,16 @@
-package org.firstinspires.ftc.teamcode.ForNewRC;
+package org.firstinspires.ftc.teamcode.ForNewRC.Sensors;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.teamcode.ForNewRC.Basic.BasicDriveTrain;
+import org.firstinspires.ftc.teamcode.ForNewRC.Basic.Constants;
 
 public class imuBasedPID extends LinearOpMode {
 
@@ -27,11 +27,7 @@ public class imuBasedPID extends LinearOpMode {
     public void runOpMode() {
         base.initMotors();
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.mode = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
-        imu.initialize(parameters);
+        imuInit();
 
         double refrenceAngle = Math.toRadians(90);
         waitForStart();
@@ -44,6 +40,14 @@ public class imuBasedPID extends LinearOpMode {
             telemetry.update();
         }
 
+    }
+
+    public void imuInit() {
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        imu.initialize(parameters);
     }
 
 

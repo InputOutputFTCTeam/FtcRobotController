@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.ForNewRC;
+package org.firstinspires.ftc.teamcode.ForNewRC.Sensors;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -19,6 +19,9 @@ public class ColorSensorModule {
         colorSensorOpMode = opMode;
     }
 
+    /**
+     * инициализируем колор сенсор
+     */
     public void initColorSensor() {
         colorSensor = colorSensorOpMode.hardwareMap.get(NormalizedColorSensor.class, "sensor_color");
         setCSGain();    //установка значения чувствительности датчика
